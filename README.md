@@ -1,2 +1,2 @@
 # AndroidArchitecture
-AndroidArchitecture example with Java and Kotlin (apply LiveData + ViewModel + Retrofit)
+AndroidArchitecture example with Java and Kotlin (LiveData + ViewModel + Dagger 2 + Retrofit)
