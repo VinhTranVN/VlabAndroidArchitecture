@@ -1,9 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-
-
+    compileSdkVersion ROOT_COMPILE_SDK_VERSION
 
     defaultConfig {
         applicationId "vlab.android.architecture"
@@ -23,14 +21,42 @@ android {
         }
     }
 
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:' + ROOT_SUPPORT_LIBRARY_VERSION
+    implementation 'com.android.support:design:' + ROOT_SUPPORT_LIBRARY_VERSION
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    // module dependency
+    implementation project(':libs:common')
+
+    // dagger 2
+    annotationProcessor "com.google.dagger:dagger-compiler:$ROOT_DAGGER_VERSION"
+    compile "com.google.dagger:dagger:$ROOT_DAGGER_VERSION"
+    // ViewModel and LiveData
+    implementation 'android.arch.lifecycle:extensions:1.1.0'
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
+    // Java8 support for Lifecycles
+    implementation 'android.arch.lifecycle:common-java8:1.1.0'
+
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    // Because RxAndroid releases are few and far between, it is recommended you also
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
+    // (see https://github.com/ReactiveX/RxJava/releases for latest 2.x.x version)
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
+    implementation 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    implementation "com.google.code.gson:gson:$ROOT_GSON_VERSION"
+    implementation "com.squareup.retrofit2:retrofit:$ROOT_RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:converter-gson:$ROOT_RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:adapter-rxjava:$ROOT_RETROFIT_VERSION"
+    implementation "com.squareup.okhttp3:okhttp:$ROOT_OKHTTP_VERSION"
+    implementation "com.squareup.okhttp3:logging-interceptor:$ROOT_OKHTTP_VERSION"
+
 }

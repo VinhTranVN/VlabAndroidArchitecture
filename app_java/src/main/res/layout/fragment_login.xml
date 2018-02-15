@@ -6,7 +6,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="@dimen/activity_vertical_margin"
-    tools:context="vlab.android.architecture.LoginActivity">
+    tools:context="vlab.android.architecture.feature.login.LoginFragment">
 
     <!-- Login progress -->
     <ProgressBar
@@ -62,13 +62,23 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/email_sign_in_button"
+                android:id="@+id/btn_sign_in"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tv_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#3d9c4d"
+                android:padding="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:text="Result"
+                />
 
         </LinearLayout>
     </ScrollView>
