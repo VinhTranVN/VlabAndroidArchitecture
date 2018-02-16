@@ -39,4 +39,7 @@ ext {
     ROOT_OKHTTP_VERSION = '3.2.0'
 
     ROOT_GSON_VERSION = '2.8.0'
+
+    ROOT_RX_JAVA = '2.1.9'
+    ROOT_RX_ANDROID = '2.0.2'
 }

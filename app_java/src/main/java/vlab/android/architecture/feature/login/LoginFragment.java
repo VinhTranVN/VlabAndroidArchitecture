@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import vlab.android.architecture.R;
 import vlab.android.architecture.base.BaseFragment;
 import vlab.android.architecture.di.AppComponent;
+import vlab.android.architecture.util.LogUtils;
 
 /**
  * A login screen that offers login via email/password.
@@ -56,8 +57,12 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
     @Override
     protected void bindViewModel() {
         mViewModel.onLoginSuccessObs().observe(this, userInfo -> {
-            mTvResult.setText("Welcome : " + userInfo.getUserName());
+            String welcomeMsg = "Welcome : " + userInfo.getUserName();
+            LogUtils.d(getClass().getSimpleName(), ">>> onLoginSuccessObs: " + welcomeMsg);
+            mTvResult.setText(welcomeMsg);
         });
+
+        mViewModel.onLoadingObs().observe(this, isLoading -> showProgressDialog(isLoading));
     }
 }
 

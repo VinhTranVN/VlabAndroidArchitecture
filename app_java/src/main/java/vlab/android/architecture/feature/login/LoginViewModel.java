@@ -1,5 +1,6 @@
 package vlab.android.architecture.feature.login;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
@@ -23,6 +24,8 @@ public class LoginViewModel extends BaseViewModel {
 
     private RxCommand<UserInfo> mLoginCommand;
     private MutableLiveData<UserInfo> mOnLoginObs = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mOnLoadingObs = new MutableLiveData<>();
+
     private String mUserName;
     private String mPwd;
 
@@ -36,7 +39,14 @@ public class LoginViewModel extends BaseViewModel {
                         LogUtils.d(getClass().getSimpleName(), ">>> doOnNext: " + userInfo.toString());
                         mOnLoginObs.postValue(userInfo);
                     }));
-        mLoginCommand.onExecuted().subscribe();
+
+        addSubscriptions(
+                mLoginCommand.onExecuted().subscribe(),
+                mLoginCommand.onExecuting()
+                        .doOnNext(isLoading -> mOnLoadingObs.postValue(isLoading))
+                        .subscribe()
+        );
+
     }
 
     public void login(String userName, String pwd){
@@ -45,14 +55,12 @@ public class LoginViewModel extends BaseViewModel {
         mLoginCommand.execute();
     }
 
-    public MutableLiveData<UserInfo> onLoginSuccessObs() {
+    public LiveData<UserInfo> onLoginSuccessObs() {
         return mOnLoginObs;
     }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-
+    public LiveData<Boolean> onLoadingObs() {
+        return mOnLoadingObs;
     }
 
     static class LoginViewModelFactory implements ViewModelProvider.Factory {

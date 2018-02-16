@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 */
 public abstract class CommonFragment extends Fragment {
 
+    protected CommonProgressDialogFragment mProgressDialogFragment;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +30,9 @@ public abstract class CommonFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mProgressDialogFragment = CommonProgressDialogFragment.newInstance(null, 1);
+
         initView(view);
         bindViewModel();
     }
@@ -47,6 +52,31 @@ public abstract class CommonFragment extends Fragment {
      * bind data
      */
     protected abstract void bindViewModel();
+
+    public synchronized void showProgressDialog(boolean isShow){
+
+        if (mProgressDialogFragment == null) {
+            return;
+        }
+
+        if (isShow) {
+            if (!mProgressDialogFragment.isAdded()) {
+                try {
+                    mProgressDialogFragment.show(getChildFragmentManager(), null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            if (mProgressDialogFragment.isAdded()) {
+                try {
+                    mProgressDialogFragment.dismissAllowingStateLoss();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     protected void addFragment(int containerId, Fragment fragment, boolean isAddToBackStack) {
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
