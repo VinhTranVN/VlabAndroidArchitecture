@@ -8,6 +8,7 @@ import io.reactivex.Observable;
 import vlab.android.architecture.data.repository.LoginRepository;
 import vlab.android.architecture.data.source.remote.GitHubApi;
 import vlab.android.architecture.model.UserInfo;
+import vlab.android.common.util.LogUtils;
 
 /**
  * Created by Vinh Tran on 2/14/18.
@@ -25,6 +26,7 @@ public class LoginRepositoryImpl implements LoginRepository {
     @Override
     public Observable<UserInfo> login(String userName, String pwd) {
         String auth = userName + ":" + pwd;
+        LogUtils.d(getClass().getSimpleName(), ">>> login: " + auth);
         return mApi.login("Basic " + Base64.encodeToString(auth.getBytes(), Base64.NO_WRAP))
                 .map(userResponse -> new UserInfo(userResponse));
     }

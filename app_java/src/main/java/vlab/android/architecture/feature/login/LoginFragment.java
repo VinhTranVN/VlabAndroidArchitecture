@@ -5,13 +5,14 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
 import vlab.android.architecture.R;
 import vlab.android.architecture.base.BaseFragment;
 import vlab.android.architecture.di.AppComponent;
-import vlab.android.architecture.util.LogUtils;
+import vlab.android.common.util.LogUtils;
 
 /**
  * A login screen that offers login via email/password.
@@ -63,6 +64,10 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
         });
 
         mViewModel.onLoadingObs().observe(this, isLoading -> showProgressDialog(isLoading));
+
+        mViewModel.onErrorObs().observe(this, throwable -> {
+            Toast.makeText(getContext(), "Login Failed : " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+        });
     }
 }
 

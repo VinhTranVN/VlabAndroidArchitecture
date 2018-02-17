@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import vlab.android.architecture.base.BaseViewModel;
 import vlab.android.architecture.data.repository.LoginRepository;
 import vlab.android.architecture.model.UserInfo;
-import vlab.android.architecture.util.LogUtils;
+import vlab.android.common.util.LogUtils;
 import vlab.android.common.util.RxCommand;
 
 /**
@@ -22,37 +22,47 @@ public class LoginViewModel extends BaseViewModel {
 
     private LoginRepository mRepository;
 
-    private RxCommand<UserInfo> mLoginCommand;
+    private RxCommand<LoginRequestParam, UserInfo> mLoginCommand;
     private MutableLiveData<UserInfo> mOnLoginObs = new MutableLiveData<>();
     private MutableLiveData<Boolean> mOnLoadingObs = new MutableLiveData<>();
+    private MutableLiveData<Throwable> mOnErrorObs = new MutableLiveData<>();
 
-    private String mUserName;
-    private String mPwd;
+    // request param
+    private LoginRequestParam mLoginRequestParam = new LoginRequestParam();
 
     public LoginViewModel(LoginRepository repository){
         LogUtils.d(getClass().getSimpleName(), ">>> public LoginViewModel: ");
         mRepository = repository;
 
-        mLoginCommand = new RxCommand<>(
-                mRepository.login(mUserName, mPwd)
+        mLoginCommand = new RxCommand<>(mLoginRequestParam, requestParam ->
+                mRepository.login(requestParam.userName, requestParam.pwd)
                         .doOnNext(userInfo -> {
-                            LogUtils.d(getClass().getSimpleName(), ">>> doOnNext: " + userInfo.toString());
+                            LogUtils.d(LoginViewModel.this.getClass().getSimpleName(), ">>> doOnNext: " + userInfo.toString());
                             mOnLoginObs.postValue(userInfo);
                         })
         );
 
         addSubscriptions(
                 mLoginCommand.onExecuted().subscribe(),
+
                 mLoginCommand.onExecuting()
                         .doOnNext(isLoading -> mOnLoadingObs.postValue(isLoading))
+                        .subscribe(),
+
+                mLoginCommand.onError()
+                        .doOnNext(throwable -> mOnErrorObs.postValue(throwable))
                         .subscribe()
         );
 
     }
 
     public void login(String userName, String pwd){
-        mUserName = userName;
-        mPwd = pwd;
+
+        // update params
+        mLoginRequestParam.userName = userName;
+        mLoginRequestParam.pwd = pwd;
+
+        // execute command
         mLoginCommand.execute();
     }
 
@@ -62,6 +72,10 @@ public class LoginViewModel extends BaseViewModel {
 
     public LiveData<Boolean> onLoadingObs() {
         return mOnLoadingObs;
+    }
+
+    public LiveData<Throwable> onErrorObs() {
+        return mOnErrorObs;
     }
 
     static class LoginViewModelFactory implements ViewModelProvider.Factory {
@@ -79,4 +93,12 @@ public class LoginViewModel extends BaseViewModel {
             return (T) new LoginViewModel(mLoginRepository);
         }
     }
+
+    // request params
+    static class LoginRequestParam {
+        String userName;
+        String pwd;
+    }
 }
+
+

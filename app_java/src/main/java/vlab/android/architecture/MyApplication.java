@@ -4,8 +4,8 @@ import vlab.android.architecture.di.AppComponent;
 import vlab.android.architecture.di.DaggerAppComponent;
 import vlab.android.architecture.di.module.AppModule;
 import vlab.android.architecture.di.module.NetworkModule;
-import vlab.android.architecture.util.LogUtils;
 import vlab.android.common.CommonApplication;
+import vlab.android.common.util.LogUtils;
 
 /**
  * Created by Vinh Tran on 2/11/18.

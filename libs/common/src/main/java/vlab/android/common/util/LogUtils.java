@@ -1,8 +1,6 @@
-package vlab.android.architecture.util;
+package vlab.android.common.util;
 
 import android.util.Log;
-
-import com.google.gson.Gson;
 
 public class LogUtils {
 
@@ -55,20 +53,19 @@ public class LogUtils {
         }
     }
 
-    @SuppressWarnings("squid:S1148")
     public static void printStackTrace(Exception e) {
         if (e != null && isDebuggable) {
             e.printStackTrace();
         }
     }
 
-    public static void showJsonObjectLog(String tag, Object obj) {
+    /*public static void showJsonObjectLog(String tag, Object obj) {
         if (isDebuggable) {
             Gson gson = new Gson();
             String json = gson.toJson(obj);
             Log.i(tag, json);
         }
-    }
+    }*/
 
     /*public static void sendCrashlytics(Exception e) {
         try {
