@@ -35,7 +35,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     // app dependencies
-    compile "com.squareup.retrofit2:adapter-rxjava:$ROOT_RETROFIT_VERSION"
-    //implementation "io.reactivex.rxjava2:rxandroid:$ROOT_RX_ANDROID"
-    //implementation "io.reactivex.rxjava2:rxjava:$ROOT_RX_JAVA"
+    //compile "com.squareup.retrofit2:adapter-rxjava:$ROOT_RETROFIT_VERSION"
+    implementation "io.reactivex.rxjava2:rxandroid:$ROOT_RX_ANDROID"
+    implementation "io.reactivex.rxjava2:rxjava:$ROOT_RX_JAVA"
 }

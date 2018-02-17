@@ -33,12 +33,13 @@ public class LoginViewModel extends BaseViewModel {
         LogUtils.d(getClass().getSimpleName(), ">>> public LoginViewModel: ");
         mRepository = repository;
 
-        mLoginCommand = new RxCommand<>(() ->
+        mLoginCommand = new RxCommand<>(
                 mRepository.login(mUserName, mPwd)
-                    .doOnNext(userInfo -> {
-                        LogUtils.d(getClass().getSimpleName(), ">>> doOnNext: " + userInfo.toString());
-                        mOnLoginObs.postValue(userInfo);
-                    }));
+                        .doOnNext(userInfo -> {
+                            LogUtils.d(getClass().getSimpleName(), ">>> doOnNext: " + userInfo.toString());
+                            mOnLoginObs.postValue(userInfo);
+                        })
+        );
 
         addSubscriptions(
                 mLoginCommand.onExecuted().subscribe(),

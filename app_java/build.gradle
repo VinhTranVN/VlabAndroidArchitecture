@@ -53,10 +53,11 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$ROOT_RX_JAVA"
     implementation 'com.jakewharton.rxbinding:rxbinding:0.4.0'
     implementation "com.google.code.gson:gson:$ROOT_GSON_VERSION"
+
+    // https://github.com/square/retrofit
     implementation "com.squareup.retrofit2:retrofit:$ROOT_RETROFIT_VERSION"
     implementation "com.squareup.retrofit2:converter-gson:$ROOT_RETROFIT_VERSION"
-    implementation "com.squareup.retrofit2:adapter-rxjava:$ROOT_RETROFIT_VERSION"
-    implementation "com.squareup.okhttp3:okhttp:$ROOT_OKHTTP_VERSION"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$ROOT_RETROFIT_VERSION"
     implementation "com.squareup.okhttp3:logging-interceptor:$ROOT_OKHTTP_VERSION"
 
 }
