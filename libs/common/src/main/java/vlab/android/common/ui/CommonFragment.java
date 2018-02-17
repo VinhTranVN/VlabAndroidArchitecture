@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import vlab.android.common.util.LogUtils;
+
 /**
 * Created by Vinh Tran on 2/7/18.
 */
@@ -35,6 +37,30 @@ public abstract class CommonFragment extends Fragment {
 
         initView(view);
         bindViewModel();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        LogUtils.i(getClass().getSimpleName(), ">>> onLowMemory: ");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        LogUtils.i(getClass().getSimpleName(), ">>> onStop: ");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        LogUtils.i(getClass().getSimpleName(), ">>> onDestroyView: ");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogUtils.i(getClass().getSimpleName(), ">>> onDestroy: ");
     }
 
     /**

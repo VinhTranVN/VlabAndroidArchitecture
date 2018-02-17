@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import vlab.android.common.util.LogUtils;
 
 
 /**
@@ -23,6 +24,7 @@ public class BaseViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
+        LogUtils.i(getClass().getSimpleName(), ">>> ViewModel onCleared ");
         mCompositeDisposable.dispose();
     }
 }
