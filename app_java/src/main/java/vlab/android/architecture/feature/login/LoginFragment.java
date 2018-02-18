@@ -57,17 +57,17 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
 
     @Override
     protected void bindViewModel() {
-        mViewModel.onLoginSuccessObs().observe(this, userInfo -> {
-            String welcomeMsg = "Welcome : " + userInfo.getUserName();
-            LogUtils.d(getClass().getSimpleName(), ">>> onLoginSuccessObs: " + welcomeMsg);
-            mTvResult.setText(welcomeMsg);
+        mViewModel.onLoginSuccessObs().observe(this, userInfoResponse -> {
+            if (userInfoResponse.getError() != null) {
+                Toast.makeText(LoginFragment.this.getContext(), "Login Failed : " + userInfoResponse.getError().getMessage(), Toast.LENGTH_SHORT).show();
+            } else {
+                String welcomeMsg = "Welcome : " + userInfoResponse.getData().getUserName();
+                LogUtils.d(LoginFragment.this.getClass().getSimpleName(), ">>> onLoginSuccessObs: " + welcomeMsg);
+                mTvResult.setText(welcomeMsg);
+            }
         });
 
-        mViewModel.onLoadingObs().observe(this, isLoading -> showProgressDialog(isLoading));
-
-        mViewModel.onErrorObs().observe(this, throwable -> {
-            Toast.makeText(getContext(), "Login Failed : " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
-        });
+        mViewModel.onLoadingObs().observe(this, this::showProgressDialog);
     }
 }
 

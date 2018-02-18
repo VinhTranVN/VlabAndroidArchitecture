@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import vlab.android.architecture.base.BaseViewModel;
 import vlab.android.architecture.data.repository.LoginRepository;
 import vlab.android.architecture.model.UserInfo;
+import vlab.android.common.model.Response;
 import vlab.android.common.util.LogUtils;
 import vlab.android.common.util.RxCommand;
 
@@ -36,24 +37,11 @@ public class LoginViewModel extends BaseViewModel {
 
         mLoginCommand = new RxCommand<>(mLoginRequestParam, requestParam ->
                 mRepository.login(requestParam.userName, requestParam.pwd)
-                        .doOnNext(userInfo -> {
-                            LogUtils.d(LoginViewModel.this.getClass().getSimpleName(), ">>> doOnNext: " + userInfo.toString());
-                            mOnLoginObs.postValue(userInfo);
-                        })
         );
 
         addSubscriptions(
-                mLoginCommand.onExecuted().subscribe(),
-
-                mLoginCommand.onExecuting()
-                        .doOnNext(isLoading -> mOnLoadingObs.postValue(isLoading))
-                        .subscribe(),
-
-                mLoginCommand.onError()
-                        .doOnNext(throwable -> mOnErrorObs.postValue(throwable))
-                        .subscribe()
+                mLoginCommand.subscribe()
         );
-
     }
 
     public void login(String userName, String pwd){
@@ -66,16 +54,12 @@ public class LoginViewModel extends BaseViewModel {
         mLoginCommand.execute();
     }
 
-    public LiveData<UserInfo> onLoginSuccessObs() {
-        return mOnLoginObs;
+    public LiveData<Response<UserInfo>> onLoginSuccessObs() {
+        return mLoginCommand.onDataChanged();
     }
 
     public LiveData<Boolean> onLoadingObs() {
-        return mOnLoadingObs;
-    }
-
-    public LiveData<Throwable> onErrorObs() {
-        return mOnErrorObs;
+        return mLoginCommand.onLoading();
     }
 
     static class LoginViewModelFactory implements ViewModelProvider.Factory {

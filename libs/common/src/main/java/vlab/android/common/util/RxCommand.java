@@ -1,54 +1,76 @@
 package vlab.android.common.util;
 
-import java.util.concurrent.TimeUnit;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
-
+import vlab.android.common.model.Response;
 
 /**
- * Execute Rx command
+ *  This is a wrapper class use RxJava to execute command, response a LiveData for consumers
+ *
+ *  Created by Vinh Tran on 2/18/18.
  */
-public class RxCommand<InputType,ResultType> {
-    PublishSubject<String> mCommand = PublishSubject.create();
-    BehaviorSubject<Boolean> mOnExecuting = BehaviorSubject.createDefault(false);
-    PublishSubject<Throwable> mOnError = PublishSubject.create();
-    Observable<ResultType> mOnExecuted;
+public class RxCommand<InputType, DataResponse> {
+    private PublishSubject<Object> mRxCommand = PublishSubject.create();
+    private BehaviorSubject<Boolean> mOnExecuting = BehaviorSubject.createDefault(false);
+    private Observable<DataResponse> mOnExecuted;
 
-    public RxCommand(InputType inputType, Function<InputType, Observable<ResultType>> func) {
-        mOnExecuted = mCommand.withLatestFrom(mOnExecuting, (v, executing) -> executing)
+    /* live data for data change and loading */
+
+    /**
+     * Response<<DataResponse>> show the result of request is success or fail
+     */
+    MutableLiveData<Response<DataResponse>> mOnDataChanged = new MutableLiveData<>();
+    MutableLiveData<Boolean> mOnLoading = new MutableLiveData<>();
+
+    public RxCommand(InputType inputType, Function<InputType, Observable<DataResponse>> func) {
+        mOnExecuted = mRxCommand.withLatestFrom(mOnExecuting, (v, executing) -> executing)
                 .filter(executing -> !executing)
                 .flatMap(v -> {
-                    mOnExecuting.onNext(true);
+
+                    setExecuting(true);
+
                     return func.apply(inputType)
                             .doOnError(v1 -> {
-                                LogUtils.d(getClass().getSimpleName(), ">>> RxCommand: ");
-                                mOnExecuting.onNext(false);
-                                mOnError.onNext(v1);
+                                LogUtils.d(getClass().getSimpleName(), ">>> RxCommand error " + v1.getMessage());
+                                setExecuting(false);
+                                mOnDataChanged.postValue(new Response<>(null, v1));
                             })
                             .onErrorResumeNext(throwable -> {
                                 return Observable.empty();
                             })
-                            .doOnNext(resultType -> mOnExecuting.onNext(false))
+                            .doOnNext(dataResponse -> {
+                                setExecuting(false);
+                                mOnDataChanged.postValue(new Response<>(dataResponse, null));
+                            })
                             .doOnDispose(() -> mOnExecuting.onNext(false));
                 });
     }
 
-    public void execute(){
-        mCommand.onNext("");
+    private void setExecuting(boolean isExecuting) {
+        mOnExecuting.onNext(isExecuting);
+        // emit live data
+        mOnLoading.postValue(isExecuting);
     }
 
-    public Observable<Boolean> onExecuting() {
-        return mOnExecuting.debounce(300, TimeUnit.MILLISECONDS);
+    public void execute() {
+        mRxCommand.onNext("");
     }
 
-    public Observable<ResultType> onExecuted() {
-        return mOnExecuted;
+    public Disposable subscribe(){
+        return mOnExecuted.subscribe();
     }
 
-    public Observable<Throwable> onError() {
-        return mOnError;
+    public LiveData<Response<DataResponse>> onDataChanged() {
+        return mOnDataChanged;
+    }
+
+    public LiveData<Boolean> onLoading() {
+        return mOnLoading;
     }
 }
