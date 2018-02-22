@@ -1,7 +1,6 @@
 package vlab.android.architecture.feature.login;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
@@ -21,22 +20,16 @@ import vlab.android.common.util.RxCommand;
 
 public class LoginViewModel extends BaseViewModel {
 
-    private LoginRepository mRepository;
-
     private RxCommand<LoginRequestParam, UserInfo> mLoginCommand;
-    private MutableLiveData<UserInfo> mOnLoginObs = new MutableLiveData<>();
-    private MutableLiveData<Boolean> mOnLoadingObs = new MutableLiveData<>();
-    private MutableLiveData<Throwable> mOnErrorObs = new MutableLiveData<>();
 
     // request param
     private LoginRequestParam mLoginRequestParam = new LoginRequestParam();
 
     public LoginViewModel(LoginRepository repository){
         LogUtils.d(getClass().getSimpleName(), ">>> public LoginViewModel: ");
-        mRepository = repository;
 
         mLoginCommand = new RxCommand<>(mLoginRequestParam, requestParam ->
-                mRepository.login(requestParam.userName, requestParam.pwd)
+                repository.login(requestParam.userName, requestParam.pwd)
         );
 
         addSubscriptions(

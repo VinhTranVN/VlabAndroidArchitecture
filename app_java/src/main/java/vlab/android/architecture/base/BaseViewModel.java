@@ -23,6 +23,6 @@ public class BaseViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
-        mCompositeDisposable.dispose();
+        mCompositeDisposable.clear();
     }
 }
