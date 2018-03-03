@@ -1,9 +1,11 @@
 package vlab.android.architecture.base;
 
 import android.arch.lifecycle.ViewModel;
+import android.content.Context;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import vlab.android.architecture.MyApplication;
 
 
 /**
@@ -24,5 +26,9 @@ public class BaseViewModel extends ViewModel {
     protected void onCleared() {
         super.onCleared();
         mCompositeDisposable.clear();
+    }
+
+    public Context getAppContext(){
+        return MyApplication.getInstance().getApplicationContext();
     }
 }

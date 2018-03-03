@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import vlab.android.architecture.base.BaseViewModel;
 import vlab.android.architecture.data.repository.LoginRepository;
 import vlab.android.architecture.model.UserInfo;
-import vlab.android.common.model.Response;
 import vlab.android.common.util.LogUtils;
 import vlab.android.common.util.RxCommand;
 
@@ -47,8 +46,12 @@ public class LoginViewModel extends BaseViewModel {
         mLoginCommand.execute();
     }
 
-    public LiveData<Response<UserInfo>> onLoginSuccessObs() {
+    public LiveData<UserInfo> onLoginSuccessObs() {
         return mLoginCommand.onDataChanged();
+    }
+
+    public LiveData<Throwable> onLoginFailedObs() {
+        return mLoginCommand.onError();
     }
 
     public LiveData<Boolean> onLoadingObs() {
