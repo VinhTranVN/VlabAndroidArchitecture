@@ -1,9 +1,6 @@
 package vlab.android.architecture.feature.login;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
-import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
@@ -25,6 +22,7 @@ public class LoginViewModel extends BaseViewModel {
     // request param
     private LoginRequestParam mLoginRequestParam = new LoginRequestParam();
 
+    @Inject
     public LoginViewModel(LoginRepository repository){
         LogUtils.d(getClass().getSimpleName(), ">>> public LoginViewModel: ");
 
@@ -55,21 +53,21 @@ public class LoginViewModel extends BaseViewModel {
         return mLoginCommand.onLoading();
     }
 
-    static class LoginViewModelFactory implements ViewModelProvider.Factory {
-
-        private LoginRepository mLoginRepository;
-
-        @Inject
-        public LoginViewModelFactory(LoginRepository loginRepository) {
-            mLoginRepository = loginRepository;
-        }
-
-        @NonNull
-        @Override
-        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            return (T) new LoginViewModel(mLoginRepository);
-        }
-    }
+//    static class LoginViewModelFactory implements ViewModelProvider.Factory {
+//
+//        private LoginRepository mLoginRepository;
+//
+//        @Inject
+//        public LoginViewModelFactory(LoginRepository loginRepository) {
+//            mLoginRepository = loginRepository;
+//        }
+//
+//        @NonNull
+//        @Override
+//        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+//            return (T) new LoginViewModel(mLoginRepository);
+//        }
+//    }
 
     // request params
     static class LoginRequestParam {

@@ -1,17 +1,13 @@
 package vlab.android.architecture.feature.login;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import javax.inject.Inject;
-
 import vlab.android.architecture.R;
 import vlab.android.architecture.base.BaseFragment;
-import vlab.android.architecture.di.AppComponent;
 import vlab.android.common.util.LogUtils;
 
 /**
@@ -19,19 +15,7 @@ import vlab.android.common.util.LogUtils;
  */
 public class LoginFragment extends BaseFragment<LoginViewModel> {
 
-    @Inject
-    LoginViewModel.LoginViewModelFactory mLoginViewModelFactory;
     private TextView mTvResult;
-
-    @Override
-    protected void inject(AppComponent appComponent) {
-        appComponent.inject(this);
-    }
-
-    @Override
-    protected ViewModelProvider.Factory getViewModelFactory() {
-        return mLoginViewModelFactory;
-    }
 
     @Override
     protected Class<LoginViewModel> getViewModelClass() {
