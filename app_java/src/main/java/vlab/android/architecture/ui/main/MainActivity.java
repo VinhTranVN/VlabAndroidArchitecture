@@ -1,10 +1,10 @@
-package vlab.android.architecture.feature.main;
+package vlab.android.architecture.ui.main;
 
 import android.os.Bundle;
 
 import vlab.android.architecture.R;
 import vlab.android.architecture.base.BaseActivity;
-import vlab.android.architecture.feature.login.LoginFragment;
+import vlab.android.architecture.ui.login.LoginFragment;
 
 /**
  * A login screen that offers login via email/password.

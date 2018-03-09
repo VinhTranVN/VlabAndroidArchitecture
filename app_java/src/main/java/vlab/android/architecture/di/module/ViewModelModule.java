@@ -7,7 +7,7 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
 import vlab.android.architecture.di.BaseViewModelFactory;
-import vlab.android.architecture.feature.login.LoginViewModel;
+import vlab.android.architecture.ui.login.LoginViewModel;
 
 @Module
 public abstract class ViewModelModule {

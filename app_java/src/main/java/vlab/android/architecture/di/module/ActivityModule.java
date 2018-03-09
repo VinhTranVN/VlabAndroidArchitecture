@@ -19,7 +19,7 @@ package vlab.android.architecture.di.module;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
-import vlab.android.architecture.feature.main.MainActivity;
+import vlab.android.architecture.ui.main.MainActivity;
 
 @Module
 public abstract class ActivityModule {

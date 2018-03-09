@@ -1,4 +1,4 @@
-package vlab.android.architecture.feature.login;
+package vlab.android.architecture.ui.login;
 
 import android.view.View;
 import android.widget.AutoCompleteTextView;

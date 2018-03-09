@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">app_java</string>
+    <string name="app_name">App Architecture (Java)</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
