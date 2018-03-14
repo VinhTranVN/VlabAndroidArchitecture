@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package vlab.android.architecture.di.module;
+package vlab.android.architecture.di.util;
 
 import android.app.Activity;
 import android.app.Application;
@@ -28,6 +28,8 @@ import dagger.android.support.AndroidSupportInjection;
 import dagger.android.support.HasSupportFragmentInjector;
 import vlab.android.architecture.MyApplication;
 import vlab.android.architecture.di.DaggerAppComponent;
+import vlab.android.architecture.di.module.AppModule;
+import vlab.android.architecture.di.module.NetworkModule;
 import vlab.android.common.util.LogUtils;
 
 /**

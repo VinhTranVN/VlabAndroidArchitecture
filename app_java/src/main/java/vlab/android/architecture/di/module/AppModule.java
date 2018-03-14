@@ -13,7 +13,15 @@ import dagger.Provides;
  * Created by vinhtran on 2/11/18.
  */
 
-@Module(includes = ViewModelModule.class)
+@Module(
+        includes = {
+                ViewModelModule.class,
+                UiModule.class,
+                NetworkModule.class,
+                ApiModule.class,
+                RepositoryModule.class
+        }
+)
 public class AppModule {
 
     private Application mApplication;

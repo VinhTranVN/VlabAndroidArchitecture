@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import javax.inject.Inject;
 
-import vlab.android.architecture.di.module.Injectable;
+import vlab.android.architecture.di.util.Injectable;
 import vlab.android.common.ui.CommonFragment;
 import vlab.android.common.util.LogUtils;
 

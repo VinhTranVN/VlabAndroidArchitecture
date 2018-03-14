@@ -14,15 +14,10 @@
  * limitations under the License.
  */
 
-package vlab.android.architecture.di.module;
+package vlab.android.architecture.di.util;
 
-
-import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
-import vlab.android.architecture.ui.main.MainActivity;
-
-@Module
-public abstract class ActivityModule {
-    @ContributesAndroidInjector(modules = FragmentModule.class)
-    abstract MainActivity contributeMainActivity();
+/**
+ * Marks an activity / fragment injectable.
+ */
+public interface Injectable {
 }

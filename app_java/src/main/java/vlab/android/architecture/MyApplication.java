@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
-import vlab.android.architecture.di.module.AppInjector;
+import vlab.android.architecture.di.util.AppInjector;
 import vlab.android.common.CommonApplication;
 import vlab.android.common.util.LogUtils;
 

@@ -16,8 +16,17 @@
 
 package vlab.android.architecture.di.module;
 
-/**
- * Marks an activity / fragment injectable.
- */
-public interface Injectable {
+
+import dagger.Module;
+import dagger.android.ContributesAndroidInjector;
+import vlab.android.architecture.ui.login.LoginFragment;
+import vlab.android.architecture.ui.main.MainActivity;
+
+@Module
+public abstract class UiModule {
+    @ContributesAndroidInjector
+    abstract MainActivity contributeMainActivity();
+
+    @ContributesAndroidInjector
+    abstract LoginFragment contributeLoginFragment();
 }

@@ -1,4 +1,4 @@
-package vlab.android.architecture.di.module;
+package vlab.android.architecture.di.util;
 
 import android.arch.lifecycle.ViewModel;
 
@@ -14,6 +14,6 @@ import dagger.MapKey;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @MapKey
-@interface ViewModelKey {
+public  @interface ViewModelKey {
     Class<? extends ViewModel> value();
 }

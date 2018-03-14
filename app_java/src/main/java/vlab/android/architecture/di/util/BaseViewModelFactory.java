@@ -1,4 +1,4 @@
-package vlab.android.architecture.di;
+package vlab.android.architecture.di.util;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
