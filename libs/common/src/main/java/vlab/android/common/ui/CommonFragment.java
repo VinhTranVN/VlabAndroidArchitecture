@@ -30,10 +30,13 @@ public abstract class CommonFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         mProgressDialogFragment = CommonProgressDialogFragment.newInstance(null, 1);
-
         initView(view);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         bindViewModel();
     }
 

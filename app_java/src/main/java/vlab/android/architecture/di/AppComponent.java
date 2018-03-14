@@ -3,23 +3,27 @@ package vlab.android.architecture.di;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import vlab.android.architecture.di.module.ApiModule;
+import dagger.android.AndroidInjectionModule;
+import vlab.android.architecture.MyApplication;
 import vlab.android.architecture.di.module.AppModule;
-import vlab.android.architecture.di.module.NetworkModule;
-import vlab.android.architecture.di.module.RepositoryModule;
-import vlab.android.architecture.feature.login.LoginFragment;
 
 @Singleton
 @Component(
         modules = {
-                AppModule.class,
-                NetworkModule.class,
-                ApiModule.class,
-                RepositoryModule.class
+                AndroidInjectionModule.class,
+                AppModule.class
         }
 )
 public interface AppComponent {
 
-    void inject(LoginFragment baseFragment);
+//    @Component.Builder
+//    interface Builder {
+//        @BindsInstance Builder application(Application application);
+//        @BindsInstance Builder appModule(AppModule appModule);
+//        //@BindsInstance Builder networkModule(NetworkModule networkModule);
+//        AppComponent build();
+//    }
+
+    void inject(MyApplication application);
 }
 

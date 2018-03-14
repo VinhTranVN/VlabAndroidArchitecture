@@ -1,18 +1,23 @@
 package vlab.android.architecture;
 
-import vlab.android.architecture.di.AppComponent;
-import vlab.android.architecture.di.DaggerAppComponent;
-import vlab.android.architecture.di.module.AppModule;
-import vlab.android.architecture.di.module.NetworkModule;
+import android.app.Activity;
+
+import javax.inject.Inject;
+
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
+import vlab.android.architecture.di.util.AppInjector;
 import vlab.android.common.CommonApplication;
 import vlab.android.common.util.LogUtils;
 
 /**
  * Created by Vinh Tran on 2/11/18.
  */
-public class MyApplication extends CommonApplication {
+public class MyApplication extends CommonApplication implements HasActivityInjector {
     private static MyApplication sInstance = null;
-    private AppComponent mAppComponent;
+
+    @Inject
+    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
     public static MyApplication getInstance() {
         return sInstance;
@@ -24,15 +29,11 @@ public class MyApplication extends CommonApplication {
         sInstance = this;
         LogUtils.init(BuildConfig.DEBUG);
         LogUtils.d(getClass().getSimpleName(), ">>> MyApplication onCreate: ");
-
-        mAppComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .networkModule(new NetworkModule("https://api.github.com/")) // github
-                .build();
-
+        AppInjector.init(this);
     }
 
-    public AppComponent getAppComponent() {
-        return mAppComponent;
+    @Override
+    public DispatchingAndroidInjector<Activity> activityInjector() {
+        return dispatchingAndroidInjector;
     }
 }

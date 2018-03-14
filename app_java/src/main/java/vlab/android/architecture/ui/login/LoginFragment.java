@@ -1,17 +1,13 @@
-package vlab.android.architecture.feature.login;
+package vlab.android.architecture.ui.login;
 
-import android.arch.lifecycle.ViewModelProvider;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import javax.inject.Inject;
-
 import vlab.android.architecture.R;
 import vlab.android.architecture.base.BaseFragment;
-import vlab.android.architecture.di.AppComponent;
+import vlab.android.common.util.LogUtils;
 
 /**
  * A login screen that offers login via email/password.
@@ -25,19 +21,6 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLoginErrorHandle = new LoginErrorHandle(getContext());
-    }
-
-    @Override
-    protected void inject(AppComponent appComponent) {
-        appComponent.inject(this);
-    }
-
-    @Inject
-    LoginViewModel.LoginViewModelFactory mLoginViewModelFactory;
-
-    @Override
-    protected ViewModelProvider.Factory getViewModelFactory() {
-        return mLoginViewModelFactory;
     }
 
     @Override

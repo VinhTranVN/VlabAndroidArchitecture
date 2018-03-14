@@ -38,8 +38,11 @@ dependencies {
     implementation project(':libs:common')
 
     // dagger 2
-    annotationProcessor "com.google.dagger:dagger-compiler:$ROOT_DAGGER_VERSION"
     compile "com.google.dagger:dagger:$ROOT_DAGGER_VERSION"
+    annotationProcessor "com.google.dagger:dagger-compiler:$ROOT_DAGGER_VERSION"
+
+    compile "com.google.dagger:dagger-android-support:$ROOT_DAGGER_VERSION"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$ROOT_DAGGER_VERSION"
     // ViewModel and LiveData
     implementation 'android.arch.lifecycle:extensions:1.1.0'
     annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
