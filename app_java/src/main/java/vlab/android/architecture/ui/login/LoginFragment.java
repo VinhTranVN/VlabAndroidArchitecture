@@ -1,5 +1,6 @@
 package vlab.android.architecture.ui.login;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -7,7 +8,6 @@ import android.widget.TextView;
 
 import vlab.android.architecture.R;
 import vlab.android.architecture.base.BaseFragment;
-import vlab.android.common.util.LogUtils;
 
 /**
  * A login screen that offers login via email/password.
