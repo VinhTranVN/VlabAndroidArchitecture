@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import javax.inject.Inject;
 
-import vlab.android.architecture.di.util.Injectable;
 import vlab.android.common.ui.CommonFragment;
 import vlab.android.common.util.LogUtils;
 
@@ -19,7 +18,7 @@ import vlab.android.common.util.LogUtils;
  * Created by Vinh Tran on 2/15/18.
  */
 
-public abstract class BaseFragment<T extends ViewModel> extends CommonFragment implements Injectable {
+public abstract class BaseFragment<T extends ViewModel> extends CommonFragment {
 
     @Inject
     ViewModelProvider.Factory mViewModelFactory;

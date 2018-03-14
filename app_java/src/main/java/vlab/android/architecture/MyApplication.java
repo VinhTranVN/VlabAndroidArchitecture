@@ -6,8 +6,11 @@ import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
-import vlab.android.architecture.di.util.AppInjector;
+import vlab.android.architecture.di.DaggerAppComponent;
+import vlab.android.architecture.di.module.AppModule;
+import vlab.android.architecture.di.module.NetworkModule;
 import vlab.android.common.CommonApplication;
+import vlab.android.common.di.AppInjector;
 import vlab.android.common.util.LogUtils;
 
 /**
@@ -26,9 +29,21 @@ public class MyApplication extends CommonApplication implements HasActivityInjec
     @Override
     public void onCreate() {
         super.onCreate();
+        LogUtils.d(getClass().getSimpleName(), ">>> MyApplication onCreate");
+
         sInstance = this;
+        // init log
         LogUtils.init(BuildConfig.DEBUG);
-        LogUtils.d(getClass().getSimpleName(), ">>> MyApplication onCreate: ");
+
+        initDependencyInjection();
+    }
+
+    private void initDependencyInjection() {
+        DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .networkModule(new NetworkModule("https://api.github.com/")) // github
+                .build()
+                .inject(this);
         AppInjector.init(this);
     }
 

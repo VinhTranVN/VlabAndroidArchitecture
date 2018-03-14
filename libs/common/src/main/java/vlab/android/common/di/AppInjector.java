@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package vlab.android.architecture.di.util;
+package vlab.android.common.di;
 
 import android.app.Activity;
 import android.app.Application;
@@ -26,10 +26,6 @@ import android.support.v4.app.FragmentManager;
 import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;
 import dagger.android.support.HasSupportFragmentInjector;
-import vlab.android.architecture.MyApplication;
-import vlab.android.architecture.di.DaggerAppComponent;
-import vlab.android.architecture.di.module.AppModule;
-import vlab.android.architecture.di.module.NetworkModule;
 import vlab.android.common.util.LogUtils;
 
 /**
@@ -39,17 +35,10 @@ public class AppInjector {
     private AppInjector() {
     }
 
-    public static void init(MyApplication myApplication) {
-        DaggerAppComponent.builder()
-                .appModule(new AppModule(myApplication))
-                .networkModule(new NetworkModule("https://api.github.com/")) // github
-                .build()
-                .inject(myApplication);
-
-        myApplication.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
+    public static void init(Application application) {
+        application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                LogUtils.d(getClass().getSimpleName(), ">>> onActivityCreated: handleActivity");
                 handleActivity(activity);
             }
 

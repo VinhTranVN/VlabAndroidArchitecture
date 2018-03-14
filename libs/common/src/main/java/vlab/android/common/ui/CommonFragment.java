@@ -9,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import vlab.android.common.di.Injectable;
+
 /**
 * Created by Vinh Tran on 2/7/18.
 */
-public abstract class CommonFragment extends Fragment {
+public abstract class CommonFragment extends Fragment implements Injectable {
 
     protected CommonProgressDialogFragment mProgressDialogFragment;
 

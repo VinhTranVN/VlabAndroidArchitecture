@@ -6,9 +6,9 @@ import android.arch.lifecycle.ViewModelProvider;
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
-import vlab.android.architecture.di.util.BaseViewModelFactory;
-import vlab.android.architecture.di.util.ViewModelKey;
 import vlab.android.architecture.ui.login.LoginViewModel;
+import vlab.android.common.di.BaseViewModelFactory;
+import vlab.android.common.di.ViewModelKey;
 
 @Module
 public abstract class ViewModelModule {

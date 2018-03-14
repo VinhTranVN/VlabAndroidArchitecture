@@ -34,10 +34,19 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    // app dependencies
+    // dagger 2
+    compile "com.google.dagger:dagger:$ROOT_DAGGER_VERSION"
+    annotationProcessor "com.google.dagger:dagger-compiler:$ROOT_DAGGER_VERSION"
+    compile "com.google.dagger:dagger-android-support:$ROOT_DAGGER_VERSION"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$ROOT_DAGGER_VERSION"
+
     // ViewModel and LiveData
     implementation 'android.arch.lifecycle:extensions:1.1.0'
-    //compile "com.squareup.retrofit2:adapter-rxjava:$ROOT_RETROFIT_VERSION"
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
+
+    // rxjava
     implementation "io.reactivex.rxjava2:rxandroid:$ROOT_RX_ANDROID"
     implementation "io.reactivex.rxjava2:rxjava:$ROOT_RX_JAVA"
+
+
 }

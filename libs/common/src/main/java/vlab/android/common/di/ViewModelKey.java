@@ -1,4 +1,4 @@
-package vlab.android.architecture.di.util;
+package vlab.android.common.di;
 
 import android.arch.lifecycle.ViewModel;
 

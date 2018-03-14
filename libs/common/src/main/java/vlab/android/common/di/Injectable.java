@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package vlab.android.architecture.di.util;
+package vlab.android.common.di;
 
 /**
  * Marks an activity / fragment injectable.
