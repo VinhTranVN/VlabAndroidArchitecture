@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
-import vlab.android.architecture.data.source.remote.GitHubApi;
+import vlab.android.architecture.repository.source.remote.GitHubApi;
 
 /**
  * Created by Vinh Tran on 2/11/18.

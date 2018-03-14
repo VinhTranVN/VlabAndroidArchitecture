@@ -1,4 +1,4 @@
-package vlab.android.architecture.data.repository;
+package vlab.android.architecture.repository;
 
 import io.reactivex.Observable;
 import vlab.android.architecture.model.UserInfo;

@@ -1,13 +1,13 @@
-package vlab.android.architecture.data.repository.impl;
+package vlab.android.architecture.repository.impl;
 
 import android.util.Base64;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import vlab.android.architecture.data.repository.LoginRepository;
-import vlab.android.architecture.data.source.remote.GitHubApi;
 import vlab.android.architecture.model.UserInfo;
+import vlab.android.architecture.repository.LoginRepository;
+import vlab.android.architecture.repository.source.remote.GitHubApi;
 import vlab.android.common.util.LogUtils;
 
 /**

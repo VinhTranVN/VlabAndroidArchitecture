@@ -5,8 +5,8 @@ import android.arch.lifecycle.LiveData;
 import javax.inject.Inject;
 
 import vlab.android.architecture.base.BaseViewModel;
-import vlab.android.architecture.data.repository.LoginRepository;
 import vlab.android.architecture.model.UserInfo;
+import vlab.android.architecture.repository.LoginRepository;
 import vlab.android.common.util.LogUtils;
 import vlab.android.common.util.RxCommand;
 

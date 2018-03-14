@@ -1,6 +1,6 @@
 package vlab.android.architecture.model;
 
-import vlab.android.architecture.data.source.remote.response.UserResponse;
+import vlab.android.architecture.repository.source.remote.response.UserResponse;
 
 /**
  * Created by Vinh Tran on 2/15/18.

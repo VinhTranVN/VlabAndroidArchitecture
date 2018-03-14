@@ -4,8 +4,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import vlab.android.architecture.data.repository.LoginRepository;
-import vlab.android.architecture.data.repository.impl.LoginRepositoryImpl;
+import vlab.android.architecture.repository.LoginRepository;
+import vlab.android.architecture.repository.impl.LoginRepositoryImpl;
 
 /**
  * Created by Vinh Tran on 2/11/18.

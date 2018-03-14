@@ -1,4 +1,4 @@
-package vlab.android.architecture.data.source.remote.response;
+package vlab.android.architecture.repository.source.remote.response;
 
 import com.google.gson.annotations.SerializedName;
 
