@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import vlab.android.common.R;
+import vlab.android.common.util.LogUtils;
 
 public class CommonProgressDialogFragment extends DialogFragment {
 
@@ -52,6 +53,15 @@ public class CommonProgressDialogFragment extends DialogFragment {
         if (getTargetFragment() instanceof DialogFragmentListener) {
             ((DialogFragmentListener) getTargetFragment()).onCancel(getTargetRequestCode());
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        LogUtils.d(getClass().getSimpleName(), ">>> onDestroyView isAdded() " + isAdded());
+        if(isAdded() || isVisible()){
+            dismissAllowingStateLoss();
+        }
+        super.onDestroyView();
     }
 
     public interface DialogFragmentListener {

@@ -26,6 +26,19 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+// To disable LeakCanary in unit tests, add the following to your build.gradle
+// Ensure the no-op dependency is always used in JVM tests.
+configurations.all { config ->
+    if (config.name.contains('UnitTest')) {
+        config.resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'com.squareup.leakcanary' && details.requested.name == 'leakcanary-android') {
+                details.useTarget(group: details.requested.group, name: 'leakcanary-android-no-op', version: details.requested.version)
+            }
+        }
+    }
+}
+
 ext {
     ROOT_COMPILE_SDK_VERSION = 26
 

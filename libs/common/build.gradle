@@ -47,6 +47,4 @@ dependencies {
     // rxjava
     implementation "io.reactivex.rxjava2:rxandroid:$ROOT_RX_ANDROID"
     implementation "io.reactivex.rxjava2:rxjava:$ROOT_RX_JAVA"
-
-
 }

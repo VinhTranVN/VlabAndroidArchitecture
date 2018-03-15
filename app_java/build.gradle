@@ -63,4 +63,7 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$ROOT_RETROFIT_VERSION"
     implementation "com.squareup.okhttp3:logging-interceptor:$ROOT_OKHTTP_VERSION"
 
+    // leak detect
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 }

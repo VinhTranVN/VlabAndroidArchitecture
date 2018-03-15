@@ -10,13 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import vlab.android.common.di.Injectable;
+import vlab.android.common.util.LogUtils;
 
 /**
 * Created by Vinh Tran on 2/7/18.
 */
 public abstract class CommonFragment extends Fragment implements Injectable {
-
-    protected CommonProgressDialogFragment mProgressDialogFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,6 @@ public abstract class CommonFragment extends Fragment implements Injectable {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mProgressDialogFragment = CommonProgressDialogFragment.newInstance(null, 1);
         initView(view);
     }
 
@@ -59,27 +57,25 @@ public abstract class CommonFragment extends Fragment implements Injectable {
     protected abstract void bindViewModel();
 
     public synchronized void showProgressDialog(boolean isShow){
+        LogUtils.d(getClass().getSimpleName(), ">>> showProgressDialog " + isShow);
+        try {
+            CommonProgressDialogFragment progressDialog = (CommonProgressDialogFragment) getChildFragmentManager().findFragmentByTag("ProgressDialogFragment");
 
-        if (mProgressDialogFragment == null) {
-            return;
-        }
+            if (progressDialog == null) {
+                progressDialog = CommonProgressDialogFragment.newInstance(null, 1);
+            }
 
-        if (isShow) {
-            if (!mProgressDialogFragment.isAdded()) {
-                try {
-                    mProgressDialogFragment.show(getChildFragmentManager(), null);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            if (isShow) {
+                if (!progressDialog.isAdded()) {
+                    progressDialog.show(getChildFragmentManager(), "ProgressDialogFragment");
+                }
+            } else {
+                if (progressDialog.isAdded()) {
+                    progressDialog.dismissAllowingStateLoss();
                 }
             }
-        } else {
-            if (mProgressDialogFragment.isAdded()) {
-                try {
-                    mProgressDialogFragment.dismissAllowingStateLoss();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -100,5 +96,4 @@ public abstract class CommonFragment extends Fragment implements Injectable {
         }
         ft.commitAllowingStateLoss();
     }
-
 }

@@ -26,7 +26,6 @@ import android.support.v4.app.FragmentManager;
 import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;
 import dagger.android.support.HasSupportFragmentInjector;
-import vlab.android.common.util.LogUtils;
 
 /**
  * Helper class to automatically inject fragments if they implement {@link Injectable}.
@@ -39,7 +38,23 @@ public class AppInjector {
         application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                handleActivity(activity);
+                if (activity instanceof HasSupportFragmentInjector) {
+                    AndroidInjection.inject(activity);
+                }
+                if (activity instanceof FragmentActivity) {
+                    ((FragmentActivity) activity).getSupportFragmentManager()
+                            .registerFragmentLifecycleCallbacks(
+                                    new FragmentManager.FragmentLifecycleCallbacks() {
+
+                                        @Override
+                                        public void onFragmentCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
+                                            if (f instanceof Injectable) {
+                                                //LogUtils.d(getClass().getSimpleName(), ">>> onFragmentCreated: AndroidSupportInjection.inject(f)");
+                                                AndroidSupportInjection.inject(f);
+                                            }
+                                        }
+                                    }, true);
+                }
             }
 
             @Override
@@ -86,7 +101,7 @@ public class AppInjector {
                                 @Override
                                 public void onFragmentCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
                                     if (f instanceof Injectable) {
-                                        LogUtils.d(getClass().getSimpleName(), ">>> onFragmentCreated: AndroidSupportInjection.inject(f)");
+                                        //LogUtils.d(getClass().getSimpleName(), ">>> onFragmentCreated: AndroidSupportInjection.inject(f)");
                                         AndroidSupportInjection.inject(f);
                                     }
                                 }

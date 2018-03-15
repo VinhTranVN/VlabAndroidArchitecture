@@ -31,9 +31,7 @@ public class RxCommand<InputType, DataResponse> {
         mOnExecuted = mRxCommand.withLatestFrom(mOnExecuting, (v, executing) -> executing)
                 .filter(executing -> !executing)
                 .flatMap(v -> {
-
                     setExecuting(true);
-
                     return func.apply(inputType)
                             .doOnError(error -> {
                                 LogUtils.d(getClass().getSimpleName(), ">>> RxCommand error " + error.getMessage());
@@ -46,9 +44,9 @@ public class RxCommand<InputType, DataResponse> {
                             .doOnNext(dataResponse -> {
                                 setExecuting(false);
                                 mOnDataChanged.postValue(dataResponse);
-                            })
-                            .doOnDispose(() -> mOnExecuting.onNext(false));
-                });
+                            });
+                })
+                .doOnDispose(() -> setExecuting(false));
     }
 
     public Disposable subscribe(){
