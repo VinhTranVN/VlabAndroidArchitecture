@@ -14,7 +14,7 @@ import io.reactivex.subjects.PublishSubject;
  *
  *  Created by Vinh Tran on 2/18/18.
  */
-public class RxCommand<InputType, DataResponse> {
+public class RxCommand<DataRequest, DataResponse> {
 
     // execute command
     PublishSubject<Object> mRxCommand = PublishSubject.create();
@@ -27,12 +27,12 @@ public class RxCommand<InputType, DataResponse> {
     MutableLiveData<Throwable> mOnError = new MutableLiveData<>();
     MutableLiveData<Boolean> mOnLoading = new MutableLiveData<>();
 
-    public RxCommand(InputType inputType, Function<InputType, Observable<DataResponse>> func) {
+    public RxCommand(DataRequest dataRequest, Function<DataRequest, Observable<DataResponse>> func) {
         mOnExecuted = mRxCommand.withLatestFrom(mOnExecuting, (v, executing) -> executing)
                 .filter(executing -> !executing)
                 .flatMap(v -> {
                     setExecuting(true);
-                    return func.apply(inputType)
+                    return func.apply(dataRequest)
                             .doOnError(error -> {
                                 LogUtils.d(getClass().getSimpleName(), ">>> RxCommand error " + error.getMessage());
                                 setExecuting(false);

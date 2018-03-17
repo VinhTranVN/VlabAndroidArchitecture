@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import vlab.android.architecture.base.BaseViewModel;
 import vlab.android.architecture.model.UserInfo;
 import vlab.android.architecture.repository.LoginRepository;
-import vlab.android.common.util.LogUtils;
 import vlab.android.common.util.RxCommand;
 
 /**
@@ -23,19 +22,17 @@ public class LoginViewModel extends BaseViewModel {
 
     @Inject
     public LoginViewModel(LoginRepository repository){
-        LogUtils.d(getClass().getSimpleName(), ">>> public LoginViewModel: ");
-
         mLoginCommand = new RxCommand<>(mLoginRequestParam, requestParam ->
                 repository.login(requestParam.userName, requestParam.pwd)
         );
 
+        // add subscriptions
         addSubscriptions(
                 mLoginCommand.subscribe()
         );
     }
 
     public void login(String userName, String pwd){
-
         // update params
         mLoginRequestParam.userName = userName;
         mLoginRequestParam.pwd = pwd;
@@ -55,22 +52,6 @@ public class LoginViewModel extends BaseViewModel {
     public LiveData<Boolean> onLoadingObs() {
         return mLoginCommand.onLoading();
     }
-
-//    static class LoginViewModelFactory implements ViewModelProvider.Factory {
-//
-//        private LoginRepository mLoginRepository;
-//
-//        @Inject
-//        public LoginViewModelFactory(LoginRepository loginRepository) {
-//            mLoginRepository = loginRepository;
-//        }
-//
-//        @NonNull
-//        @Override
-//        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-//            return (T) new LoginViewModel(mLoginRepository);
-//        }
-//    }
 
     // request params
     static class LoginRequestParam {
