@@ -39,6 +39,8 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.16.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    // Test helpers for LiveData
+    testImplementation "android.arch.core:core-testing:1.1.0"
     // module dependency
     implementation project(':libs:common')
 

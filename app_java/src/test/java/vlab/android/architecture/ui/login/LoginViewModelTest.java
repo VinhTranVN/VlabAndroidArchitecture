@@ -1,11 +1,14 @@
 package vlab.android.architecture.ui.login;
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.lifecycle.Observer;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import io.reactivex.Observable;
 import vlab.android.architecture.model.UserInfo;
@@ -20,6 +23,9 @@ import static org.mockito.Mockito.when;
  */
 public class LoginViewModelTest {
 
+    @Rule
+    public InstantTaskExecutorRule instantExecutorRule = new InstantTaskExecutorRule();
+
     private LoginViewModel mViewModel;
 
     @Mock
@@ -27,7 +33,7 @@ public class LoginViewModelTest {
 
     @Before
     public void init() {
-        mLoginRepository = mock(LoginRepository.class);
+        MockitoAnnotations.initMocks(this);
         mViewModel = new LoginViewModel(mLoginRepository);
     }
 
@@ -68,8 +74,9 @@ public class LoginViewModelTest {
         Observer<UserInfo> userInfoObserver = mock(Observer.class);
         mViewModel.onLoginSuccessObs().observeForever(userInfoObserver);
 
+        // perform login, call api...
         mViewModel.login(userName,pwd);
-
+        // verify data return
         verify(userInfoObserver).onChanged(userInfo);
     }
 }

@@ -17,9 +17,10 @@ public class BaseViewModel extends ViewModel {
     protected CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     protected void addSubscriptions(Disposable... disposables){
-        for (Disposable disposable: disposables) {
-            mCompositeDisposable.add(disposable);
-        }
+        mCompositeDisposable.addAll(disposables);
+//        for (Disposable disposable: disposables) {
+//            mCompositeDisposable.add(disposable);
+//        }
     }
 
     @Override
