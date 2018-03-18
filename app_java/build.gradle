@@ -25,6 +25,10 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -32,6 +36,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:' + ROOT_SUPPORT_LIBRARY_VERSION
     implementation 'com.android.support:design:' + ROOT_SUPPORT_LIBRARY_VERSION
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.16.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     // module dependency

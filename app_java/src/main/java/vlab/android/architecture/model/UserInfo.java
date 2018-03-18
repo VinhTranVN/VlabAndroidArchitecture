@@ -10,6 +10,9 @@ public class UserInfo {
 
     String userName;
 
+    public UserInfo() {
+    }
+
     public UserInfo(UserResponse userResponse) {
         this.userName = userResponse.getName();
     }

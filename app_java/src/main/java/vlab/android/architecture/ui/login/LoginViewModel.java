@@ -37,8 +37,10 @@ public class LoginViewModel extends BaseViewModel {
         mLoginRequestParam.userName = userName;
         mLoginRequestParam.pwd = pwd;
 
-        // execute command
-        mLoginCommand.execute();
+        if(isDataValid(mLoginRequestParam)){
+            // execute command
+            mLoginCommand.execute();
+        }
     }
 
     public LiveData<UserInfo> onLoginSuccessObs() {
@@ -53,10 +55,26 @@ public class LoginViewModel extends BaseViewModel {
         return mLoginCommand.onLoading();
     }
 
+    public boolean isDataValid(LoginRequestParam param) {
+
+        if(param == null || param.userName == null || param.userName.isEmpty()
+                || param.pwd == null || param.pwd.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
     // request params
     static class LoginRequestParam {
         String userName;
         String pwd;
+
+        public LoginRequestParam() {}
+
+        public LoginRequestParam(String userName, String pwd) {
+            this.userName = userName;
+            this.pwd = pwd;
+        }
     }
 }
 

@@ -42,6 +42,7 @@ public class RxCommand<DataRequest, DataResponse> {
                                 return Observable.empty();
                             })
                             .doOnNext(dataResponse -> {
+                                LogUtils.d(getClass().getSimpleName(), ">>> RxCommand: doOnNext");
                                 setExecuting(false);
                                 mOnDataChanged.postValue(dataResponse);
                             });
