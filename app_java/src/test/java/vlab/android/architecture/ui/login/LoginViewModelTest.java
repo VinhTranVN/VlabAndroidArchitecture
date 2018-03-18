@@ -14,6 +14,7 @@ import io.reactivex.Observable;
 import vlab.android.architecture.model.UserInfo;
 import vlab.android.architecture.repository.LoginRepository;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -78,5 +79,20 @@ public class LoginViewModelTest {
         mViewModel.login(userName,pwd);
         // verify data return
         verify(userInfoObserver).onChanged(userInfo);
+    }
+
+    @Test
+    public void showErrorIfLoginFailed() throws Exception {
+        String userName = "abc";
+        String pwd = "123";
+        when(mLoginRepository.login(userName,pwd)).thenReturn(Observable.error(new NullPointerException()));
+
+        Observer<Throwable> throwableObserver = mock(Observer.class);
+        mViewModel.onLoginFailedObs().observeForever(throwableObserver);
+
+        // perform login, call api...
+        mViewModel.login(userName,pwd);
+        // verify data return
+        verify(throwableObserver).onChanged(any());
     }
 }
