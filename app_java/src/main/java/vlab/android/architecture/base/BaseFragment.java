@@ -34,16 +34,38 @@ public abstract class BaseFragment<T extends ViewModel> extends CommonFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
         LogUtils.d(getClass().getSimpleName(), ">>> onCreateView: ");
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        LogUtils.d(getClass().getSimpleName(), ">>> onActivityCreated: ");
-        mViewModel = ViewModelProviders.of(this, mViewModelFactory).get(getViewModelClass());
         super.onActivityCreated(savedInstanceState);
+        mViewModel = provideViewModel();
+        bindViewModel();
+    }
+
+    /**
+     * provide view model
+     * @return
+     */
+    protected T provideViewModel() {
+        // in case we want to share ViewMode with other fragments belong the activity
+        if(isShareViewModel()){
+            return ViewModelProviders.of(getActivity(), mViewModelFactory).get(getViewModelClass());
+        }
+        return ViewModelProviders.of(this, mViewModelFactory).get(getViewModelClass());
+    }
+
+    protected boolean isShareViewModel() {
+        return false;
     }
 
     protected abstract Class<T> getViewModelClass();
+
+    /**
+     * bind data
+     */
+    protected abstract void bindViewModel();
 }

@@ -1,6 +1,7 @@
 package vlab.android.architecture.ui.login;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -34,13 +35,14 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
     }
 
     @Override
-    protected void initView(View rootView) {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        AutoCompleteTextView email = rootView.findViewById(R.id.email);
-        EditText password = rootView.findViewById(R.id.password);
-        mTvResult = rootView.findViewById(R.id.tv_result);
+        AutoCompleteTextView email = view.findViewById(R.id.email);
+        EditText password = view.findViewById(R.id.password);
+        mTvResult = view.findViewById(R.id.tv_result);
 
-        rootView.findViewById(R.id.btn_sign_in).setOnClickListener(view -> {
+        view.findViewById(R.id.btn_sign_in).setOnClickListener(view1 -> {
             mViewModel.login(email.getText().toString(), password.getText().toString());
         });
     }

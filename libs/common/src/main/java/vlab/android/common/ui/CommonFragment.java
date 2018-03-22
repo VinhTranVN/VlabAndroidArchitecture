@@ -17,44 +17,16 @@ import vlab.android.common.util.LogUtils;
 */
 public abstract class CommonFragment extends Fragment implements Injectable {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(getLayoutRes(), container, false);
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView(view);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        bindViewModel();
-    }
-
     /**
      * declare layout resource id
      */
     protected abstract int getLayoutRes();
-
-    /**
-     * init view
-     * @param rootView
-     */
-    protected abstract void initView(View rootView);
-
-    /**
-     * bind data
-     */
-    protected abstract void bindViewModel();
 
     public synchronized void showProgressDialog(boolean isShow){
         LogUtils.d(getClass().getSimpleName(), ">>> showProgressDialog " + isShow);
