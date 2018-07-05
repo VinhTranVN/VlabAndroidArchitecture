@@ -16,14 +16,14 @@ import vlab.android.architecture.base.BaseFragment;
 public class LoginFragment extends BaseFragment {
 
     private TextView mTvResult;
-    private LoginErrorHandle mLoginErrorHandle;
+    private LoginErrorHandler mLoginErrorHandle;
     // view model for login
     private LoginViewModel mViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mLoginErrorHandle = new LoginErrorHandle(getContext());
+        mLoginErrorHandle = new LoginErrorHandler();
     }
 
     @Override

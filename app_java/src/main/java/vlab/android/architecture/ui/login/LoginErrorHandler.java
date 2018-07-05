@@ -2,18 +2,19 @@ package vlab.android.architecture.ui.login;
 
 import android.content.Context;
 
+import vlab.android.architecture.MyApplication;
 import vlab.android.architecture.R;
 
 /**
  * Created by Vinh Tran on 3/3/18.
  */
 
-public class LoginErrorHandle {
+public class LoginErrorHandler {
 
     private Context mContext;
 
-    public LoginErrorHandle(Context context) {
-        mContext = context;
+    public LoginErrorHandler() {
+        mContext = MyApplication.getInstance().getApplicationContext();
     }
 
     public String parseError(Throwable throwable){
