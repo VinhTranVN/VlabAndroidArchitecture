@@ -13,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import io.reactivex.Observable;
 import vlab.android.architecture.model.UserInfo;
 import vlab.android.architecture.repository.LoginRepository;
-import vlab.android.common.model.Response;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -70,10 +69,10 @@ public class LoginViewModelTest {
         String userName = "abc";
         String pwd = "123";
 
-        Response<UserInfo> userInfo = new Response<>(new UserInfo(), null);
+        UserInfo userInfo = new UserInfo();
         when(mLoginRepository.login(userName,pwd)).thenReturn(Observable.just(new UserInfo()));
 
-        Observer<Response<UserInfo>> userInfoObserver = mock(Observer.class);
+        Observer<UserInfo> userInfoObserver = mock(Observer.class);
         mViewModel.onLoginSuccessObs().observeForever(userInfoObserver);
 
         // perform login, call api...
@@ -89,7 +88,7 @@ public class LoginViewModelTest {
         when(mLoginRepository.login(userName,pwd)).thenReturn(Observable.error(new NullPointerException()));
 
         Observer<Throwable> throwableObserver = mock(Observer.class);
-        mViewModel.onLoginFailedObs().observeForever(throwableObserver);
+        mViewModel.onLoginErrorObs().observeForever(throwableObserver);
 
         // perform login, call api...
         mViewModel.login(userName,pwd);

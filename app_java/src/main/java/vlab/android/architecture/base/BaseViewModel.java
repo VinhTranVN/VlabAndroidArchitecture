@@ -1,5 +1,6 @@
 package vlab.android.architecture.base;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 
@@ -15,12 +16,10 @@ import vlab.android.architecture.MyApplication;
 public class BaseViewModel extends ViewModel {
 
     protected CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+    protected LifecycleOwner mLifeCycleOwner;
 
     protected void addSubscriptions(Disposable... disposables){
         mCompositeDisposable.addAll(disposables);
-//        for (Disposable disposable: disposables) {
-//            mCompositeDisposable.add(disposable);
-//        }
     }
 
     @Override
@@ -31,5 +30,13 @@ public class BaseViewModel extends ViewModel {
 
     public Context getAppContext(){
         return MyApplication.getInstance().getApplicationContext();
+    }
+
+    public void setLifeCycleOwner(LifecycleOwner lifeCycleOwner) {
+        mLifeCycleOwner = lifeCycleOwner;
+    }
+
+    public LifecycleOwner getLifeCycleOwner() {
+        return mLifeCycleOwner;
     }
 }

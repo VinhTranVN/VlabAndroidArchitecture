@@ -1,13 +1,13 @@
 package vlab.android.architecture.ui.login;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 
 import javax.inject.Inject;
 
 import vlab.android.architecture.base.BaseViewModel;
 import vlab.android.architecture.model.UserInfo;
 import vlab.android.architecture.repository.LoginRepository;
-import vlab.android.common.model.Response;
 import vlab.android.common.util.RxCommand;
 
 /**
@@ -17,6 +17,8 @@ import vlab.android.common.util.RxCommand;
 public class LoginViewModel extends BaseViewModel {
 
     private RxCommand<LoginRequestParam, UserInfo> mLoginCommand;
+    MutableLiveData<UserInfo> mOnLoginSuccessObs = new MutableLiveData<>();
+    MutableLiveData<Throwable> mOnLoginErrorObs = new MutableLiveData<>();
 
     // request param
     private LoginRequestParam mLoginRequestParam = new LoginRequestParam();
@@ -33,6 +35,18 @@ public class LoginViewModel extends BaseViewModel {
         );
     }
 
+    public void startObservers(){
+        if (!mLoginCommand.onDataChanged().hasObservers()) {
+            mLoginCommand.onDataChanged().observe(mLifeCycleOwner, userInfoResponse -> {
+                if(userInfoResponse.getData() != null){
+                    mOnLoginSuccessObs.postValue(userInfoResponse.getData());
+                } else {
+                    mOnLoginErrorObs.postValue(userInfoResponse.getError());
+                }
+            });
+        }
+    }
+
     public void login(String userName, String pwd){
         // update params
         mLoginRequestParam.userName = userName;
@@ -44,8 +58,12 @@ public class LoginViewModel extends BaseViewModel {
         }
     }
 
-    public LiveData<Response<UserInfo>> onLoginSuccessObs() {
-        return mLoginCommand.onDataChanged();
+    public LiveData<UserInfo> onLoginSuccessObs() {
+        return mOnLoginSuccessObs;
+    }
+
+    public LiveData<Throwable> onLoginErrorObs() {
+        return mOnLoginErrorObs;
     }
 
     public LiveData<Boolean> onLoadingObs() {

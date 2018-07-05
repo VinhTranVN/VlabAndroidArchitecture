@@ -1,6 +1,5 @@
 package vlab.android.architecture.base;
 
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -53,12 +52,18 @@ public abstract class BaseFragment extends CommonFragment {
      *                            true for share this VM with other fragment belong the same Activity
      * @return ViewModel for this fragment
      */
-    protected <T extends ViewModel> T provideViewModel(Class<T> vmClass, boolean isShareSameActivity) {
+    protected <T extends BaseViewModel> T provideViewModel(Class<T> vmClass, boolean isShareSameActivity) {
         // in case we want to share ViewMode with other fragments belong the activity
+        T viewModel;
         if(isShareSameActivity){
-            return ViewModelProviders.of(getActivity(), mViewModelFactory).get(vmClass);
+            viewModel = ViewModelProviders.of(getActivity(), mViewModelFactory).get(vmClass);
+        } else {
+            viewModel = ViewModelProviders.of(this, mViewModelFactory).get(vmClass);
         }
-        return ViewModelProviders.of(this, mViewModelFactory).get(vmClass);
+
+        viewModel.setLifeCycleOwner(this);
+
+        return viewModel;
     }
 
     /**
