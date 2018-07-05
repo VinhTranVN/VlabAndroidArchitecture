@@ -8,6 +8,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
+import vlab.android.common.model.Response;
 
 /**
  *  This is a wrapper class use RxJava to execute command, response a LiveData for consumers
@@ -23,8 +24,8 @@ public class RxCommand<DataRequest, DataResponse> {
     Observable<DataResponse> mOnExecuted;
 
     /* live data for data change and loading */
-    MutableLiveData<DataResponse> mOnDataChanged = new MutableLiveData<>();
-    MutableLiveData<Throwable> mOnError = new MutableLiveData<>();
+    // TODO need to refactor response only 1 object
+    MutableLiveData<Response<DataResponse>> mOnDataChanged = new MutableLiveData<>();
     MutableLiveData<Boolean> mOnLoading = new MutableLiveData<>();
 
     public RxCommand(DataRequest dataRequest, Function<DataRequest, Observable<DataResponse>> func) {
@@ -36,7 +37,7 @@ public class RxCommand<DataRequest, DataResponse> {
                             .doOnError(error -> {
                                 LogUtils.d(getClass().getSimpleName(), ">>> RxCommand error " + error.getMessage());
                                 setExecuting(false);
-                                mOnError.postValue(error);
+                                mOnDataChanged.postValue(new Response<>(null, error));
                             })
                             .onErrorResumeNext(throwable -> {
                                 return Observable.empty();
@@ -44,7 +45,7 @@ public class RxCommand<DataRequest, DataResponse> {
                             .doOnNext(dataResponse -> {
                                 LogUtils.d(getClass().getSimpleName(), ">>> RxCommand: doOnNext");
                                 setExecuting(false);
-                                mOnDataChanged.postValue(dataResponse);
+                                mOnDataChanged.postValue(new Response<>(dataResponse, null));
                             });
                 })
                 .doOnDispose(() -> setExecuting(false));
@@ -64,12 +65,8 @@ public class RxCommand<DataRequest, DataResponse> {
         mRxCommand.onNext("");
     }
 
-    public LiveData<DataResponse> onDataChanged() {
+    public LiveData<Response<DataResponse>> onDataChanged() {
         return mOnDataChanged;
-    }
-
-    public LiveData<Throwable> onError() {
-        return mOnError;
     }
 
     public LiveData<Boolean> onLoading() {

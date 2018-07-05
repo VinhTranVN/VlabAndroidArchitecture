@@ -51,12 +51,12 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     protected void bindViewModel() {
-        mViewModel.onLoginSuccessObs().observe(this, userInfo -> {
-            mTvResult.setText(getString(R.string.login_success, userInfo.getUserName()));
-        });
-
-        mViewModel.onLoginFailedObs().observe(this, throwable -> {
-            mTvResult.setText(mLoginErrorHandle.parseError(throwable));
+        mViewModel.onLoginSuccessObs().observe(this, userResponse -> {
+            if(userResponse.getData() != null){
+                mTvResult.setText(getString(R.string.login_success, userResponse.getData().getUserName()));
+            } else {
+                mTvResult.setText(mLoginErrorHandle.parseError(userResponse.getError()));
+            }
         });
 
         mViewModel.onLoadingObs().observe(this, this::showProgressDialog);

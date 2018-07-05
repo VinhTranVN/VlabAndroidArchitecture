@@ -18,6 +18,9 @@ public class LoginErrorHandler {
     }
 
     public String parseError(Throwable throwable){
+        if(throwable == null){
+            return mContext.getString(R.string.login_failed);
+        }
         return mContext.getString(R.string.login_failed) + " : " + throwable.getMessage();
     }
 }
