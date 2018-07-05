@@ -18,12 +18,10 @@ import vlab.android.common.util.LogUtils;
  * Created by Vinh Tran on 2/15/18.
  */
 
-public abstract class BaseFragment<T extends ViewModel> extends CommonFragment {
+public abstract class BaseFragment extends CommonFragment {
 
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
-
-    protected T mViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,27 +40,31 @@ public abstract class BaseFragment<T extends ViewModel> extends CommonFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = provideViewModel();
+
+        initViewModel();
+
         bindViewModel();
     }
 
     /**
-     * provide view model
-     * @return
+     * provide ViewModel for this fragment
+     * @param vmClass
+     * @param isShareSameActivity false for default for this fragment,
+     *                            true for share this VM with other fragment belong the same Activity
+     * @return ViewModel for this fragment
      */
-    protected T provideViewModel() {
+    protected <T extends ViewModel> T provideViewModel(Class<T> vmClass, boolean isShareSameActivity) {
         // in case we want to share ViewMode with other fragments belong the activity
-        if(isShareViewModel()){
-            return ViewModelProviders.of(getActivity(), mViewModelFactory).get(getViewModelClass());
+        if(isShareSameActivity){
+            return ViewModelProviders.of(getActivity(), mViewModelFactory).get(vmClass);
         }
-        return ViewModelProviders.of(this, mViewModelFactory).get(getViewModelClass());
+        return ViewModelProviders.of(this, mViewModelFactory).get(vmClass);
     }
 
-    protected boolean isShareViewModel() {
-        return false;
-    }
-
-    protected abstract Class<T> getViewModelClass();
+    /**
+     * init view model
+     */
+    protected abstract void initViewModel();
 
     /**
      * bind data

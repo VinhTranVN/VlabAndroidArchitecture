@@ -13,20 +13,17 @@ import vlab.android.architecture.base.BaseFragment;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginFragment extends BaseFragment<LoginViewModel> {
+public class LoginFragment extends BaseFragment {
 
     private TextView mTvResult;
     private LoginErrorHandle mLoginErrorHandle;
+    // view model for login
+    private LoginViewModel mViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLoginErrorHandle = new LoginErrorHandle(getContext());
-    }
-
-    @Override
-    protected Class<LoginViewModel> getViewModelClass() {
-        return LoginViewModel.class;
     }
 
     @Override
@@ -45,6 +42,11 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
         view.findViewById(R.id.btn_sign_in).setOnClickListener(view1 -> {
             mViewModel.login(email.getText().toString(), password.getText().toString());
         });
+    }
+
+    @Override
+    protected void initViewModel() {
+        mViewModel = provideViewModel(LoginViewModel.class, false);
     }
 
     @Override
