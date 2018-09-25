@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="vlab.android.architecture.ui.SplashScreenFragment"
+        android:label="Splash Screen Fragment"
+        tools:layout="@layout/splash_screen_fragment">
+
+        <action
+            android:id="@+id/action_splash_to_login"
+            app:destination="@id/loginScreenFragment"
+            app:enterAnim="@anim/frag_enter"
+            app:exitAnim="@anim/frag_exit"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginScreenFragment"
+        android:name="vlab.android.architecture.ui.LoginScreenFragment"
+        android:label="LoginScreenFragment">
+        <action
+            android:id="@+id/action_Login_To_Home"
+            app:destination="@id/homeScreenFragment"
+        />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeScreenFragment"
+        android:name="vlab.android.architecture.ui.HomeScreenFragment"
+        android:label="HomeScreenFragment">
+        <action android:id="@+id/action_homeScreenFragment_to_friendListFragment" app:destination="@id/friendListFragment"/>
+    </fragment>
+    <fragment android:id="@+id/friendListFragment" android:name="vlab.android.architecture.ui.FriendListFragment" android:label="fragment_friend_list"
+              tools:layout="@layout/fragment_friend_list"/>
+
+</navigation>
