@@ -6,25 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import javax.inject.Inject;
-
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
-
 /**
  * Created by Vinh Tran on 2/7/18.
  */
-public abstract class CommonActivity extends AppCompatActivity implements HasSupportFragmentInjector {
+public abstract class CommonActivity extends AppCompatActivity {
 
     protected Handler mHandler;
-
-    @Inject
-    DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
-
-    @Override
-    public DispatchingAndroidInjector<Fragment> supportFragmentInjector() {
-        return dispatchingAndroidInjector;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
