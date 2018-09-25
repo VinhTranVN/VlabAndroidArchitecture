@@ -32,6 +32,12 @@ public abstract class CommonActivity extends AppCompatActivity implements HasSup
         mHandler = new Handler();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mHandler.removeCallbacksAndMessages(null);
+    }
+
     /**
      * add fragment into container, default add back stack
      * @param containerId
