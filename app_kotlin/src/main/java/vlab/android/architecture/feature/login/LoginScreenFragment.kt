@@ -1,4 +1,4 @@
-package vlab.android.architecture.ui
+package vlab.android.architecture.feature.login
 
 import android.os.Bundle
 import android.util.Base64
@@ -12,9 +12,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import vlab.android.architecture.R
-import vlab.android.architecture.data.GithubApi
-import vlab.android.architecture.data.RetrofitClient
-import vlab.android.architecture.data.UserResponse
+import vlab.android.architecture.base.BaseDialogFragment
+import vlab.android.architecture.repository.GithubApi
+import vlab.android.architecture.repository.RetrofitClient
+import vlab.android.architecture.repository.UserResponse
 
 /**
  * Created by Vinh.Tran on 8/3/18.

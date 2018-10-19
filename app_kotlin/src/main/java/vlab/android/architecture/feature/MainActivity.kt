@@ -1,4 +1,4 @@
-package vlab.android.architecture.ui
+package vlab.android.architecture.feature
 
 import android.os.Bundle
 import android.widget.Toast
@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import vlab.android.architecture.R
+import vlab.android.architecture.feature.login.LoginScreenFragment
 import vlab.android.common.ui.CommonActivity
 
 

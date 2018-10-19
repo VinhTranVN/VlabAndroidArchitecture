@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/splashScreenFragment"
-        android:name="vlab.android.architecture.ui.SplashScreenFragment"
+        android:name="vlab.android.architecture.feature.welcome.SplashScreenFragment"
         android:label="Splash Screen Fragment"
         tools:layout="@layout/splash_screen_fragment">
 
@@ -18,13 +18,15 @@
             app:enterAnim="@anim/frag_enter"
             app:exitAnim="@anim/frag_exit"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
 
     </fragment>
 
     <fragment
         android:id="@+id/loginScreenFragment"
-        android:name="vlab.android.architecture.ui.LoginScreenFragment"
+        android:name="vlab.android.architecture.feature.login.LoginScreenFragment"
         android:label="LoginScreenFragment">
         <action
             android:id="@+id/action_Login_To_Home"
@@ -34,11 +36,11 @@
 
     <fragment
         android:id="@+id/homeScreenFragment"
-        android:name="vlab.android.architecture.ui.HomeScreenFragment"
+        android:name="vlab.android.architecture.feature.home.HomeScreenFragment"
         android:label="HomeScreenFragment">
         <action android:id="@+id/action_homeScreenFragment_to_friendListFragment" app:destination="@id/friendListFragment"/>
     </fragment>
-    <fragment android:id="@+id/friendListFragment" android:name="vlab.android.architecture.ui.FriendListFragment" android:label="fragment_friend_list"
+    <fragment android:id="@+id/friendListFragment" android:name="vlab.android.architecture.feature.friends.FriendListFragment" android:label="fragment_friend_list"
               tools:layout="@layout/fragment_friend_list"/>
 
 </navigation>

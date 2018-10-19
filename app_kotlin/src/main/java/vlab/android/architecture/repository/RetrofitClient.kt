@@ -1,4 +1,4 @@
-package vlab.android.architecture.data
+package vlab.android.architecture.repository
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,7 +9,7 @@ import vlab.android.architecture.BuildConfig
 /**
  * Created by Vinh.Tran on 9/7/18.
  **/
-object RetrofitClientMock {
+object RetrofitClient {
 
     private var mRetrofit: Retrofit? = null
 
@@ -26,7 +26,7 @@ object RetrofitClientMock {
         val okHttpClient = builder.build()
 
         mRetrofit = Retrofit.Builder()
-                .baseUrl("http://5b680659629e280014570c80.mockapi.io/api/")
+                .baseUrl("https://api.github.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build()

@@ -1,4 +1,4 @@
-package vlab.android.architecture.ui
+package vlab.android.architecture.base
 
 import android.os.Bundle
 import android.support.v4.app.DialogFragment

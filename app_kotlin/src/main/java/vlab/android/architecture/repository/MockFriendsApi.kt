@@ -1,4 +1,4 @@
-package vlab.android.architecture.data
+package vlab.android.architecture.repository
 
 import retrofit2.Call
 import retrofit2.http.GET

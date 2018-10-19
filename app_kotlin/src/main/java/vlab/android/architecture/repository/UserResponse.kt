@@ -1,4 +1,4 @@
-package vlab.android.architecture.data
+package vlab.android.architecture.repository
 
 import com.google.gson.annotations.SerializedName
 

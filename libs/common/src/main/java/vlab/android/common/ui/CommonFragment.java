@@ -2,6 +2,7 @@ package vlab.android.common.ui;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,10 +18,17 @@ import vlab.android.common.util.LogUtils;
 */
 public abstract class CommonFragment extends Fragment implements Injectable {
 
-    @Nullable
+    protected Handler mHandler = new Handler();
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(getLayoutRes(), container, false);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mHandler.removeCallbacksAndMessages(null);
     }
 
     /**

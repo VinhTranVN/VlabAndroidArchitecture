@@ -1,4 +1,4 @@
-package vlab.android.architecture.ui
+package vlab.android.architecture.feature.friends
 
 
 import android.os.Bundle
@@ -14,12 +14,22 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import vlab.android.architecture.R
-import vlab.android.architecture.data.MockFriendsApi
-import vlab.android.architecture.data.RetrofitClientMock
-import vlab.android.architecture.data.UserResponse
+import vlab.android.architecture.base.BaseFragment
+import vlab.android.architecture.repository.MockFriendsApi
+import vlab.android.architecture.repository.RetrofitClientMock
+import vlab.android.architecture.repository.UserResponse
 
 class FriendListFragment : BaseFragment() {
+
     override fun getLayoutRes() = R.layout.fragment_friend_list
+
+    override fun initViewModel() {
+        // TODO
+    }
+
+    override fun bindViewModel() {
+        // TODO
+    }
 
     var mFriendListAdapter : FriendListAdapter? = null
 
