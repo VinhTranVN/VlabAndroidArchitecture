@@ -1,4 +1,4 @@
-package vlab.android.common.di;
+package vlab.android.architecture.di;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
@@ -10,11 +10,11 @@ import javax.inject.Provider;
 import javax.inject.Singleton;
 
 @Singleton
-public class BaseViewModelFactory implements ViewModelProvider.Factory {
+public class DaggerViewModelFactory implements ViewModelProvider.Factory {
     private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;
 
     @Inject
-    public BaseViewModelFactory(Map<Class<? extends ViewModel>, Provider<ViewModel>> creators) {
+    public DaggerViewModelFactory(Map<Class<? extends ViewModel>, Provider<ViewModel>> creators) {
         this.creators = creators;
     }
 

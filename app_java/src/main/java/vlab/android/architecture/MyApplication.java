@@ -5,13 +5,13 @@ import com.squareup.leakcanary.LeakCanary;
 import vlab.android.architecture.di.DaggerAppComponent;
 import vlab.android.architecture.di.module.AppModule;
 import vlab.android.architecture.di.module.NetworkModule;
-import vlab.android.common.CommonApplication;
+import vlab.android.common.DaggerCommonApplication;
 import vlab.android.common.util.LogUtils;
 
 /**
  * Created by Vinh Tran on 2/11/18.
  */
-public class MyApplication extends CommonApplication {
+public class MyApplication extends DaggerCommonApplication {
     private static MyApplication sInstance = null;
 
     public static MyApplication getInstance() {

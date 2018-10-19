@@ -9,13 +9,11 @@
     tools:context="vlab.android.architecture.ui.login.LoginFragment">
 
     <!-- Login progress -->
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone"/>
+        android:textColor="#00f"
+        android:text="@string/login.github_account"/>
 
     <ScrollView
         android:id="@+id/login_form"

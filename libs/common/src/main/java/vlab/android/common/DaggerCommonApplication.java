@@ -12,7 +12,7 @@ import vlab.android.common.di.AppInjector;
 /**
  * Created by Vinh Tran on 2/11/18.
  */
-public abstract class CommonApplication extends Application implements HasActivityInjector {
+public abstract class DaggerCommonApplication extends Application implements HasActivityInjector {
 
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
