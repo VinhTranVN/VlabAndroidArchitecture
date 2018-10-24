@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 
 import io.reactivex.Observable;
 import vlab.android.architecture.feature.login.viewmodel.LoginViewModel;
+import vlab.android.architecture.feature.validator.TextValidator;
 import vlab.android.architecture.model.UserInfo;
 import vlab.android.architecture.repository.LoginRepository;
 
@@ -36,7 +37,7 @@ public class LoginViewModelTest {
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
-        mViewModel = new LoginViewModel(mLoginRepository);
+        mViewModel = new LoginViewModel(mLoginRepository, new TextValidator());
     }
 
     @Test
@@ -78,6 +79,8 @@ public class LoginViewModelTest {
 
         // perform login, call api...
         mViewModel.login(userName,pwd);
+
+        verify(mLoginRepository).login(userName, pwd);
         // verify data return
         verify(userInfoObserver).onChanged(userInfo);
     }

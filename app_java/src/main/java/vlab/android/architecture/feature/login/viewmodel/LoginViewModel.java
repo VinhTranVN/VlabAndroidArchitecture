@@ -81,7 +81,7 @@ public class LoginViewModel extends BaseViewModel {
     }
 
     // request params
-    static class LoginRequestParam {
+    public static class LoginRequestParam {
         String userName;
         String pwd;
 
