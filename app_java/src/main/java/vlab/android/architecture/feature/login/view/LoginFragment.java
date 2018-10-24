@@ -52,10 +52,9 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     protected void bindViewModel() {
-        mViewModel.startObservers();
 
-        mViewModel.onLoginSuccessObs().observe(this, userResponse -> {
-            mTvResult.setText(getString(R.string.login_success, userResponse.getUserName()));
+        mViewModel.onLoginSuccessObs().observe(this, userModel -> {
+            mTvResult.setText(getString(R.string.login_success, userModel.getUserName()));
         });
 
         mViewModel.onLoginErrorObs().observe(this, error -> {

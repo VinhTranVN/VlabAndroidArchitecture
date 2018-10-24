@@ -79,16 +79,18 @@ public abstract class BaseFragment extends CommonFragment {
 
         viewModel.setLifeCycleOwner(this);
 
+        viewModel.onStartObservers();
+
         return viewModel;
     }
 
     /**
-     * init view model
+     * init view model, was called in onActivityCreated()
      */
     protected abstract void initViewModel();
 
     /**
-     * bind data
+     * bind data, was called in onActivityCreated() after initViewModel()
      */
     protected abstract void bindViewModel();
 }

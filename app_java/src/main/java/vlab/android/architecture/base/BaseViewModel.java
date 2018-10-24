@@ -13,7 +13,7 @@ import vlab.android.architecture.MyApplication;
  * Created by Vinh Tran on 2/15/18.
  */
 
-public class BaseViewModel extends ViewModel {
+public abstract class BaseViewModel extends ViewModel {
 
     protected CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     protected LifecycleOwner mLifeCycleOwner;
@@ -24,8 +24,9 @@ public class BaseViewModel extends ViewModel {
 
     @Override
     protected void onCleared() {
-        super.onCleared();
         mCompositeDisposable.clear();
+        mLifeCycleOwner = null;
+        super.onCleared();
     }
 
     public Context getAppContext(){
@@ -39,4 +40,9 @@ public class BaseViewModel extends ViewModel {
     public LifecycleOwner getLifeCycleOwner() {
         return mLifeCycleOwner;
     }
+
+    /**
+     * register observers livedata here, these observer will be auto remove follow lifecycle
+     */
+    protected abstract void onStartObservers();
 }

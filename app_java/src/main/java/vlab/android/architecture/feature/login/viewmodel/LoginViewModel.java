@@ -40,16 +40,15 @@ public class LoginViewModel extends BaseViewModel {
         );
     }
 
-    public void startObservers(){
-        if (!mLoginCommand.onDataChanged().hasObservers()) {
-            mLoginCommand.onDataChanged().observe(mLifeCycleOwner, userInfoResponse -> {
-                if(userInfoResponse.getData() != null){
-                    mOnLoginSuccessObs.postValue(userInfoResponse.getData());
-                } else {
-                    mOnLoginErrorObs.postValue(userInfoResponse.getError());
-                }
-            });
-        }
+    @Override
+    public void onStartObservers() {
+        mLoginCommand.onDataChanged().observe(mLifeCycleOwner, userInfoResponse -> {
+            if (userInfoResponse.getData() != null) {
+                mOnLoginSuccessObs.postValue(userInfoResponse.getData());
+            } else {
+                mOnLoginErrorObs.postValue(userInfoResponse.getError());
+            }
+        });
     }
 
     public void login(String userName, String pwd){
