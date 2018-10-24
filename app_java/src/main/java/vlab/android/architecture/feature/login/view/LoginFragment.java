@@ -1,4 +1,4 @@
-package vlab.android.architecture.ui.login;
+package vlab.android.architecture.feature.login.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,7 +8,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import vlab.android.architecture.R;
+import vlab.android.architecture.base.BaseErrorHandler;
 import vlab.android.architecture.base.BaseFragment;
+import vlab.android.architecture.feature.login.LoginErrorHandler;
+import vlab.android.architecture.feature.login.viewmodel.LoginViewModel;
 
 /**
  * A login screen that offers login via email/password.
@@ -16,14 +19,12 @@ import vlab.android.architecture.base.BaseFragment;
 public class LoginFragment extends BaseFragment {
 
     private TextView mTvResult;
-    private LoginErrorHandler mLoginErrorHandle;
     // view model for login
     private LoginViewModel mViewModel;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mLoginErrorHandle = new LoginErrorHandler();
+    protected BaseErrorHandler getErrorHandler() {
+        return new LoginErrorHandler();
     }
 
     @Override
@@ -46,7 +47,7 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     protected void initViewModel() {
-        mViewModel = provideViewModel(LoginViewModel.class, false);
+        mViewModel = provideViewModel(LoginViewModel.class);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class LoginFragment extends BaseFragment {
         });
 
         mViewModel.onLoginErrorObs().observe(this, error -> {
-            mTvResult.setText(mLoginErrorHandle.parseError(error));
+            mTvResult.setText(mErrorHandler.parseError(error));
         });
 
         mViewModel.onLoadingObs().observe(this, this::showProgressDialog);

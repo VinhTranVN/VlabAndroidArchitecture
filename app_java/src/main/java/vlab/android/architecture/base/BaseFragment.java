@@ -22,10 +22,17 @@ public abstract class BaseFragment extends CommonFragment {
     @Inject
     ViewModelProvider.Factory mViewModelFactory;
 
+    protected BaseErrorHandler mErrorHandler;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogUtils.d(getClass().getSimpleName(), ">>> onCreate");
+        mErrorHandler = getErrorHandler();
+    }
+
+    protected BaseErrorHandler getErrorHandler() {
+        return new BaseErrorHandler();
     }
 
     @Nullable
@@ -43,6 +50,15 @@ public abstract class BaseFragment extends CommonFragment {
         initViewModel();
 
         bindViewModel();
+    }
+
+    /**
+     * provide ViewModel for this fragment
+     * @param vmClass
+     * @return ViewModel for this fragment
+     */
+    protected <T extends BaseViewModel> T provideViewModel(Class<T> vmClass) {
+        return provideViewModel(vmClass, false);
     }
 
     /**

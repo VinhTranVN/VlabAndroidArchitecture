@@ -1,4 +1,4 @@
-package vlab.android.architecture.ui.login;
+package vlab.android.architecture.feature.login.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import javax.inject.Inject;
 
 import vlab.android.architecture.base.BaseViewModel;
+import vlab.android.architecture.feature.validator.TextValidator;
 import vlab.android.architecture.model.UserInfo;
 import vlab.android.architecture.repository.LoginRepository;
 import vlab.android.common.util.RxCommand;
@@ -17,6 +18,7 @@ import vlab.android.common.util.RxCommand;
 public class LoginViewModel extends BaseViewModel {
 
     private RxCommand<LoginRequestParam, UserInfo> mLoginCommand;
+    private TextValidator mTextValidator;
     MutableLiveData<UserInfo> mOnLoginSuccessObs = new MutableLiveData<>();
     MutableLiveData<Throwable> mOnLoginErrorObs = new MutableLiveData<>();
 
@@ -24,7 +26,10 @@ public class LoginViewModel extends BaseViewModel {
     private LoginRequestParam mLoginRequestParam = new LoginRequestParam();
 
     @Inject
-    public LoginViewModel(LoginRepository repository){
+    public LoginViewModel(LoginRepository repository, TextValidator textValidator){
+
+        mTextValidator = textValidator;
+
         mLoginCommand = new RxCommand<>(mLoginRequestParam, requestParam ->
                 repository.login(requestParam.userName, requestParam.pwd)
         );
@@ -71,12 +76,9 @@ public class LoginViewModel extends BaseViewModel {
     }
 
     public boolean isDataValid(LoginRequestParam param) {
-
-        if(param == null || param.userName == null || param.userName.isEmpty()
-                || param.pwd == null || param.pwd.isEmpty()){
-            return false;
-        }
-        return true;
+        return param != null
+                && mTextValidator.isUserNameValid(param.userName)
+                && mTextValidator.isPwdValid(param.pwd);
     }
 
     // request params

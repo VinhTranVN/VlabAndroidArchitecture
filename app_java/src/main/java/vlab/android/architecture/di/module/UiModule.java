@@ -19,8 +19,8 @@ package vlab.android.architecture.di.module;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
-import vlab.android.architecture.ui.login.LoginFragment;
-import vlab.android.architecture.ui.main.MainActivity;
+import vlab.android.architecture.feature.login.view.LoginFragment;
+import vlab.android.architecture.feature.main.MainActivity;
 
 @Module
 public abstract class UiModule {

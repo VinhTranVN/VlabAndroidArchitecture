@@ -1,4 +1,4 @@
-package vlab.android.architecture.ui.login;
+package vlab.android.architecture.feature.login;
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.lifecycle.Observer;
@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import io.reactivex.Observable;
+import vlab.android.architecture.feature.login.viewmodel.LoginViewModel;
 import vlab.android.architecture.model.UserInfo;
 import vlab.android.architecture.repository.LoginRepository;
 

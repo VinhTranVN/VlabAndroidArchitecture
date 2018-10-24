@@ -5,7 +5,6 @@ import javax.inject.Singleton;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 import vlab.android.architecture.MyApplication;
-import vlab.android.architecture.di.module.AppModule;
 
 @Singleton
 @Component(

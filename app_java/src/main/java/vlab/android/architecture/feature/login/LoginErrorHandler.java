@@ -1,22 +1,15 @@
-package vlab.android.architecture.ui.login;
+package vlab.android.architecture.feature.login;
 
-import android.content.Context;
-
-import vlab.android.architecture.MyApplication;
 import vlab.android.architecture.R;
+import vlab.android.architecture.base.BaseErrorHandler;
 
 /**
  * Created by Vinh Tran on 3/3/18.
  */
 
-public class LoginErrorHandler {
+public class LoginErrorHandler extends BaseErrorHandler {
 
-    private Context mContext;
-
-    public LoginErrorHandler() {
-        mContext = MyApplication.getInstance().getApplicationContext();
-    }
-
+    @Override
     public String parseError(Throwable throwable){
         if(throwable == null){
             return mContext.getString(R.string.login_failed);

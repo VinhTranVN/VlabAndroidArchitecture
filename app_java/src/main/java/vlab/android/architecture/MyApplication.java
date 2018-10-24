@@ -2,8 +2,8 @@ package vlab.android.architecture;
 
 import com.squareup.leakcanary.LeakCanary;
 
+import vlab.android.architecture.di.AppModule;
 import vlab.android.architecture.di.DaggerAppComponent;
-import vlab.android.architecture.di.module.AppModule;
 import vlab.android.architecture.di.module.NetworkModule;
 import vlab.android.common.DaggerCommonApplication;
 import vlab.android.common.util.LogUtils;

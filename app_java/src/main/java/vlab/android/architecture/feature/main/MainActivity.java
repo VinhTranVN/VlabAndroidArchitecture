@@ -1,10 +1,10 @@
-package vlab.android.architecture.ui.main;
+package vlab.android.architecture.feature.main;
 
 import android.os.Bundle;
 
 import vlab.android.architecture.R;
 import vlab.android.architecture.base.BaseActivity;
-import vlab.android.architecture.ui.login.LoginFragment;
+import vlab.android.architecture.feature.login.view.LoginFragment;
 import vlab.android.common.util.LogUtils;
 
 /**
