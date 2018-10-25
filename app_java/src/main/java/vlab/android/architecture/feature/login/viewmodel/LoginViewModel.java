@@ -9,7 +9,7 @@ import vlab.android.architecture.feature.validator.TextValidator;
 import vlab.android.architecture.model.UserInfo;
 import vlab.android.architecture.repository.LoginRepository;
 import vlab.android.common.util.LogUtils;
-import vlab.android.common.util.RxCommand;
+import vlab.android.common.util.RxTask;
 
 /**
  * Created by Vinh Tran on 2/15/18.
@@ -17,7 +17,7 @@ import vlab.android.common.util.RxCommand;
 
 public class LoginViewModel extends BaseViewModel {
 
-    private RxCommand<LoginRequestParam, UserInfo> mLoginCommand;
+    private RxTask<LoginRequestParam, UserInfo> mLoginTask;
     private TextValidator mTextValidator;
 
     // request param
@@ -28,19 +28,19 @@ public class LoginViewModel extends BaseViewModel {
 
         mTextValidator = textValidator;
 
-        mLoginCommand = new RxCommand<>(mLoginRequestParam, requestParam ->
+        mLoginTask = new RxTask<>(mLoginRequestParam, requestParam ->
                 repository.login(requestParam.userName, requestParam.pwd)
         );
 
         // add subscriptions
         addSubscriptions(
-                mLoginCommand.subscribe()
+                mLoginTask.subscribe()
         );
     }
 
     @Override
     public void onStartObservers() {
-        LogUtils.println(">>> LoginViewModel -> onStartObservers : mLoginCommand.onDataChanged().hasObservers() " + mLoginCommand.onDataChanged().hasObservers());
+        LogUtils.println(">>> LoginViewModel -> onStartObservers : mLoginTask.onDataChanged().hasObservers() " + mLoginTask.onDataChanged().hasObservers());
     }
 
     public void login(String userName, String pwd){
@@ -50,20 +50,20 @@ public class LoginViewModel extends BaseViewModel {
 
         if(isDataValid(mLoginRequestParam)){
             // execute command
-            mLoginCommand.execute();
+            mLoginTask.execute();
         }
     }
 
     public LiveData<UserInfo> onLoginSuccessObs() {
-        return mLoginCommand.onDataChanged();
+        return mLoginTask.onDataChanged();
     }
 
     public LiveData<Throwable> onLoginErrorObs() {
-        return mLoginCommand.onError();
+        return mLoginTask.onError();
     }
 
     public LiveData<Boolean> onLoadingObs() {
-        return mLoginCommand.onLoading();
+        return mLoginTask.onLoading();
     }
 
     public boolean isDataValid(LoginRequestParam param) {

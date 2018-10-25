@@ -10,14 +10,14 @@ import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 
 /**
- *  This is a wrapper class use RxJava to execute command, response a LiveData for consumers
+ *  This is a wrapper class use RxJava to execute task, response a LiveData for consumers
  *
  *  Created by Vinh Tran on 2/18/18.
  */
-public class RxCommand<DataRequest, DataResponse> {
+public class RxTask<DataRequest, DataResponse> {
 
     // execute command
-    PublishSubject<Object> mRxCommand = PublishSubject.create();
+    PublishSubject<Object> mTaskSubject = PublishSubject.create();
 
     BehaviorSubject<Boolean> mOnExecuting = BehaviorSubject.createDefault(false);
     Observable<DataResponse> mOnExecuted;
@@ -27,8 +27,8 @@ public class RxCommand<DataRequest, DataResponse> {
     MutableLiveData<Throwable> mOnError = new MutableLiveData<>();
     MutableLiveData<Boolean> mOnLoading = new MutableLiveData<>();
 
-    public RxCommand(DataRequest dataRequest, Function<DataRequest, Observable<DataResponse>> func) {
-        mOnExecuted = mRxCommand.withLatestFrom(mOnExecuting, (v, executing) -> executing)
+    public RxTask(DataRequest dataRequest, Function<DataRequest, Observable<DataResponse>> func) {
+        mOnExecuted = mTaskSubject.withLatestFrom(mOnExecuting, (v, executing) -> executing)
                 .filter(executing -> !executing)
                 .flatMap(v -> {
                     setExecuting(true);
@@ -61,7 +61,7 @@ public class RxCommand<DataRequest, DataResponse> {
     }
 
     public void execute() {
-        mRxCommand.onNext("");
+        mTaskSubject.onNext("");
     }
 
     public LiveData<DataResponse> onDataChanged() {
