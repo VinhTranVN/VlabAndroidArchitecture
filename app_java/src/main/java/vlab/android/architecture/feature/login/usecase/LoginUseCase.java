@@ -6,9 +6,9 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.Disposable;
 import vlab.android.architecture.base.IUseCase;
-import vlab.android.architecture.feature.validator.TextValidator;
 import vlab.android.architecture.model.UserInfo;
 import vlab.android.architecture.repository.LoginRepository;
+import vlab.android.architecture.util.TextValidator;
 import vlab.android.common.util.RxTask;
 
 /**
@@ -17,12 +17,9 @@ import vlab.android.common.util.RxTask;
 public class LoginUseCase implements IUseCase {
 
     private RxTask<LoginUseCase.LoginRequestParam, UserInfo> mLoginTask;
-    private TextValidator mTextValidator;
 
     @Inject
-    public LoginUseCase(LoginRepository repository, TextValidator textValidator){
-
-        mTextValidator = textValidator;
+    public LoginUseCase(LoginRepository repository){
 
         mLoginTask = new RxTask<>(requestData -> repository.login(requestData.mUserName, requestData.mPwd));
     }
@@ -56,8 +53,8 @@ public class LoginUseCase implements IUseCase {
 
     public boolean isDataValid(LoginUseCase.LoginRequestParam param) {
         return param != null
-                && mTextValidator.isUserNameValid(param.mUserName)
-                && mTextValidator.isPwdValid(param.mPwd);
+                && TextValidator.isUserNameValid(param.mUserName)
+                && TextValidator.isPwdValid(param.mPwd);
     }
 
     // request params

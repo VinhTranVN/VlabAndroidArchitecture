@@ -1,18 +1,18 @@
-package vlab.android.architecture.feature.validator;
+package vlab.android.architecture.util;
 
 /**
  * Created by Vinh Tran on 10/24/18.
  * just demo
  */
 public class TextValidator {
-    public boolean isUserNameValid(String userName){
+    public static boolean isUserNameValid(String userName){
         if(userName != null && !"".equals(userName)){
             return true;
         }
         return false;
     }
 
-    public boolean isPwdValid(String pwd) {
+    public static boolean isPwdValid(String pwd) {
         if(pwd != null && !"".equals(pwd)){
             return true;
         }

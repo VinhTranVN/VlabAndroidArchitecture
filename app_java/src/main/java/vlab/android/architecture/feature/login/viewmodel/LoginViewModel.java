@@ -17,7 +17,7 @@ public class LoginViewModel extends BaseViewModel {
     private LoginUseCase mLoginUseCase;
 
     @Inject
-    public LoginViewModel(LoginUseCase loginUseCase){
+    public LoginViewModel(LoginUseCase loginUseCase) {
         mLoginUseCase = loginUseCase;
 
         // add subscriptions
@@ -26,7 +26,7 @@ public class LoginViewModel extends BaseViewModel {
         );
     }
 
-    public void login(String userName, String pwd){
+    public void login(String userName, String pwd) {
         // map request data
         LoginUseCase.LoginRequestParam requestData = new LoginUseCase.LoginRequestParam(userName, pwd);
 

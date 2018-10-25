@@ -1,11 +1,8 @@
 package vlab.android.architecture.di.module;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import vlab.android.architecture.feature.login.usecase.LoginUseCase;
-import vlab.android.architecture.feature.validator.TextValidator;
 import vlab.android.architecture.repository.LoginRepository;
 
 /**
@@ -14,14 +11,8 @@ import vlab.android.architecture.repository.LoginRepository;
 @Module
 public class UseCaseModule {
 
-    @Singleton
     @Provides
-    TextValidator provideTextValidator(){
-        return new TextValidator();
-    }
-
-    @Provides
-    LoginUseCase provideLoginUC(LoginRepository repository, TextValidator textValidator){
-        return new LoginUseCase(repository, textValidator);
+    LoginUseCase provideLoginUC(LoginRepository repository){
+        return new LoginUseCase(repository);
     }
 }
