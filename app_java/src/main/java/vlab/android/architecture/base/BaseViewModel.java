@@ -40,9 +40,4 @@ public abstract class BaseViewModel extends ViewModel {
     public LifecycleOwner getLifeCycleOwner() {
         return mLifeCycleOwner;
     }
-
-    /**
-     * register observers livedata here, these observer will be auto remove follow lifecycle
-     */
-    protected abstract void onStartObservers();
 }

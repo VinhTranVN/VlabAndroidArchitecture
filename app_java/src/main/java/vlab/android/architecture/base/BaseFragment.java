@@ -79,8 +79,6 @@ public abstract class BaseFragment extends CommonFragment {
 
         viewModel.setLifeCycleOwner(this);
 
-        viewModel.onStartObservers();
-
         return viewModel;
     }
 

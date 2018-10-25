@@ -5,11 +5,8 @@ import android.arch.lifecycle.LiveData;
 import javax.inject.Inject;
 
 import vlab.android.architecture.base.BaseViewModel;
-import vlab.android.architecture.feature.validator.TextValidator;
+import vlab.android.architecture.feature.login.usecase.LoginUseCase;
 import vlab.android.architecture.model.UserInfo;
-import vlab.android.architecture.repository.LoginRepository;
-import vlab.android.common.util.LogUtils;
-import vlab.android.common.util.RxTask;
 
 /**
  * Created by Vinh Tran on 2/15/18.
@@ -17,72 +14,35 @@ import vlab.android.common.util.RxTask;
 
 public class LoginViewModel extends BaseViewModel {
 
-    private RxTask<LoginRequestParam, UserInfo> mLoginTask;
-    private TextValidator mTextValidator;
-
-    // request param
-    private LoginRequestParam mLoginRequestParam = new LoginRequestParam();
+    private LoginUseCase mLoginUseCase;
 
     @Inject
-    public LoginViewModel(LoginRepository repository, TextValidator textValidator){
-
-        mTextValidator = textValidator;
-
-        mLoginTask = new RxTask<>(mLoginRequestParam, requestParam ->
-                repository.login(requestParam.userName, requestParam.pwd)
-        );
+    public LoginViewModel(LoginUseCase loginUseCase){
+        mLoginUseCase = loginUseCase;
 
         // add subscriptions
         addSubscriptions(
-                mLoginTask.subscribe()
+                mLoginUseCase.subscribes()
         );
     }
 
-    @Override
-    public void onStartObservers() {
-        LogUtils.println(">>> LoginViewModel -> onStartObservers : mLoginTask.onDataChanged().hasObservers() " + mLoginTask.onDataChanged().hasObservers());
-    }
-
     public void login(String userName, String pwd){
-        // update params
-        mLoginRequestParam.userName = userName;
-        mLoginRequestParam.pwd = pwd;
+        // map request data
+        LoginUseCase.LoginRequestParam requestData = new LoginUseCase.LoginRequestParam(userName, pwd);
 
-        if(isDataValid(mLoginRequestParam)){
-            // execute command
-            mLoginTask.execute();
-        }
+        mLoginUseCase.login(requestData);
     }
 
     public LiveData<UserInfo> onLoginSuccessObs() {
-        return mLoginTask.onDataChanged();
+        return mLoginUseCase.onLoginSuccessObs();
     }
 
     public LiveData<Throwable> onLoginErrorObs() {
-        return mLoginTask.onError();
+        return mLoginUseCase.onLoginErrorObs();
     }
 
     public LiveData<Boolean> onLoadingObs() {
-        return mLoginTask.onLoading();
-    }
-
-    public boolean isDataValid(LoginRequestParam param) {
-        return param != null
-                && mTextValidator.isUserNameValid(param.userName)
-                && mTextValidator.isPwdValid(param.pwd);
-    }
-
-    // request params
-    public static class LoginRequestParam {
-        String userName;
-        String pwd;
-
-        public LoginRequestParam() {}
-
-        public LoginRequestParam(String userName, String pwd) {
-            this.userName = userName;
-            this.pwd = pwd;
-        }
+        return mLoginUseCase.onLoadingObs();
     }
 }
 
