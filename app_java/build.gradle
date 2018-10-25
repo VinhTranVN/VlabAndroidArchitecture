@@ -37,10 +37,8 @@ dependencies {
     implementation 'com.android.support:design:' + ROOT_SUPPORT_LIBRARY_VERSION
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.16.0'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    // Test helpers for LiveData
-    testImplementation "android.arch.core:core-testing:1.1.0"
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     // module dependency
     implementation project(':libs:common')
 
@@ -51,10 +49,12 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$ROOT_DAGGER_VERSION"
     annotationProcessor "com.google.dagger:dagger-android-processor:$ROOT_DAGGER_VERSION"
     // ViewModel and LiveData
-    implementation 'android.arch.lifecycle:extensions:1.1.0'
-    annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+    // Test helpers for LiveData
+    testImplementation "android.arch.core:core-testing:1.1.1"
     // Java8 support for Lifecycles
-    implementation 'android.arch.lifecycle:common-java8:1.1.0'
+    implementation 'android.arch.lifecycle:common-java8:1.1.1'
 
     implementation "io.reactivex.rxjava2:rxandroid:$ROOT_RX_ANDROID"
     implementation "io.reactivex.rxjava2:rxjava:$ROOT_RX_JAVA"

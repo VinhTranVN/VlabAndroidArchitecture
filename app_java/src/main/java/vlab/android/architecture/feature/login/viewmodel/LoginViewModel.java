@@ -1,7 +1,6 @@
 package vlab.android.architecture.feature.login.viewmodel;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 
 import javax.inject.Inject;
 
@@ -9,6 +8,7 @@ import vlab.android.architecture.base.BaseViewModel;
 import vlab.android.architecture.feature.validator.TextValidator;
 import vlab.android.architecture.model.UserInfo;
 import vlab.android.architecture.repository.LoginRepository;
+import vlab.android.common.util.LogUtils;
 import vlab.android.common.util.RxCommand;
 
 /**
@@ -19,8 +19,6 @@ public class LoginViewModel extends BaseViewModel {
 
     private RxCommand<LoginRequestParam, UserInfo> mLoginCommand;
     private TextValidator mTextValidator;
-    MutableLiveData<UserInfo> mOnLoginSuccessObs = new MutableLiveData<>();
-    MutableLiveData<Throwable> mOnLoginErrorObs = new MutableLiveData<>();
 
     // request param
     private LoginRequestParam mLoginRequestParam = new LoginRequestParam();
@@ -42,13 +40,7 @@ public class LoginViewModel extends BaseViewModel {
 
     @Override
     public void onStartObservers() {
-        mLoginCommand.onDataChanged().observe(mLifeCycleOwner, userInfoResponse -> {
-            if (userInfoResponse.getData() != null) {
-                mOnLoginSuccessObs.postValue(userInfoResponse.getData());
-            } else {
-                mOnLoginErrorObs.postValue(userInfoResponse.getError());
-            }
-        });
+        LogUtils.println(">>> LoginViewModel -> onStartObservers : mLoginCommand.onDataChanged().hasObservers() " + mLoginCommand.onDataChanged().hasObservers());
     }
 
     public void login(String userName, String pwd){
@@ -63,11 +55,11 @@ public class LoginViewModel extends BaseViewModel {
     }
 
     public LiveData<UserInfo> onLoginSuccessObs() {
-        return mOnLoginSuccessObs;
+        return mLoginCommand.onDataChanged();
     }
 
     public LiveData<Throwable> onLoginErrorObs() {
-        return mOnLoginErrorObs;
+        return mLoginCommand.onError();
     }
 
     public LiveData<Boolean> onLoadingObs() {
