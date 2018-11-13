@@ -13,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import io.reactivex.Observable;
 import vlab.android.architecture.model.UserInfo;
 import vlab.android.architecture.repository.LoginRepository;
-import vlab.android.architecture.util.TextValidator;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -41,7 +40,7 @@ public class LoginUseCaseTest {
 
         mLoginRequestParam = new LoginUseCase.LoginRequestParam("abc", "123");
 
-        mLoginUseCase = new LoginUseCase(mLoginRepository, new TextValidator());
+        mLoginUseCase = new LoginUseCase(mLoginRepository);
         mLoginUseCase.subscribes();
     }
 
