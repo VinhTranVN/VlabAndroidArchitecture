@@ -36,12 +36,16 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:' + ROOT_SUPPORT_LIBRARY_VERSION
     implementation 'com.android.support:design:' + ROOT_SUPPORT_LIBRARY_VERSION
+    implementation 'com.android.support:support-v4:' + ROOT_SUPPORT_LIBRARY_VERSION
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.16.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     // module dependency
     implementation project(':libs:common')
+
+    // Navigation Dependencies
+    implementation 'android.arch.navigation:navigation-fragment:' + ROOT_NAVIGATION_FRAGMENT
 
     // dagger 2
     implementation "com.google.dagger:dagger:$ROOT_DAGGER_VERSION"

@@ -22,6 +22,10 @@ public abstract class BaseViewModel extends ViewModel {
         mCompositeDisposable.addAll(disposables);
     }
 
+    protected BaseViewModel(){
+
+    }
+
     @Override
     protected void onCleared() {
         mCompositeDisposable.clear();

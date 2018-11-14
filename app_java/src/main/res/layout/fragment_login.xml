@@ -5,16 +5,16 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="@dimen/activity_vertical_margin"
-    tools:context="vlab.android.architecture.feature.login.view.LoginFragment">
+    android:padding="16dp"
+    tools:context=".feature.login.LoginFragment">
 
     <!-- Login progress -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#00f"
         android:padding="5dp"
-        android:text="@string/login_github_account"/>
+        android:text="@string/login_github_account"
+        android:textColor="#00f"/>
 
     <ScrollView
         android:id="@+id/login_form"
@@ -61,6 +61,15 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
+                android:id="@+id/btn_guest"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/action_guest"
+                android:textStyle="bold"/>
+
+            <Button
                 android:id="@+id/btn_sign_in"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
@@ -73,11 +82,10 @@
                 android:id="@+id/tv_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#3d9c4d"
-                android:padding="@dimen/activity_vertical_margin"
                 android:gravity="center"
-                tools:text="Login Result"
-                />
+                android:padding="16dp"
+                android:textColor="#3d9c4d"
+                tools:text="Login Result"/>
 
         </LinearLayout>
     </ScrollView>

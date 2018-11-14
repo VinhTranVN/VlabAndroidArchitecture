@@ -3,6 +3,7 @@ package vlab.android.architecture.base;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,8 +45,9 @@ public abstract class BaseFragment extends CommonFragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        LogUtils.d(getClass().getSimpleName(), ">>> onViewCreated: ");
 
         initViewModel();
 
@@ -83,12 +85,12 @@ public abstract class BaseFragment extends CommonFragment {
     }
 
     /**
-     * init view model, was called in onActivityCreated()
+     * init view model, was called in onViewCreated()
      */
     protected abstract void initViewModel();
 
     /**
-     * bind data, was called in onActivityCreated() after initViewModel()
+     * bind data, was called in onViewCreated() after initViewModel()
      */
     protected abstract void bindViewModel();
 }

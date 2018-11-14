@@ -43,6 +43,8 @@ configurations.all { config ->
 ext {
     ROOT_COMPILE_SDK_VERSION = 28
 
+    ROOT_NAVIGATION_FRAGMENT = '1.0.0-alpha07'
+
     ROOT_DAGGER_VERSION = '2.13'
 
     ROOT_GOOGLE_PLAY_SERVICE_VERSION = '11.8.0'

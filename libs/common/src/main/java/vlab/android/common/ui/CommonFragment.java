@@ -36,11 +36,10 @@ public abstract class CommonFragment extends Fragment implements Injectable {
      */
     protected abstract int getLayoutRes();
 
-    public synchronized void showProgressDialog(boolean isShow){
+    public void showProgressDialog(boolean isShow){
         LogUtils.d(getClass().getSimpleName(), ">>> showProgressDialog " + isShow);
         try {
             CommonProgressDialogFragment progressDialog = (CommonProgressDialogFragment) getChildFragmentManager().findFragmentByTag("ProgressDialogFragment");
-
             if (progressDialog == null) {
                 progressDialog = CommonProgressDialogFragment.newInstance(null, 1);
             }
@@ -50,9 +49,7 @@ public abstract class CommonFragment extends Fragment implements Injectable {
                     progressDialog.show(getChildFragmentManager(), "ProgressDialogFragment");
                 }
             } else {
-                if (progressDialog.isAdded()) {
-                    progressDialog.dismissAllowingStateLoss();
-                }
+                progressDialog.dismiss();
             }
         } catch (Exception e) {
             e.printStackTrace();

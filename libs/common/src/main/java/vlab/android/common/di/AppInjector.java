@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 
 import dagger.android.AndroidInjection;
 import dagger.android.support.AndroidSupportInjection;
@@ -39,6 +40,7 @@ public class AppInjector {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 if (activity instanceof HasSupportFragmentInjector) {
+                    Log.i("AppInjector", ">>> onActivityCreated: AndroidInjection.inject(activity) " + activity.getClass().getSimpleName());
                     AndroidInjection.inject(activity);
                 }
                 if (activity instanceof FragmentActivity) {
@@ -49,7 +51,7 @@ public class AppInjector {
                                         @Override
                                         public void onFragmentCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
                                             if (f instanceof Injectable) {
-                                                //LogUtils.d(getClass().getSimpleName(), ">>> onFragmentCreated: AndroidSupportInjection.inject(f)");
+                                                Log.i("AppInjector", ">>> onFragmentCreated: AndroidSupportInjection.inject(f) " + f.getClass().getSimpleName());
                                                 AndroidSupportInjection.inject(f);
                                             }
                                         }

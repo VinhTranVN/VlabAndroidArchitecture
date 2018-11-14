@@ -1,5 +1,6 @@
-package vlab.android.architecture.feature.login.view;
+package vlab.android.architecture.feature.login;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -10,8 +11,8 @@ import android.widget.TextView;
 import vlab.android.architecture.R;
 import vlab.android.architecture.base.BaseErrorHandler;
 import vlab.android.architecture.base.BaseFragment;
-import vlab.android.architecture.feature.login.LoginErrorHandler;
 import vlab.android.architecture.feature.login.viewmodel.LoginViewModel;
+import vlab.android.common.util.LogUtils;
 
 /**
  * A login screen that offers login via email/password.
@@ -21,6 +22,22 @@ public class LoginFragment extends BaseFragment {
     private TextView mTvResult;
     // view model for login
     private LoginViewModel mViewModel;
+
+    private OnLoginFragmentListener mListener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnLoginFragmentListener) {
+            mListener = (OnLoginFragmentListener) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
 
     @Override
     protected BaseErrorHandler getErrorHandler() {
@@ -40,6 +57,12 @@ public class LoginFragment extends BaseFragment {
         EditText password = view.findViewById(R.id.password);
         mTvResult = view.findViewById(R.id.tv_result);
 
+        view.findViewById(R.id.btn_guest).setOnClickListener(view1 -> {
+            if (mListener != null) {
+                mListener.onLoginAsGuest();
+            }
+        });
+
         view.findViewById(R.id.btn_sign_in).setOnClickListener(view1 -> {
             mViewModel.login(email.getText().toString(), password.getText().toString());
         });
@@ -54,14 +77,25 @@ public class LoginFragment extends BaseFragment {
     protected void bindViewModel() {
 
         mViewModel.onLoginSuccessObs().observe(this, userModel -> {
+            LogUtils.println(">>> LoginFragment -> onLoginSuccessObs");
             mTvResult.setText(getString(R.string.login_success, userModel.getUserName()));
+            if (mListener != null) {
+                mListener.onLoginSuccess( userModel.getUserName());
+            }
         });
 
-        mViewModel.onLoginErrorObs().observe(this, error -> {
-            mTvResult.setText(mErrorHandler.parseError(error));
-        });
+        mViewModel.onLoginErrorObs().observe(this, error -> mTvResult.setText(mErrorHandler.parseError(error)));
 
         mViewModel.onLoadingObs().observe(this, this::showProgressDialog);
+    }
+
+    public void setOnLoginFragmentListener(OnLoginFragmentListener fragmentListener) {
+        mListener = fragmentListener;
+    }
+
+    public interface OnLoginFragmentListener {
+        void onLoginAsGuest();
+        void onLoginSuccess(String userName);
     }
 }
 
