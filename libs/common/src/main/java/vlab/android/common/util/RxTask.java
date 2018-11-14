@@ -16,28 +16,31 @@ import io.reactivex.subjects.PublishSubject;
 public class RxTask<DataRequest, DataResponse> {
 
     // execute command
-    PublishSubject<DataRequest> mTaskSubject = PublishSubject.create();
+    private PublishSubject<DataRequest> mTaskSubject = PublishSubject.create();
 
-    Observable<DataResponse> mOnExecuted;
+    private Observable<DataResponse> mOnExecuted;
 
     /* live data for data change and loading */
-    MutableLiveData<DataResponse> mOnDataChanged = new MutableLiveData<>();
-    MutableLiveData<Throwable> mOnError = new MutableLiveData<>();
-    MutableLiveData<Boolean> mOnLoading = new MutableLiveData<>();
+    private MutableLiveData<DataResponse> mOnDataChanged = new MutableLiveData<>();
+    private MutableLiveData<Throwable> mOnError = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mOnLoading = new MutableLiveData<>();
 
     private boolean mIsExecuting = false;
+    private Disposable mDisposable;
 
     public RxTask(Function<DataRequest, Observable<DataResponse>> func) {
         mOnExecuted =
                 mTaskSubject
+                        .doOnNext(dataRequest -> System.out.println(">>> RxTask doOnNext 1 " + dataRequest))
                         .filter(requestData -> !mIsExecuting)
+                        .doOnNext(dataRequest -> System.out.println(">>> RxTask doOnNext 2 " + dataRequest))
                         .flatMap(requestData -> {
 
                             setExecuting(true);
 
                             return func.apply(requestData)
                                     .doOnError(error -> {
-                                        LogUtils.d(getClass().getSimpleName(), ">>> RxCommand error " + error.getMessage());
+                                        LogUtils.d(getClass().getSimpleName(), ">>> RxTask error " + error.getMessage());
                                         setExecuting(false);
                                         mOnError.postValue(error);
                                     })
@@ -45,7 +48,7 @@ public class RxTask<DataRequest, DataResponse> {
                                         return Observable.empty();
                                     })
                                     .doOnNext(dataResponse -> {
-                                        LogUtils.d(getClass().getSimpleName(), ">>> RxCommand: doOnNext");
+                                        LogUtils.d(getClass().getSimpleName(), ">>> RxTask: doOnNext 3");
                                         setExecuting(false);
                                         mOnDataChanged.postValue(dataResponse);
                                     });
@@ -54,7 +57,8 @@ public class RxTask<DataRequest, DataResponse> {
     }
 
     public Disposable subscribe(){
-        return mOnExecuted.subscribe();
+        mDisposable = mOnExecuted.subscribe();
+        return mDisposable;
     }
 
     private void setExecuting(boolean isExecuting) {
@@ -65,6 +69,10 @@ public class RxTask<DataRequest, DataResponse> {
 
     public void execute(DataRequest dataRequest) {
         mTaskSubject.onNext(dataRequest);
+    }
+
+    public void cancel(){
+        mDisposable.dispose();
     }
 
     public LiveData<DataResponse> onDataChanged() {
