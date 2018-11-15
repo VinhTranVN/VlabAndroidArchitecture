@@ -41,7 +41,6 @@ public class LoginUseCaseTest {
         mLoginRequestParam = new LoginUseCase.LoginRequestParam("abc", "123");
 
         mLoginUseCase = new LoginUseCase(mLoginRepository);
-        mLoginUseCase.subscribes();
     }
 
     @Test

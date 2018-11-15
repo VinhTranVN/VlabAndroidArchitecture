@@ -1,6 +1,7 @@
 package vlab.android.common.ui;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -36,12 +37,16 @@ public abstract class CommonFragment extends Fragment implements Injectable {
      */
     protected abstract int getLayoutRes();
 
-    public void showProgressDialog(boolean isShow){
+    public void showProgressDialog(boolean isShow) {
+        showProgressDialog(isShow, null);
+    }
+
+    public void showProgressDialog(boolean isShow, @Nullable DialogInterface.OnDismissListener onDismissListener){
         LogUtils.d(getClass().getSimpleName(), ">>> showProgressDialog " + isShow);
         try {
             CommonProgressDialogFragment progressDialog = (CommonProgressDialogFragment) getChildFragmentManager().findFragmentByTag("ProgressDialogFragment");
             if (progressDialog == null) {
-                progressDialog = CommonProgressDialogFragment.newInstance(null, 1);
+                progressDialog = CommonProgressDialogFragment.newInstance();
             }
 
             if (isShow) {
@@ -50,6 +55,9 @@ public abstract class CommonFragment extends Fragment implements Injectable {
                 }
             } else {
                 progressDialog.dismiss();
+                if(onDismissListener != null){
+                    onDismissListener.onDismiss(null);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

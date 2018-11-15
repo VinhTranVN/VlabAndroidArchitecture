@@ -4,8 +4,7 @@ import android.arch.lifecycle.LiveData;
 
 import javax.inject.Inject;
 
-import io.reactivex.disposables.Disposable;
-import vlab.android.architecture.base.IUseCase;
+import vlab.android.architecture.base.BaseUseCase;
 import vlab.android.architecture.model.UserInfo;
 import vlab.android.architecture.repository.LoginRepository;
 import vlab.android.architecture.util.TextValidator;
@@ -14,7 +13,7 @@ import vlab.android.common.util.RxTask;
 /**
  * Created by Vinh.Tran on 10/25/18.
  **/
-public class LoginUseCase implements IUseCase {
+public class LoginUseCase extends BaseUseCase {
 
     private RxTask<LoginUseCase.LoginRequestParam, UserInfo> mLoginTask;
 
@@ -25,10 +24,9 @@ public class LoginUseCase implements IUseCase {
     }
 
     @Override
-    public Disposable[] subscribes() {
-        return new Disposable[]{
-                mLoginTask.subscribe()
-        };
+    public void onCleared() {
+        mLoginTask.destroy();
+        super.onCleared();
     }
 
     public void login(LoginUseCase.LoginRequestParam loginRequestParam){
@@ -39,8 +37,12 @@ public class LoginUseCase implements IUseCase {
         }
     }
 
+    public void cancelLoginRequest(){
+        mLoginTask.cancel();
+    }
+
     public LiveData<UserInfo> onLoginSuccessObs() {
-        return mLoginTask.onDataChanged();
+        return mLoginTask.onSingleLiveDataChanged();
     }
 
     public LiveData<Throwable> onLoginErrorObs() {

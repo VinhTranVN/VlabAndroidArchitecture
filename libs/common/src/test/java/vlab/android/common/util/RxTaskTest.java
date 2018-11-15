@@ -41,7 +41,7 @@ public class RxTaskTest {
     @Test
     public void testExecuteTask(){
         Observer<String> observer = mock(Observer.class);
-        mRxTask.onDataChanged().observeForever(observer);
+        mRxTask.onSingleLiveDataChanged().observeForever(observer);
         mRxTask.execute("123");
 
         /*try {

@@ -19,11 +19,12 @@ public class LoginViewModel extends BaseViewModel {
     @Inject
     public LoginViewModel(LoginUseCase loginUseCase) {
         mLoginUseCase = loginUseCase;
+    }
 
-        // add subscriptions
-        addSubscriptions(
-                mLoginUseCase.subscribes()
-        );
+    @Override
+    protected void onCleared() {
+        mLoginUseCase.onCleared();
+        super.onCleared();
     }
 
     public void login(String userName, String pwd) {
@@ -31,6 +32,10 @@ public class LoginViewModel extends BaseViewModel {
         LoginUseCase.LoginRequestParam requestData = new LoginUseCase.LoginRequestParam(userName, pwd);
 
         mLoginUseCase.login(requestData);
+    }
+
+    public void cancelLogin(){
+        mLoginUseCase.cancelLoginRequest();
     }
 
     public LiveData<UserInfo> onLoginSuccessObs() {

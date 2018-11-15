@@ -21,26 +21,24 @@ public class RxTask<DataRequest, DataResponse> {
     private Observable<DataResponse> mOnExecuted;
 
     /* live data for data change and loading */
-    private MutableLiveData<DataResponse> mOnDataChanged = new MutableLiveData<>();
-    private MutableLiveData<Throwable> mOnError = new MutableLiveData<>();
-    private MutableLiveData<Boolean> mOnLoading = new MutableLiveData<>();
+    private SingleLiveData<DataResponse> mOnSingleLiveDataChanged = new SingleLiveData<>();
+    private MutableLiveData<DataResponse> mOnLiveDataChanged = new MutableLiveData<>();
+    private SingleLiveData<Throwable> mOnError = new SingleLiveData<>();
+    private SingleLiveData<Boolean> mOnLoading = new SingleLiveData<>();
 
     private boolean mIsExecuting = false;
     private Disposable mDisposable;
 
     public RxTask(Function<DataRequest, Observable<DataResponse>> func) {
-        mOnExecuted =
-                mTaskSubject
-                        .doOnNext(dataRequest -> System.out.println(">>> RxTask doOnNext 1 " + dataRequest))
+        mOnExecuted = mTaskSubject
                         .filter(requestData -> !mIsExecuting)
-                        .doOnNext(dataRequest -> System.out.println(">>> RxTask doOnNext 2 " + dataRequest))
                         .flatMap(requestData -> {
 
                             setExecuting(true);
 
                             return func.apply(requestData)
                                     .doOnError(error -> {
-                                        LogUtils.d(getClass().getSimpleName(), ">>> RxTask error " + error.getMessage());
+                                        LogUtils.e(getClass().getSimpleName(), ">>> RxTask error " + error.getMessage());
                                         setExecuting(false);
                                         mOnError.postValue(error);
                                     })
@@ -48,17 +46,15 @@ public class RxTask<DataRequest, DataResponse> {
                                         return Observable.empty();
                                     })
                                     .doOnNext(dataResponse -> {
-                                        LogUtils.d(getClass().getSimpleName(), ">>> RxTask: doOnNext 3");
+                                        LogUtils.d(getClass().getSimpleName(), ">>> RxTask: doOnNext");
                                         setExecuting(false);
-                                        mOnDataChanged.postValue(dataResponse);
+                                        mOnSingleLiveDataChanged.postValue(dataResponse);
+                                        mOnLiveDataChanged.postValue(dataResponse);
                                     });
                         })
                         .doOnDispose(() -> setExecuting(false));
-    }
 
-    public Disposable subscribe(){
         mDisposable = mOnExecuted.subscribe();
-        return mDisposable;
     }
 
     private void setExecuting(boolean isExecuting) {
@@ -71,12 +67,42 @@ public class RxTask<DataRequest, DataResponse> {
         mTaskSubject.onNext(dataRequest);
     }
 
-    public void cancel(){
-        mDisposable.dispose();
+    public void cancel() {
+        if (mDisposable != null && !mDisposable.isDisposed()) {
+            mDisposable.dispose();
+            LogUtils.w(getClass().getSimpleName(), ">>> RxTask canceled mDisposable.isDisposed() " + mDisposable.isDisposed());
+            // resubscribe
+            if(mDisposable.isDisposed()){
+                // resubscribe observable
+                mDisposable = mOnExecuted.subscribe();
+            }
+        }
     }
 
-    public LiveData<DataResponse> onDataChanged() {
-        return mOnDataChanged;
+    public void destroy(){
+        cancel();
+        mDisposable = null;
+    }
+
+    /**
+     * A lifecycle-aware observable that sends only new updates after subscription, used for events like
+     * navigation and Snackbar messages.
+     * <p>
+     * This avoids a common problem with events: on configuration change (like rotation) an update
+     * can be emitted if the observer is active. This LiveData only calls the observable if there's an
+     * explicit call to setValue() or call().
+     * <p>
+     * Note that only one observer is going to be notified of changes.
+     */
+    public LiveData<DataResponse> onSingleLiveDataChanged() {
+        return mOnSingleLiveDataChanged;
+    }
+
+    /**
+     * @return LiveData
+     */
+    public LiveData<DataResponse> onLiveDataChanged() {
+        return mOnLiveDataChanged;
     }
 
     public LiveData<Boolean> onLoading() {

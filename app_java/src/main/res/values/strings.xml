@@ -6,6 +6,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_guest">Guest</string>
     <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_cancel">Cancel Request Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_common">Something went wrong, please try again</string>
     <string name="error_invalid_email">This email address is invalid</string>

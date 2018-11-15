@@ -46,6 +46,13 @@ public class LogUtils {
         }
     }
 
+    // log warn
+    public static void w(String tag, String msg) {
+        if (msg != null && isDebuggable) {
+            Log.w(tag, msg);
+        }
+    }
+
     // log error
     public static void e(String tag, String msg) {
         if (msg != null && isDebuggable) {

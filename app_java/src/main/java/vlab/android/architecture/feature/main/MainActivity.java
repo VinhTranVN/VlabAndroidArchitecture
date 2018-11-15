@@ -44,10 +44,14 @@ public class MainActivity extends BaseActivity implements
     public void onLoginSuccess(String userName) {
         Bundle args = new Bundle();
         args.putString(HomeFragment.ARG_USER_NAME, userName);
-        getNavController().navigate(R.id.homeFragment, args,
-                new NavOptions.Builder()
-                        .setPopUpTo(R.id.navigation_graph, true)
-                        .build());
+
+        NavOptions navOptions = new NavOptions.Builder()
+                .setPopUpTo(R.id.navigation_graph, true)
+                .build();
+
+        getNavController().navigate(R.id.homeFragment, args
+                //, navOptions
+        );
     }
 }
 

@@ -67,16 +67,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_guest"
+                android:background="#abc635"
                 android:textStyle="bold"/>
 
             <Button
+                android:layout_marginTop="5dp"
                 android:id="@+id/btn_sign_in"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
+                android:background="#33aebc"
                 android:textStyle="bold"/>
+
+            <Button
+                android:layout_marginTop="5dp"
+                android:id="@+id/btn_cancel_sign_in"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_sign_in_cancel"
+                android:background="#e99218"
+                android:textStyle="bold"/>
+
+            <ProgressBar
+                android:padding="5dp"
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
 
             <TextView
                 android:id="@+id/tv_result"
@@ -89,4 +110,6 @@
 
         </LinearLayout>
     </ScrollView>
+
+
 </LinearLayout>

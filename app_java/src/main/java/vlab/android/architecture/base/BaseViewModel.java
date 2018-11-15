@@ -7,6 +7,7 @@ import android.content.Context;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import vlab.android.architecture.MyApplication;
+import vlab.android.common.util.LogUtils;
 
 
 /**
@@ -28,6 +29,7 @@ public abstract class BaseViewModel extends ViewModel {
 
     @Override
     protected void onCleared() {
+        LogUtils.d(getClass().getSimpleName(), ">>> onCleared: ");
         mCompositeDisposable.clear();
         mLifeCycleOwner = null;
         super.onCleared();

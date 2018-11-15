@@ -22,6 +22,7 @@ public class LoginFragment extends BaseFragment {
     private TextView mTvResult;
     // view model for login
     private LoginViewModel mViewModel;
+    private View mProgressView;
 
     private OnLoginFragmentListener mListener;
 
@@ -50,12 +51,13 @@ public class LoginFragment extends BaseFragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@Nullable View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         AutoCompleteTextView email = view.findViewById(R.id.email);
         EditText password = view.findViewById(R.id.password);
         mTvResult = view.findViewById(R.id.tv_result);
+        mProgressView = view.findViewById(R.id.progressBar);
 
         view.findViewById(R.id.btn_guest).setOnClickListener(view1 -> {
             if (mListener != null) {
@@ -65,6 +67,10 @@ public class LoginFragment extends BaseFragment {
 
         view.findViewById(R.id.btn_sign_in).setOnClickListener(view1 -> {
             mViewModel.login(email.getText().toString(), password.getText().toString());
+        });
+
+        view.findViewById(R.id.btn_cancel_sign_in).setOnClickListener(view1 -> {
+            mViewModel.cancelLogin();
         });
     }
 
@@ -86,7 +92,9 @@ public class LoginFragment extends BaseFragment {
 
         mViewModel.onLoginErrorObs().observe(this, error -> mTvResult.setText(mErrorHandler.parseError(error)));
 
-        mViewModel.onLoadingObs().observe(this, this::showProgressDialog);
+        mViewModel.onLoadingObs().observe(this, isShow -> {
+            mProgressView.setVisibility(isShow ? View.VISIBLE : View.INVISIBLE);
+        });
     }
 
     public void setOnLoginFragmentListener(OnLoginFragmentListener fragmentListener) {
