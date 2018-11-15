@@ -67,20 +67,32 @@ public class RxTask<DataRequest, DataResponse> {
         mTaskSubject.onNext(dataRequest);
     }
 
-    public void cancel() {
+    /**
+     * cancel current request
+     */
+    public void cancel(){
+        cancel(true);
+    }
+
+    /**
+     *
+     * @param isResubscribe true for re-subscribe, false for other
+     */
+    private void cancel(boolean isResubscribe) {
         if (mDisposable != null && !mDisposable.isDisposed()) {
             mDisposable.dispose();
             LogUtils.w(getClass().getSimpleName(), ">>> RxTask canceled mDisposable.isDisposed() " + mDisposable.isDisposed());
             // resubscribe
-            if(mDisposable.isDisposed()){
+            if(mDisposable.isDisposed() && isResubscribe){
                 // resubscribe observable
                 mDisposable = mOnExecuted.subscribe();
+                LogUtils.i(getClass().getSimpleName(), ">>> RxTask resubscribe : mDisposable@" + mDisposable.hashCode());
             }
         }
     }
 
     public void destroy(){
-        cancel();
+        cancel(false);
         mDisposable = null;
     }
 
