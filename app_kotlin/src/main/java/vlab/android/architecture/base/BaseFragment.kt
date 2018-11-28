@@ -1,16 +1,14 @@
 package vlab.android.architecture.base
 
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import vlab.android.architecture.R
-
 import vlab.android.common.ui.CommonFragment
 import vlab.android.common.util.LogUtils
+import javax.inject.Inject
 
 /**
  * Created by Vinh Tran on 2/15/18.
@@ -18,10 +16,19 @@ import vlab.android.common.util.LogUtils
 
 abstract class BaseFragment : CommonFragment() {
 
+    @Inject
+    lateinit var mViewModelFactory: ViewModelProvider.Factory
+
+    protected lateinit var mErrorHandler: BaseErrorHandler
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LogUtils.d(javaClass.simpleName, ">>> onCreate")
-        initViewModel()
+        mErrorHandler = getErrorHandler()
+    }
+
+    protected open fun getErrorHandler(): BaseErrorHandler {
+        return BaseErrorHandler()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -32,12 +39,20 @@ abstract class BaseFragment : CommonFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        LogUtils.d(javaClass.simpleName, ">>> onViewCreated: ")
+
+        initViewModel()
 
         bindViewModel()
     }
 
-    protected fun getNavController(): NavController {
-        return Navigation.findNavController(activity!!, R.id.navigation_host_fragment)
+    /**
+     * provide ViewModel for this fragment
+     * @param vmClass
+     * @return ViewModel for this fragment
+     */
+    protected fun <T : BaseViewModel> provideViewModel(vmClass: Class<T>): T {
+        return provideViewModel(vmClass, false)
     }
 
     /**
@@ -51,27 +66,23 @@ abstract class BaseFragment : CommonFragment() {
         // in case we want to share ViewMode with other fragments belong the activity
         val viewModel: T
         if (isShareSameActivity) {
-            viewModel = ViewModelProviders.of(activity!!).get(vmClass)
+            viewModel = ViewModelProviders.of(activity!!, mViewModelFactory).get(vmClass)
         } else {
-            viewModel = ViewModelProviders.of(this).get(vmClass)
+            viewModel = ViewModelProviders.of(this, mViewModelFactory).get(vmClass)
         }
 
-        viewModel.mLifeCycleOwner = this
+        viewModel.setLifeCycleOwner(this)
 
         return viewModel
     }
 
     /**
-     * init view model
+     * init view model, was called in onViewCreated()
      */
-    protected open fun initViewModel() {
-
-    }
+    protected abstract fun initViewModel()
 
     /**
-     * bind data
+     * bind data, was called in onViewCreated() after initViewModel()
      */
-    protected open fun bindViewModel() {
-
-    }
+    protected abstract fun bindViewModel()
 }

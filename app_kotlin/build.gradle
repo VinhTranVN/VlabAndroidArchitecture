@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion ROOT_COMPILE_SDK_VERSION
@@ -35,17 +34,25 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:' + ROOT_SUPPORT_LIBRARY_VERSION
     implementation 'com.android.support:recyclerview-v7:' + ROOT_SUPPORT_LIBRARY_VERSION
     implementation 'com.android.support:support-v4:' + ROOT_SUPPORT_LIBRARY_VERSION
+    implementation 'com.android.support:design:' + ROOT_SUPPORT_LIBRARY_VERSION
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     //------------------ others libs -----------------------//
     implementation project(':libs:common')
     // Navigation Dependencies
-    implementation 'android.arch.navigation:navigation-fragment:1.0.0-alpha06'
+    implementation 'android.arch.navigation:navigation-fragment:' + ROOT_NAVIGATION_FRAGMENT
 
+    // dagger 2
+    kapt "com.google.dagger:dagger-compiler:$ROOT_DAGGER_VERSION"
+    implementation "com.google.dagger:dagger:$ROOT_DAGGER_VERSION"
+    kapt "com.google.dagger:dagger-android-processor:$ROOT_DAGGER_VERSION"
+    implementation "com.google.dagger:dagger-android-support:$ROOT_DAGGER_VERSION"
     // ViewModel and LiveData
     implementation 'android.arch.lifecycle:extensions:1.1.1'
-    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+    kapt "android.arch.lifecycle:compiler:1.1.1"
+    // Test helpers for LiveData
+    testImplementation "android.arch.core:core-testing:1.1.1"
 
     implementation "io.reactivex.rxjava2:rxandroid:$ROOT_RX_ANDROID"
     implementation "io.reactivex.rxjava2:rxjava:$ROOT_RX_JAVA"
@@ -57,4 +64,11 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$ROOT_RETROFIT_VERSION"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$ROOT_RETROFIT_VERSION"
     implementation "com.squareup.okhttp3:logging-interceptor:$ROOT_OKHTTP_VERSION"
+
+    // leak detect
+    //debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    //releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
 }

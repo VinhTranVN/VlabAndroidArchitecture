@@ -21,6 +21,6 @@ abstract class BaseDialogFragment : DialogFragment() {
     abstract fun getLayoutId() : Int
 
     protected fun getNavController(): NavController {
-        return Navigation.findNavController(activity!!, R.id.navigation_host_fragment)
+        return Navigation.findNavController(activity!!, R.id.host_fragment)
     }
 }

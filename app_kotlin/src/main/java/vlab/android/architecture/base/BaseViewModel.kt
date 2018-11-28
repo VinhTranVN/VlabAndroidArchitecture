@@ -7,6 +7,7 @@ import android.content.Context
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import vlab.android.architecture.MyApplication
+import vlab.android.common.util.LogUtils
 
 
 /**
@@ -15,19 +16,33 @@ import vlab.android.architecture.MyApplication
 
 open class BaseViewModel : ViewModel() {
 
-    private var mCompositeDisposable = CompositeDisposable()
-    var mLifeCycleOwner: LifecycleOwner? = null
-
-    val appContext: Context
-        get() = MyApplication.instance!!.applicationContext
+    protected var mCompositeDisposable = CompositeDisposable()
+    protected var mLifeCycleOwner: LifecycleOwner? = null
 
     protected fun addSubscriptions(vararg disposables: Disposable) {
         mCompositeDisposable.addAll(*disposables)
     }
 
+    protected fun BaseViewModel() {
+
+    }
+
     override fun onCleared() {
-        super.onCleared()
+        LogUtils.d(javaClass.simpleName, ">>> onCleared: ")
         mCompositeDisposable.clear()
         mLifeCycleOwner = null
+        super.onCleared()
+    }
+
+    fun getAppContext(): Context {
+        return MyApplication.getInstance().getApplicationContext()
+    }
+
+    fun setLifeCycleOwner(lifeCycleOwner: LifecycleOwner) {
+        mLifeCycleOwner = lifeCycleOwner
+    }
+
+    fun getLifeCycleOwner(): LifecycleOwner? {
+        return mLifeCycleOwner
     }
 }
