@@ -1,12 +1,13 @@
 package vlab.android.architecture.feature.login.viewmodel;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Transformations;
 
 import javax.inject.Inject;
 
 import vlab.android.architecture.base.BaseViewModel;
+import vlab.android.architecture.feature.login.model.UserInfo;
 import vlab.android.architecture.feature.login.usecase.LoginUseCase;
-import vlab.android.architecture.model.UserInfo;
 
 /**
  * Created by Vinh Tran on 2/15/18.
@@ -39,7 +40,7 @@ public class LoginViewModel extends BaseViewModel {
     }
 
     public LiveData<UserInfo> onLoginSuccessObs() {
-        return mLoginUseCase.onLoginSuccessObs();
+        return Transformations.map(mLoginUseCase.onLoginSuccessObs(), UserInfo::new);
     }
 
     public LiveData<Throwable> onLoginErrorObs() {

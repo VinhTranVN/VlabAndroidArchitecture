@@ -6,16 +6,10 @@ package vlab.android.architecture.util;
  */
 public class TextValidator {
     public static boolean isUserNameValid(String userName){
-        if(userName != null && !"".equals(userName)){
-            return true;
-        }
-        return false;
+        return userName != null && !"".equals(userName);
     }
 
     public static boolean isPwdValid(String pwd) {
-        if(pwd != null && !"".equals(pwd)){
-            return true;
-        }
-        return false;
+        return pwd != null && !"".equals(pwd);
     }
 }

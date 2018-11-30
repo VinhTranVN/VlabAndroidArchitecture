@@ -5,8 +5,8 @@ import android.arch.lifecycle.LiveData;
 import javax.inject.Inject;
 
 import vlab.android.architecture.base.BaseUseCase;
-import vlab.android.architecture.model.UserInfo;
 import vlab.android.architecture.repository.LoginRepository;
+import vlab.android.architecture.repository.source.remote.response.UserResponse;
 import vlab.android.architecture.util.TextValidator;
 import vlab.android.common.util.RxTask;
 
@@ -15,7 +15,7 @@ import vlab.android.common.util.RxTask;
  **/
 public class LoginUseCase extends BaseUseCase {
 
-    private RxTask<LoginUseCase.LoginRequestParam, UserInfo> mLoginTask;
+    private RxTask<LoginUseCase.LoginRequestParam, UserResponse> mLoginTask;
 
     @Inject
     public LoginUseCase(LoginRepository repository){
@@ -41,7 +41,7 @@ public class LoginUseCase extends BaseUseCase {
         mLoginTask.cancel();
     }
 
-    public LiveData<UserInfo> onLoginSuccessObs() {
+    public LiveData<UserResponse> onLoginSuccessObs() {
         return mLoginTask.onSingleLiveDataChanged();
     }
 

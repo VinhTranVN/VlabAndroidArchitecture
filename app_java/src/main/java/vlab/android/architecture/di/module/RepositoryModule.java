@@ -1,10 +1,10 @@
 package vlab.android.architecture.di.module;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
+import vlab.android.architecture.repository.GithubRepository;
 import vlab.android.architecture.repository.LoginRepository;
+import vlab.android.architecture.repository.impl.GithubRepositoryImpl;
 import vlab.android.architecture.repository.impl.LoginRepositoryImpl;
 
 /**
@@ -13,9 +13,13 @@ import vlab.android.architecture.repository.impl.LoginRepositoryImpl;
 @Module
 public class RepositoryModule {
 
-    @Singleton
     @Provides
-    LoginRepository provideLoginRepository(LoginRepositoryImpl loginRepository) {
-        return loginRepository;
+    LoginRepository provideLoginRepository(LoginRepositoryImpl repository) {
+        return repository;
+    }
+
+    @Provides
+    GithubRepository provideGithubRepository(GithubRepositoryImpl repository) {
+        return repository;
     }
 }

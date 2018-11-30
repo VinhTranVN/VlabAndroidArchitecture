@@ -1,7 +1,7 @@
 package vlab.android.architecture.repository;
 
 import io.reactivex.Observable;
-import vlab.android.architecture.model.UserInfo;
+import vlab.android.architecture.feature.login.model.UserInfo;
 
 /**
 * Created by Vinh Tran on 2/7/18.

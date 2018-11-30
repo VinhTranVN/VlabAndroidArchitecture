@@ -2,8 +2,8 @@ package vlab.android.architecture.feature.login.viewmodel
 
 import android.arch.lifecycle.LiveData
 import vlab.android.architecture.base.BaseViewModel
+import vlab.android.architecture.feature.login.model.UserInfo
 import vlab.android.architecture.feature.login.use_case.LoginUseCase
-import vlab.android.architecture.model.UserInfo
 import javax.inject.Inject
 
 /**
