@@ -6,14 +6,15 @@ import vlab.android.architecture.repository.source.remote.response.UserResponse;
  * Created by Vinh Tran on 2/15/18.
  */
 
-public class UserInfo {
+public class UserModel {
 
     String userName;
+    String auth;
 
-    public UserInfo() {
+    public UserModel() {
     }
 
-    public UserInfo(UserResponse userResponse) {
+    public UserModel(UserResponse userResponse) {
         this.userName = userResponse.getName();
     }
 
@@ -23,5 +24,13 @@ public class UserInfo {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void setAuth(String auth) {
+        this.auth = auth;
+    }
+
+    public String getAuth() {
+        return auth;
     }
 }

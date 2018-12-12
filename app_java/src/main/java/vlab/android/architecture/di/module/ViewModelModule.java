@@ -9,6 +9,7 @@ import dagger.multibindings.IntoMap;
 import vlab.android.architecture.di.DaggerViewModelFactory;
 import vlab.android.architecture.feature.home.viewmodel.HomeViewModel;
 import vlab.android.architecture.feature.login.viewmodel.LoginViewModel;
+import vlab.android.architecture.feature.user_repository.UserRepositoryViewModel;
 import vlab.android.common.di.ViewModelKey;
 
 @Module
@@ -21,4 +22,7 @@ public abstract class ViewModelModule {
 
     @Binds @IntoMap @ViewModelKey(HomeViewModel.class)
     abstract ViewModel bindHomeViewModel(HomeViewModel viewModel);
+
+    @Binds @IntoMap @ViewModelKey(UserRepositoryViewModel.class)
+    abstract ViewModel bindUserRepositoryViewModel(UserRepositoryViewModel viewModel);
 }

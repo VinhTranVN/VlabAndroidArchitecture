@@ -25,7 +25,8 @@ public class LoginRepositoryImpl implements LoginRepository {
     @Override
     public Observable<UserResponse> login(String userName, String pwd) {
         String auth = userName + ":" + pwd;
-        //LogUtils.println(">>> login: " + auth);
-        return mApi.login("Basic " + Base64.encodeToString(auth.getBytes(), Base64.NO_WRAP));
+        String authorization = "Basic " + Base64.encodeToString(auth.getBytes(), Base64.NO_WRAP);
+
+        return mApi.login(authorization);
     }
 }

@@ -15,8 +15,9 @@
         android:textStyle="bold"
         tools:text="Welcome"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleView"
+    <FrameLayout
+        android:id="@+id/content_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
 </LinearLayout>

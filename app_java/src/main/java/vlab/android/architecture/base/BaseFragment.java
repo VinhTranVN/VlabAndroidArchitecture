@@ -8,9 +8,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import vlab.android.common.ui.CommonFragment;
 import vlab.android.common.util.LogUtils;
 
@@ -24,6 +27,7 @@ public abstract class BaseFragment extends CommonFragment {
     ViewModelProvider.Factory mViewModelFactory;
 
     protected BaseErrorHandler mErrorHandler;
+    private Unbinder mUnBinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,11 +40,19 @@ public abstract class BaseFragment extends CommonFragment {
         return new BaseErrorHandler();
     }
 
+    protected void showErrorMsg(Throwable throwable) {
+        Toast.makeText(getContext(), getErrorHandler().parseError(throwable), Toast.LENGTH_SHORT).show();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
+        mUnBinder = ButterKnife.bind(this, view);
         LogUtils.d(getClass().getSimpleName(), ">>> onCreateView: ");
+
+        initViewModel();
+
         return view;
     }
 
@@ -48,10 +60,13 @@ public abstract class BaseFragment extends CommonFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         LogUtils.d(getClass().getSimpleName(), ">>> onViewCreated: ");
-
-        initViewModel();
-
         bindViewModel();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnBinder.unbind();
     }
 
     /**

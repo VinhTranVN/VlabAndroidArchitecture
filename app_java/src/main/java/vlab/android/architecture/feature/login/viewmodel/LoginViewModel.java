@@ -6,7 +6,7 @@ import android.arch.lifecycle.Transformations;
 import javax.inject.Inject;
 
 import vlab.android.architecture.base.BaseViewModel;
-import vlab.android.architecture.feature.login.model.UserInfo;
+import vlab.android.architecture.feature.login.model.UserModel;
 import vlab.android.architecture.feature.login.usecase.LoginUseCase;
 
 /**
@@ -39,8 +39,8 @@ public class LoginViewModel extends BaseViewModel {
         mLoginUseCase.cancelLoginRequest();
     }
 
-    public LiveData<UserInfo> onLoginSuccessObs() {
-        return Transformations.map(mLoginUseCase.onLoginSuccessObs(), UserInfo::new);
+    public LiveData<UserModel> onLoginSuccessObs() {
+        return Transformations.map(mLoginUseCase.onLoginSuccessObs(), UserModel::new);
     }
 
     public LiveData<Throwable> onLoginErrorObs() {

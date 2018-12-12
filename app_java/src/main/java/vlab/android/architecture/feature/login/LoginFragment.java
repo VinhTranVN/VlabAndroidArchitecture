@@ -86,7 +86,7 @@ public class LoginFragment extends BaseFragment {
             LogUtils.println(">>> LoginFragment -> onLoginSuccessObs");
             mTvResult.setText(getString(R.string.login_success, userModel.getUserName()));
             if (mListener != null) {
-                mListener.onLoginSuccess( userModel.getUserName());
+                mListener.onLoginSuccess(userModel.getUserName());
             }
         });
 

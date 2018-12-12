@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import io.reactivex.Observable;
-import vlab.android.architecture.feature.login.model.UserInfo;
+import vlab.android.architecture.feature.login.model.UserModel;
 import vlab.android.architecture.repository.LoginRepository;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -61,7 +61,7 @@ public class LoginUseCaseTest {
 
     @Test
     public void testCallApiIfDataValid() {
-        when(mLoginRepository.login(mLoginRequestParam.mUserName, mLoginRequestParam.mPwd)).thenReturn(Observable.just(new UserInfo()));
+        when(mLoginRepository.login(mLoginRequestParam.mUserName, mLoginRequestParam.mPwd)).thenReturn(Observable.just(new UserModel()));
 
         mLoginUseCase.login(mLoginRequestParam);
         verify(mLoginRepository).login(mLoginRequestParam.mUserName, mLoginRequestParam.mPwd);
@@ -69,10 +69,10 @@ public class LoginUseCaseTest {
 
     @Test
     public void sendResultSuccessToUi() throws Exception {
-        UserInfo userInfo = new UserInfo();
+        UserModel userInfo = new UserModel();
         when(mLoginRepository.login(mLoginRequestParam.mUserName, mLoginRequestParam.mPwd)).thenReturn(Observable.just(userInfo));
 
-        Observer<UserInfo> loginSuccessObserver = mock(Observer.class);
+        Observer<UserModel> loginSuccessObserver = mock(Observer.class);
         mLoginUseCase.onLoginSuccessObs().observeForever(loginSuccessObserver);
 
         // perform login, call api...

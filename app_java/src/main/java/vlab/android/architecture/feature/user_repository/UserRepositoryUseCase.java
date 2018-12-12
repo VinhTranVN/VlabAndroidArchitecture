@@ -7,7 +7,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import vlab.android.architecture.base.BaseUseCase;
+import vlab.android.architecture.feature.login.model.UserModel;
 import vlab.android.architecture.repository.GithubRepository;
+import vlab.android.architecture.repository.SessionRepository;
 import vlab.android.architecture.repository.source.remote.response.RepositoryResponse;
 import vlab.android.common.util.RxTask;
 
@@ -16,12 +18,22 @@ import vlab.android.common.util.RxTask;
  **/
 public class UserRepositoryUseCase extends BaseUseCase {
 
+    private static final String ITEM_PER_PAGE = "5";
+    private static final String ITEM_SORT_FILTER = "updated";
+
     private RxTask<RepositoryRequest, List<RepositoryResponse>> mLoadReposTask;
 
     @Inject
-    public UserRepositoryUseCase(GithubRepository repository){
+    public UserRepositoryUseCase(GithubRepository repository, SessionRepository sessionRepository){
+
+        UserModel userSession = sessionRepository.getUserSession();
+
         mLoadReposTask = new RxTask<>(dataRequest ->
-                repository.getUserRepositories(dataRequest.auth, dataRequest.sort, dataRequest.page, dataRequest.perPage
+                repository.getUserRepositories(
+                        userSession.getAuth(),
+                        dataRequest.sort,
+                        dataRequest.page,
+                        dataRequest.perPage
         ));
     }
 
@@ -29,7 +41,12 @@ public class UserRepositoryUseCase extends BaseUseCase {
         mLoadReposTask.execute(repositoryRequest);
     }
 
-    public LiveData<List<RepositoryResponse>> onLoadUserReposSuccessObs(){
+    public LiveData<List<RepositoryResponse>> onFirstLoadRepoListSuccessObs(){
+        return mLoadReposTask.onSingleLiveDataChanged();
+    }
+
+    public LiveData<List<RepositoryResponse>> onLoadMoreRepoListSuccessObs(){
+        // TODO
         return mLoadReposTask.onSingleLiveDataChanged();
     }
 
@@ -37,10 +54,27 @@ public class UserRepositoryUseCase extends BaseUseCase {
         return mLoadReposTask.onError();
     }
 
-    class RepositoryRequest {
-        String auth;
-        String sort;
+    public LiveData<Boolean> onLoadingRepoListObs() {
+        return mLoadReposTask.onLoading();
+    }
+
+    public LiveData<Throwable> onLoadRepoListFailedObs() {
+        return mLoadReposTask.onError();
+    }
+
+    public static class RepositoryRequest {
+        String sort = ITEM_SORT_FILTER;
+        String perPage = ITEM_PER_PAGE;
         String page;
-        String perPage;
+
+        public RepositoryRequest(String page) {
+            this.page = page;
+        }
+
+        public RepositoryRequest(String sort, String perPage, String page) {
+            this.sort = sort;
+            this.perPage = perPage;
+            this.page = page;
+        }
     }
 }

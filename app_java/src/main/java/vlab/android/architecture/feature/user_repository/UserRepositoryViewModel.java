@@ -16,23 +16,50 @@ import vlab.android.architecture.util.MapperUtil;
 public class UserRepositoryViewModel extends BaseViewModel {
 
     private UserRepositoryUseCase mUserRepositoryUC;
+    private boolean mIsFirstLoad = true;
 
     @Inject
     public UserRepositoryViewModel(UserRepositoryUseCase useCase){
         mUserRepositoryUC = useCase;
     }
 
-    public void loadUserRepositories(UserRepositoryUseCase.RepositoryRequest repositoryRequest){
+    public void loadUserRepositories(UserRepositoryUseCase.RepositoryRequest repositoryRequest) {
+        mIsFirstLoad = true;
         mUserRepositoryUC.loadRepositories(repositoryRequest);
     }
 
     public LiveData<List<UserRepositoryModel>> onLoadUserReposSuccessObs(){
         return Transformations.map(
-                mUserRepositoryUC.onLoadUserReposSuccessObs(),
+                mUserRepositoryUC.onFirstLoadRepoListSuccessObs(),
                 repoListResponse -> MapperUtil.mapList(repoListResponse, UserRepositoryModel::new));
     }
 
     public LiveData<Throwable> onLoadUserReposErrorObs(){
         return mUserRepositoryUC.onLoadUserReposErrorObs();
+    }
+
+    public LiveData<List<UserRepositoryModel>> onFirstLoadRepoListSuccessObs() {
+        return Transformations.map(
+                mUserRepositoryUC.onFirstLoadRepoListSuccessObs(),
+                dataResponse -> {
+                    mIsFirstLoad = false;
+                    return MapperUtil.mapList(dataResponse, UserRepositoryModel::new);
+                }
+        );
+    }
+
+    public LiveData<List<UserRepositoryModel>> onLoadMoreRepoListSuccessObs() {
+        return Transformations.map(
+                mUserRepositoryUC.onFirstLoadRepoListSuccessObs(),
+                dataResponse -> MapperUtil.mapList(dataResponse, UserRepositoryModel::new)
+        );
+    }
+
+    public LiveData<Boolean> onLoadingRepoListObs() {
+        return mUserRepositoryUC.onLoadingRepoListObs();
+    }
+
+    public LiveData<Throwable> onLoadRepoListFailedObs() {
+        return mUserRepositoryUC.onLoadRepoListFailedObs();
     }
 }

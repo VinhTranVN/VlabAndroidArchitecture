@@ -6,6 +6,7 @@ import vlab.android.architecture.feature.login.usecase.LoginUseCase;
 import vlab.android.architecture.feature.user_repository.UserRepositoryUseCase;
 import vlab.android.architecture.repository.GithubRepository;
 import vlab.android.architecture.repository.LoginRepository;
+import vlab.android.architecture.repository.SessionRepository;
 
 /**
  * Created by Vinh Tran on 10/24/18.
@@ -14,12 +15,12 @@ import vlab.android.architecture.repository.LoginRepository;
 public class UseCaseModule {
 
     @Provides
-    LoginUseCase provideLoginUC(LoginRepository repository){
-        return new LoginUseCase(repository);
+    LoginUseCase provideLoginUC(LoginRepository repository, SessionRepository sessionRepository){
+        return new LoginUseCase(repository, sessionRepository);
     }
 
     @Provides
-    UserRepositoryUseCase provideRepositoryUC(GithubRepository repository){
-        return new UserRepositoryUseCase(repository);
+    UserRepositoryUseCase provideRepositoryUC(GithubRepository githubRepository, SessionRepository sessionRepository){
+        return new UserRepositoryUseCase(githubRepository, sessionRepository);
     }
 }

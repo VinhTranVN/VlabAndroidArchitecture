@@ -5,7 +5,9 @@ import android.arch.lifecycle.LiveData;
 import javax.inject.Inject;
 
 import vlab.android.architecture.base.BaseUseCase;
+import vlab.android.architecture.feature.login.model.UserModel;
 import vlab.android.architecture.repository.LoginRepository;
+import vlab.android.architecture.repository.SessionRepository;
 import vlab.android.architecture.repository.source.remote.response.UserResponse;
 import vlab.android.architecture.util.TextValidator;
 import vlab.android.common.util.RxTask;
@@ -18,9 +20,12 @@ public class LoginUseCase extends BaseUseCase {
     private RxTask<LoginUseCase.LoginRequestParam, UserResponse> mLoginTask;
 
     @Inject
-    public LoginUseCase(LoginRepository repository){
+    public LoginUseCase(LoginRepository repository, SessionRepository sessionRepository){
 
-        mLoginTask = new RxTask<>(requestData -> repository.login(requestData.mUserName, requestData.mPwd));
+        mLoginTask = new RxTask<>(requestData ->
+                repository.login(requestData.mUserName, requestData.mPwd)
+                        .doOnNext(userResponse -> sessionRepository.setUserSession(new UserModel(userResponse)))
+        );
     }
 
     @Override

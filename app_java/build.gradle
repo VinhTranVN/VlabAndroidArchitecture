@@ -34,18 +34,21 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+
     implementation 'com.android.support:appcompat-v7:' + ROOT_SUPPORT_LIBRARY_VERSION
     implementation 'com.android.support:design:' + ROOT_SUPPORT_LIBRARY_VERSION
     implementation 'com.android.support:support-v4:' + ROOT_SUPPORT_LIBRARY_VERSION
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.16.0'
+    testImplementation 'org.mockito:mockito-core:2.23.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     // module dependency
     implementation project(':libs:common')
 
     // Navigation Dependencies
-    implementation 'android.arch.navigation:navigation-fragment:' + ROOT_NAVIGATION_FRAGMENT
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0-alpha08'
 
     // dagger 2
     implementation "com.google.dagger:dagger:$ROOT_DAGGER_VERSION"
@@ -72,10 +75,19 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$ROOT_RETROFIT_VERSION"
     implementation "com.squareup.okhttp3:logging-interceptor:$ROOT_OKHTTP_VERSION"
 
+    // butterknife
+    implementation 'com.jakewharton:butterknife:9.0.0-rc1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
+
     // leak detect
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
+    // firebase
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
+
+    // image loader lib : https://github.com/bumptech/glide
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 }

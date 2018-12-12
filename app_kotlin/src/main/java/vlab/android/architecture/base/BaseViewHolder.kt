@@ -10,6 +10,6 @@ abstract class BaseViewHolder<ItemModel> : RecyclerView.ViewHolder {
     fun getLayoutRes() : Int {
         return 0;
     }
-    constructor(itemView: View?) : super(itemView)
+    constructor(itemView: View) : super(itemView)
     abstract fun bindData(item: ItemModel);
 }

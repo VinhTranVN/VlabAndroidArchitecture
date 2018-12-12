@@ -7,6 +7,7 @@ import vlab.android.architecture.repository.source.remote.response.RepositoryRes
  **/
 public class UserRepositoryModel {
     private String repoName;
+
     public UserRepositoryModel(RepositoryResponse response) {
         repoName = response.getName();
     }

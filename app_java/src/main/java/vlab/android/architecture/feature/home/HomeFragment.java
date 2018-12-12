@@ -10,6 +10,7 @@ import android.widget.TextView;
 import vlab.android.architecture.R;
 import vlab.android.architecture.base.BaseFragment;
 import vlab.android.architecture.feature.home.viewmodel.HomeViewModel;
+import vlab.android.architecture.feature.user_repository.UserRepositoryFragment;
 
 public class HomeFragment extends BaseFragment {
 
@@ -72,6 +73,10 @@ public class HomeFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         ((TextView)view.findViewById(R.id.tv_welcome_msg)).setText(mViewModel.getUserName());
+        if(mViewModel.isUserAuthenticated()){
+            replaceFragment(R.id.content_container, new UserRepositoryFragment(), false);
+        }
+
     }
 
     public void setOnHomeFragmentListener(OnHomeFragmentListener listener) {

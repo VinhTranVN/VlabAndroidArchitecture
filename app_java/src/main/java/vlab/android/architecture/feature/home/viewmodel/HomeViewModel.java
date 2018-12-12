@@ -10,6 +10,7 @@ import vlab.android.architecture.base.BaseViewModel;
 public class HomeViewModel extends BaseViewModel {
 
     private String mUserName;
+    private boolean mIsUserAuthenticated;
 
     @Inject
     public HomeViewModel(){
@@ -18,9 +19,14 @@ public class HomeViewModel extends BaseViewModel {
 
     public void setUserName(String userName) {
         mUserName = userName;
+        mIsUserAuthenticated = (mUserName != null && !mUserName.isEmpty());
+    }
+
+    public boolean isUserAuthenticated() {
+        return mIsUserAuthenticated;
     }
 
     public String getUserName() {
-        return mUserName == null ? "Welcome Guest" : mUserName;
+        return mIsUserAuthenticated ? "Welcome Guest" : mUserName;
     }
 }
