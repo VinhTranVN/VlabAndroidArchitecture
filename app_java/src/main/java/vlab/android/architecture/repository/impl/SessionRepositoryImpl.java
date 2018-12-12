@@ -26,4 +26,9 @@ public class SessionRepositoryImpl implements SessionRepository {
     public UserModel getUserSession() {
         return mUserModel;
     }
+
+    @Override
+    public boolean isLoggedIn() {
+        return mUserModel != null;
+    }
 }

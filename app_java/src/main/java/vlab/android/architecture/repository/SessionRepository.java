@@ -9,4 +9,5 @@ import vlab.android.architecture.feature.login.model.UserModel;
 public interface SessionRepository {
     void setUserSession(UserModel userModel);
     UserModel getUserSession();
+    boolean isLoggedIn();
 }

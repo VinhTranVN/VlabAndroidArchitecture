@@ -27,6 +27,6 @@ public class HomeViewModel extends BaseViewModel {
     }
 
     public String getUserName() {
-        return mIsUserAuthenticated ? "Welcome Guest" : mUserName;
+        return mIsUserAuthenticated ? mUserName : "Welcome Guest";
     }
 }

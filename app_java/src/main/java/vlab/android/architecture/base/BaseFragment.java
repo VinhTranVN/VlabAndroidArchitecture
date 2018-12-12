@@ -66,6 +66,7 @@ public abstract class BaseFragment extends CommonFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        LogUtils.d(getClass().getSimpleName(), ">>> onDestroyView: ");
         mUnBinder.unbind();
     }
 

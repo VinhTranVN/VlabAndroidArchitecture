@@ -18,14 +18,13 @@ import vlab.android.common.util.RxTask;
 public class LoginUseCase extends BaseUseCase {
 
     private RxTask<LoginUseCase.LoginRequestParam, UserResponse> mLoginTask;
+    private SessionRepository mSessionRepository;
 
     @Inject
     public LoginUseCase(LoginRepository repository, SessionRepository sessionRepository){
 
-        mLoginTask = new RxTask<>(requestData ->
-                repository.login(requestData.mUserName, requestData.mPwd)
-                        .doOnNext(userResponse -> sessionRepository.setUserSession(new UserModel(userResponse)))
-        );
+        mSessionRepository = sessionRepository;
+        mLoginTask = new RxTask<>(requestData -> repository.login(requestData.mUserName, requestData.mPwd));
     }
 
     @Override
@@ -62,6 +61,14 @@ public class LoginUseCase extends BaseUseCase {
         return param != null
                 && TextValidator.isUserNameValid(param.mUserName)
                 && TextValidator.isPwdValid(param.mPwd);
+    }
+
+    public boolean isLoggedIn() {
+        return mSessionRepository.isLoggedIn();
+    }
+
+    public UserModel getLoggedUserInfo() {
+        return mSessionRepository.getUserSession();
     }
 
     // request params

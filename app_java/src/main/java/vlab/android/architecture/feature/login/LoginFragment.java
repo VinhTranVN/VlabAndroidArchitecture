@@ -11,7 +11,7 @@ import android.widget.TextView;
 import vlab.android.architecture.R;
 import vlab.android.architecture.base.BaseErrorHandler;
 import vlab.android.architecture.base.BaseFragment;
-import vlab.android.architecture.feature.login.viewmodel.LoginViewModel;
+import vlab.android.architecture.feature.login.model.UserModel;
 import vlab.android.common.util.LogUtils;
 
 /**
@@ -53,6 +53,12 @@ public class LoginFragment extends BaseFragment {
     @Override
     public void onViewCreated(@Nullable View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if(mViewModel.isLoggedIn()){
+            if (mListener != null) {
+                mListener.onLoginSuccess(mViewModel.getLoggedInUserInfo());
+                return;
+            }
+        }
 
         AutoCompleteTextView email = view.findViewById(R.id.email);
         EditText password = view.findViewById(R.id.password);
@@ -83,10 +89,10 @@ public class LoginFragment extends BaseFragment {
     protected void bindViewModel() {
 
         mViewModel.onLoginSuccessObs().observe(this, userModel -> {
-            LogUtils.println(">>> LoginFragment -> onLoginSuccessObs");
+            LogUtils.println(">>> LoginFragment -> onLoginSuccessObs : " + userModel.getUserName());
             mTvResult.setText(getString(R.string.login_success, userModel.getUserName()));
             if (mListener != null) {
-                mListener.onLoginSuccess(userModel.getUserName());
+                mListener.onLoginSuccess(userModel);
             }
         });
 
@@ -103,7 +109,7 @@ public class LoginFragment extends BaseFragment {
 
     public interface OnLoginFragmentListener {
         void onLoginAsGuest();
-        void onLoginSuccess(String userName);
+        void onLoginSuccess(UserModel userModel);
     }
 }
 

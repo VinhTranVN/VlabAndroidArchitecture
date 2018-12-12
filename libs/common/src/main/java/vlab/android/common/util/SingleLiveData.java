@@ -33,12 +33,12 @@ public class SingleLiveData<T> extends MutableLiveData<T> {
         }
 
         // Observe the internal MutableLiveData
-        super.observe(owner, new Observer<T>() {
-            @Override
-            public void onChanged(@Nullable T t) {
-                if (mPending.compareAndSet(true, false)) {
-                    observer.onChanged(t);
-                }
+        super.observe(owner, t -> {
+            LogUtils.d(getClass().getSimpleName(), ">>> SingleLiveData observe: mPending.get() before " + mPending.get());
+            boolean compareAndSet = mPending.compareAndSet(true, false);
+            LogUtils.d(getClass().getSimpleName(), ">>> SingleLiveData observe: mPending.get() after " + mPending.get() + " compareAndSet " + compareAndSet);
+            if (compareAndSet) {
+                observer.onChanged(t);
             }
         });
     }
@@ -47,6 +47,12 @@ public class SingleLiveData<T> extends MutableLiveData<T> {
     public void setValue(@Nullable T t) {
         mPending.set(true);
         super.setValue(t);
+    }
+
+    @Override
+    public void postValue(T value) {
+        mPending.set(true);
+        super.postValue(value);
     }
 
     /**

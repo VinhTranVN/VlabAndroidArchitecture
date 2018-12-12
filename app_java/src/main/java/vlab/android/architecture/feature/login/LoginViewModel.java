@@ -1,4 +1,4 @@
-package vlab.android.architecture.feature.login.viewmodel;
+package vlab.android.architecture.feature.login;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Transformations;
@@ -40,6 +40,7 @@ public class LoginViewModel extends BaseViewModel {
     }
 
     public LiveData<UserModel> onLoginSuccessObs() {
+        // TODO check Transformations.map swallow SingleLiveData behavior
         return Transformations.map(mLoginUseCase.onLoginSuccessObs(), UserModel::new);
     }
 
@@ -49,6 +50,14 @@ public class LoginViewModel extends BaseViewModel {
 
     public LiveData<Boolean> onLoadingObs() {
         return mLoginUseCase.onLoadingObs();
+    }
+
+    public boolean isLoggedIn() {
+        return mLoginUseCase.isLoggedIn();
+    }
+
+    public UserModel getLoggedInUserInfo() {
+        return mLoginUseCase.getLoggedUserInfo();
     }
 }
 
