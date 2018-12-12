@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import vlab.android.architecture.R;
 import vlab.android.architecture.base.BaseFragment;
-import vlab.android.architecture.feature.home.viewmodel.HomeViewModel;
 import vlab.android.architecture.feature.user_repository.UserRepositoryFragment;
 
 public class HomeFragment extends BaseFragment {
@@ -17,7 +16,7 @@ public class HomeFragment extends BaseFragment {
     public static final String ARG_USER_NAME = "ARG_USER_NAME";
     private OnHomeFragmentListener mListener;
 
-    private HomeViewModel mViewModel;
+    private HomeVM mViewModel;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -54,7 +53,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initViewModel() {
-        mViewModel = provideViewModel(HomeViewModel.class);
+        mViewModel = provideViewModel(HomeVM.class);
 
         if (getArguments() != null) {
             // TODO map argument to ViewModel

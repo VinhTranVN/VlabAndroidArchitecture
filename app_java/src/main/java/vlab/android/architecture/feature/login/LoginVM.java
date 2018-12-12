@@ -13,12 +13,12 @@ import vlab.android.architecture.feature.login.usecase.LoginUseCase;
  * Created by Vinh Tran on 2/15/18.
  */
 
-public class LoginViewModel extends BaseViewModel {
+public class LoginVM extends BaseViewModel {
 
     private LoginUseCase mLoginUseCase;
 
     @Inject
-    public LoginViewModel(LoginUseCase loginUseCase) {
+    public LoginVM(LoginUseCase loginUseCase) {
         mLoginUseCase = loginUseCase;
     }
 

@@ -1,4 +1,4 @@
-package vlab.android.architecture.feature.home.viewmodel;
+package vlab.android.architecture.feature.home;
 
 import javax.inject.Inject;
 
@@ -7,13 +7,13 @@ import vlab.android.architecture.base.BaseViewModel;
 /**
  * Created by Vinh.Tran on 11/14/18.
  **/
-public class HomeViewModel extends BaseViewModel {
+public class HomeVM extends BaseViewModel {
 
     private String mUserName;
     private boolean mIsUserAuthenticated;
 
     @Inject
-    public HomeViewModel(){
+    public HomeVM(){
 
     }
 

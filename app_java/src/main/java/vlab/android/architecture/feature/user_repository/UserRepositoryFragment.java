@@ -22,7 +22,7 @@ public class UserRepositoryFragment extends BaseFragment {
     @BindView(R.id.recycleView) RecyclerView mRecyclerView;
     @BindView(R.id.progressBar) ProgressBar mLoadingView;
 
-    private UserRepositoryViewModel mViewModel;
+    private UserRepositoryVM mViewModel;
 
     private RepositoryListAdapter<UserRepositoryModel> mAdapter;
 
@@ -33,7 +33,7 @@ public class UserRepositoryFragment extends BaseFragment {
 
     @Override
     protected void initViewModel() {
-        mViewModel = provideViewModel(UserRepositoryViewModel.class);
+        mViewModel = provideViewModel(UserRepositoryVM.class);
     }
 
     @Override

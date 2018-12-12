@@ -13,13 +13,13 @@ import vlab.android.architecture.util.MapperUtil;
 /**
  * Created by Vinh.Tran on 11/14/18.
  **/
-public class UserRepositoryViewModel extends BaseViewModel {
+public class UserRepositoryVM extends BaseViewModel {
 
     private UserRepositoryUseCase mUserRepositoryUC;
     private boolean mIsFirstLoad = true;
 
     @Inject
-    public UserRepositoryViewModel(UserRepositoryUseCase useCase){
+    public UserRepositoryVM(UserRepositoryUseCase useCase){
         mUserRepositoryUC = useCase;
     }
 

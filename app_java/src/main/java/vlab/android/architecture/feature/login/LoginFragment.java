@@ -21,7 +21,7 @@ public class LoginFragment extends BaseFragment {
 
     private TextView mTvResult;
     // view model for login
-    private LoginViewModel mViewModel;
+    private LoginVM mViewModel;
     private View mProgressView;
 
     private OnLoginFragmentListener mListener;
@@ -82,7 +82,7 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     protected void initViewModel() {
-        mViewModel = provideViewModel(LoginViewModel.class);
+        mViewModel = provideViewModel(LoginVM.class);
     }
 
     @Override
