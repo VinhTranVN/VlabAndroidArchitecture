@@ -6,9 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:textAppearance">@style/TextDefault</item>-->
     </style>
 
-    <style name="TextDefault">
+    <style name="TextDefault" parent="TextAppearance.AppCompat">
         <item name="android:textColor">#000</item>
         <item name="android:textSize">14sp</item>
     </style>
@@ -16,6 +17,18 @@
     <style name="TextDefault.SingleLine">
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TextDefault.Title">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextDefault.Description">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
 </resources>

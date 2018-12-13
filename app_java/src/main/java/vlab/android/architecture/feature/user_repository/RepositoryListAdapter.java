@@ -10,7 +10,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import vlab.android.architecture.R;
+import vlab.android.architecture.base.BaseViewHolder;
 
 /**
  * Created by Vinh Tran on 10/31/18.
@@ -68,14 +70,13 @@ public class RepositoryListAdapter<T extends UserRepositoryModel> extends Recycl
         mOnHolderItemActionListener = listener;
     }
 
-    static class ItemViewHolder<ItemModel extends UserRepositoryModel> extends RecyclerView.ViewHolder {
+    static class ItemViewHolder<ItemModel extends UserRepositoryModel> extends BaseViewHolder<ItemModel> {
 
-        private TextView mRepoName;
+        @BindView(R.id.tv_name) TextView mRepoName;
+        @BindView(R.id.tv_description) TextView mRepoDescription;
 
         public ItemViewHolder(ViewGroup parent, OnHolderItemActionListener listener) {
             super(getView(parent));
-
-            mRepoName = itemView.findViewById(R.id.tv_name);
 
             itemView.setOnClickListener(v -> {
                 if(listener != null){
@@ -93,6 +94,7 @@ public class RepositoryListAdapter<T extends UserRepositoryModel> extends Recycl
             if (item == null) return;
 
             mRepoName.setText(item.getRepoName());
+            mRepoDescription.setText(item.getDescription());
 
             itemView.setTag(item);
         }

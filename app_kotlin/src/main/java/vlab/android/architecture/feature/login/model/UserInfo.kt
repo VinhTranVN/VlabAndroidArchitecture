@@ -1,4 +1,4 @@
-package vlab.android.architecture.feature.login.model
+package vlab.android.architecture.feature.user
 
 import vlab.android.architecture.repository.source.remote.response.UserResponse
 

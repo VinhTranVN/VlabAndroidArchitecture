@@ -17,4 +17,5 @@
     <string name="login_success">Login Success! Welcome %1$s</string>
     <string name="login_failed">Login Failed</string>
     <string name="login_github_account">Github Account</string>
+    <string name="owner">Owner</string>
 </resources>

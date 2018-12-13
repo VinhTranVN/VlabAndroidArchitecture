@@ -2,7 +2,7 @@ package vlab.android.architecture.repository.impl;
 
 import javax.inject.Inject;
 
-import vlab.android.architecture.feature.login.model.UserModel;
+import vlab.android.architecture.feature.user.UserModel;
 import vlab.android.architecture.repository.SessionRepository;
 
 /**

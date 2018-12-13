@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -65,6 +66,8 @@ public class UserRepositoryFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
         mAdapter = new RepositoryListAdapter<>();
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnHolderItemActionListener(repositoryModel -> {

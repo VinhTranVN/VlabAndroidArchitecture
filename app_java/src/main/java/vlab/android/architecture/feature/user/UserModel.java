@@ -1,4 +1,4 @@
-package vlab.android.architecture.feature.login.model;
+package vlab.android.architecture.feature.user;
 
 import vlab.android.architecture.repository.source.remote.response.UserResponse;
 
@@ -9,6 +9,7 @@ import vlab.android.architecture.repository.source.remote.response.UserResponse;
 public class UserModel {
 
     String userName;
+    String avatar;
     String auth;
 
     public UserModel() {
@@ -16,6 +17,7 @@ public class UserModel {
 
     public UserModel(UserResponse userResponse) {
         this.userName = userResponse.getName();
+        this.avatar = userResponse.getAvatarUrl();
     }
 
     public String getUserName() {
@@ -32,5 +34,9 @@ public class UserModel {
 
     public String getAuth() {
         return auth;
+    }
+
+    public String getUserAvatar() {
+        return avatar;
     }
 }

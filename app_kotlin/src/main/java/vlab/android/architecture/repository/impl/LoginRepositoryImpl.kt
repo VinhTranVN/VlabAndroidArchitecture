@@ -2,7 +2,7 @@ package vlab.android.architecture.repository.impl
 
 import android.util.Base64
 import io.reactivex.Observable
-import vlab.android.architecture.feature.login.model.UserInfo
+import vlab.android.architecture.feature.user.UserInfo
 import vlab.android.architecture.repository.LoginRepository
 import vlab.android.architecture.repository.source.remote.GitHubApi
 import javax.inject.Inject

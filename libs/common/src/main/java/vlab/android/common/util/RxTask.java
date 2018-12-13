@@ -16,7 +16,8 @@ import io.reactivex.subjects.PublishSubject;
 public class RxTask<DataRequest, DataResponse> {
 
     // execute command
-    private PublishSubject<DataRequest> mTaskSubject = PublishSubject.create();
+    private PublishSubject<DataRequest> mRequestTaskSubject = PublishSubject.create();
+    private PublishSubject<DataResponse> mResponseDataSubject = PublishSubject.create();
 
     private Observable<DataResponse> mOnExecuted;
 
@@ -30,7 +31,7 @@ public class RxTask<DataRequest, DataResponse> {
     private Disposable mDisposable;
 
     public RxTask(Function<DataRequest, Observable<DataResponse>> func) {
-        mOnExecuted = mTaskSubject
+        mOnExecuted = mRequestTaskSubject
                         .filter(requestData -> !mIsExecuting)
                         .flatMap(requestData -> {
 
@@ -48,6 +49,7 @@ public class RxTask<DataRequest, DataResponse> {
                                     .doOnNext(dataResponse -> {
                                         LogUtils.d(getClass().getSimpleName(), ">>> RxTask: doOnNext");
                                         setExecuting(false);
+                                        mResponseDataSubject.onNext(dataResponse);
                                         mOnSingleLiveDataChanged.postValue(dataResponse);
                                         mOnLiveDataChanged.postValue(dataResponse);
                                     });
@@ -63,8 +65,12 @@ public class RxTask<DataRequest, DataResponse> {
         mOnLoading.postValue(isExecuting);
     }
 
+    /**
+     * execute request task, called in Background Thread, respond data in Main Thread
+     * @param dataRequest
+     */
     public void execute(DataRequest dataRequest) {
-        mTaskSubject.onNext(dataRequest);
+        mRequestTaskSubject.onNext(dataRequest);
     }
 
     /**
@@ -94,6 +100,13 @@ public class RxTask<DataRequest, DataResponse> {
     public void destroy(){
         cancel(false);
         mDisposable = null;
+    }
+
+    /**
+     * @return Observable
+     */
+    public Observable<DataResponse> onSuccessObservable() {
+        return mResponseDataSubject;
     }
 
     /**

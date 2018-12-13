@@ -11,7 +11,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import io.reactivex.Observable;
-import vlab.android.architecture.feature.login.model.UserModel;
+import vlab.android.architecture.feature.login.LoginUseCase;
+import vlab.android.architecture.feature.user.UserModel;
 import vlab.android.architecture.repository.LoginRepository;
 
 import static org.mockito.ArgumentMatchers.any;

@@ -2,7 +2,7 @@ package vlab.android.architecture.di.module;
 
 import dagger.Module;
 import dagger.Provides;
-import vlab.android.architecture.feature.login.usecase.LoginUseCase;
+import vlab.android.architecture.feature.login.LoginUseCase;
 import vlab.android.architecture.feature.user_repository.UserRepositoryUseCase;
 import vlab.android.architecture.repository.GithubRepository;
 import vlab.android.architecture.repository.LoginRepository;

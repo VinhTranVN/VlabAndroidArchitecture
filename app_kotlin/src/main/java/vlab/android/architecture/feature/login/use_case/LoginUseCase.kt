@@ -2,7 +2,7 @@ package vlab.android.architecture.feature.login.use_case
 
 import android.arch.lifecycle.LiveData
 import vlab.android.architecture.base.BaseUseCase
-import vlab.android.architecture.feature.login.model.UserInfo
+import vlab.android.architecture.feature.user.UserInfo
 import vlab.android.architecture.repository.LoginRepository
 import vlab.android.architecture.util.TextValidator
 import vlab.android.common.util.RxTask

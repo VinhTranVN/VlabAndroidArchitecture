@@ -9,7 +9,7 @@ import vlab.android.architecture.R;
 import vlab.android.architecture.base.BaseActivity;
 import vlab.android.architecture.feature.home.HomeFragment;
 import vlab.android.architecture.feature.login.LoginFragment;
-import vlab.android.architecture.feature.login.model.UserModel;
+import vlab.android.architecture.feature.user.UserModel;
 
 /**
  * A login screen that offers login via email/password.

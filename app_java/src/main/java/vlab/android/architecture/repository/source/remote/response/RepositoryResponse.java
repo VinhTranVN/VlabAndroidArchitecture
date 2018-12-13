@@ -9,7 +9,21 @@ public class RepositoryResponse {
     @SerializedName("name")
     private String name;
 
+    @SerializedName("description")
+    private String description;
+
+    @SerializedName("owner")
+    private UserResponse owner;
+
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public UserResponse getOwner() {
+        return owner;
     }
 }

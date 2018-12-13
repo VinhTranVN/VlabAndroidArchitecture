@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/space_large"
+        android:padding="@dimen/space_medium"
         android:text="Repositories"/>
 
     <android.support.v4.widget.SwipeRefreshLayout

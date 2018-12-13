@@ -11,7 +11,7 @@ import android.widget.TextView;
 import vlab.android.architecture.R;
 import vlab.android.architecture.base.BaseErrorHandler;
 import vlab.android.architecture.base.BaseFragment;
-import vlab.android.architecture.feature.login.model.UserModel;
+import vlab.android.architecture.feature.user.UserModel;
 import vlab.android.common.util.LogUtils;
 
 /**
@@ -94,6 +94,7 @@ public class LoginFragment extends BaseFragment {
             if (mListener != null) {
                 mListener.onLoginSuccess(userModel);
             }
+            //mViewModel.onLoginSuccessObs().removeObservers(this);
         });
 
         mViewModel.onLoginErrorObs().observe(this, error -> mTvResult.setText(mErrorHandler.parseError(error)));

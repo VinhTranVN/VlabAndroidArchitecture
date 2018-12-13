@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/activity_vertical_margin">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tv_name"
-        style="@style/TextDefault.SingleLine"
+        style="@style/TextDefault.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/space_small"
-        tools:text="vinh tran"/>
+        android:padding="@dimen/space_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Repo Name"/>
 
     <TextView
         android:id="@+id/tv_description"
-        style="@style/TextDefault"
-        android:layout_width="match_parent"
+        style="@style/TextDefault.Description"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:maxLines="2"/>
+        android:paddingLeft="@dimen/space_medium"
+        android:paddingRight="@dimen/space_medium"
+        android:paddingBottom="@dimen/space_medium"
+        android:maxLines="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_name"
+        tools:text="Description"/>
 
 </android.support.constraint.ConstraintLayout>

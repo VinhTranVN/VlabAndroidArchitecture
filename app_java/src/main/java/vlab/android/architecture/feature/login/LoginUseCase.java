@@ -1,11 +1,11 @@
-package vlab.android.architecture.feature.login.usecase;
+package vlab.android.architecture.feature.login;
 
 import android.arch.lifecycle.LiveData;
 
 import javax.inject.Inject;
 
 import vlab.android.architecture.base.BaseUseCase;
-import vlab.android.architecture.feature.login.model.UserModel;
+import vlab.android.architecture.feature.user.UserModel;
 import vlab.android.architecture.repository.LoginRepository;
 import vlab.android.architecture.repository.SessionRepository;
 import vlab.android.architecture.repository.source.remote.response.UserResponse;

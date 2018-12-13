@@ -6,10 +6,13 @@ import vlab.android.architecture.repository.source.remote.response.RepositoryRes
  * Created by Vinh.Tran on 11/30/18.
  **/
 public class UserRepositoryModel {
+
     private String repoName;
+    private String repoDescription;
 
     public UserRepositoryModel(RepositoryResponse response) {
         repoName = response.getName();
+        repoDescription = response.getDescription();
     }
 
     public String getRepoName() {
@@ -18,5 +21,9 @@ public class UserRepositoryModel {
 
     public void setRepoName(String repoName) {
         this.repoName = repoName;
+    }
+
+    public String getDescription() {
+        return repoDescription;
     }
 }

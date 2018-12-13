@@ -6,8 +6,7 @@ import android.arch.lifecycle.Transformations;
 import javax.inject.Inject;
 
 import vlab.android.architecture.base.BaseViewModel;
-import vlab.android.architecture.feature.login.model.UserModel;
-import vlab.android.architecture.feature.login.usecase.LoginUseCase;
+import vlab.android.architecture.feature.user.UserModel;
 
 /**
  * Created by Vinh Tran on 2/15/18.

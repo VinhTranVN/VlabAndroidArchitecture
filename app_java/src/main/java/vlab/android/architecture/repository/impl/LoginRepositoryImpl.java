@@ -5,7 +5,7 @@ import android.util.Base64;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import vlab.android.architecture.feature.login.model.UserModel;
+import vlab.android.architecture.feature.user.UserModel;
 import vlab.android.architecture.repository.LoginRepository;
 import vlab.android.architecture.repository.SessionRepository;
 import vlab.android.architecture.repository.source.remote.GitHubApi;
