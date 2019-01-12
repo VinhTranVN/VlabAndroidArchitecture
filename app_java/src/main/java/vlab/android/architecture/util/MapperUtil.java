@@ -10,7 +10,7 @@ public class MapperUtil {
 
     /**
      * map list data
-     * @param source
+     * @param source source items
      * @param mapper
      * @param <InputType>
      * @param <OutputType>

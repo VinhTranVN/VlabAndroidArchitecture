@@ -11,7 +11,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import vlab.android.architecture.R;
 import vlab.android.architecture.base.BaseFragment;
-import vlab.android.architecture.feature.user_repository.UserRepositoryFragment;
+import vlab.android.architecture.feature.user_repository.RepositoryFragment;
 import vlab.android.architecture.util.ImageLoader;
 
 public class HomeFragment extends BaseFragment {
@@ -87,7 +87,7 @@ public class HomeFragment extends BaseFragment {
         mUserName.setText(mViewModel.getUserName());
 
         if(mViewModel.isUserAuthenticated()){
-            replaceFragment(R.id.content_container, new UserRepositoryFragment(), false);
+            replaceFragment(R.id.content_container, new RepositoryFragment(), false);
         }
 
     }

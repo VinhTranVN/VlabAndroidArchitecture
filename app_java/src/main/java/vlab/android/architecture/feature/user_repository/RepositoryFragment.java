@@ -13,19 +13,20 @@ import android.widget.ProgressBar;
 import butterknife.BindView;
 import vlab.android.architecture.R;
 import vlab.android.architecture.base.BaseFragment;
+import vlab.android.common.util.InfiniteScrollListener;
 
 /**
  * Created by Vinh.Tran on 11/30/18.
  **/
-public class UserRepositoryFragment extends BaseFragment {
+public class RepositoryFragment extends BaseFragment {
 
     @BindView(R.id.swipe_to_refresh) SwipeRefreshLayout mSwipeToRefreshView;
     @BindView(R.id.recycleView) RecyclerView mRecyclerView;
     @BindView(R.id.progressBar) ProgressBar mLoadingView;
 
-    private UserRepositoryVM mViewModel;
+    private RepositoryVM mViewModel;
 
-    private RepositoryListAdapter<UserRepositoryModel> mAdapter;
+    private RepositoryListAdapter<RepositoryModel> mAdapter;
 
     @Override
     protected int getLayoutRes() {
@@ -34,7 +35,7 @@ public class UserRepositoryFragment extends BaseFragment {
 
     @Override
     protected void initViewModel() {
-        mViewModel = provideViewModel(UserRepositoryVM.class);
+        mViewModel = provideViewModel(RepositoryVM.class);
     }
 
     @Override
@@ -74,6 +75,21 @@ public class UserRepositoryFragment extends BaseFragment {
             // TODO
         });
 
-        mViewModel.loadUserRepositories(new UserRepositoryUseCase.RepositoryRequest("0"));
+        mRecyclerView.addOnScrollListener(new InfiniteScrollListener(mRecyclerView.getLayoutManager()) {
+            @Override
+            public void onLoadMore() {
+                mViewModel.loadMoreRepos();
+            }
+        });
+
+        mSwipeToRefreshView.setOnRefreshListener(() -> {
+            startLoadRepos();
+        });
+
+        startLoadRepos();
+    }
+
+    private void startLoadRepos() {
+        mViewModel.startLoadRepository();
     }
 }

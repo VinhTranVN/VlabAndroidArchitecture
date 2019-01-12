@@ -17,7 +17,7 @@ import vlab.android.architecture.base.BaseViewHolder;
 /**
  * Created by Vinh Tran on 10/31/18.
  */
-public class RepositoryListAdapter<T extends UserRepositoryModel> extends RecyclerView.Adapter {
+public class RepositoryListAdapter<T extends RepositoryModel> extends RecyclerView.Adapter {
 
     private List<T> mItemList = new ArrayList<>();
     private OnHolderItemActionListener mOnHolderItemActionListener;
@@ -70,7 +70,7 @@ public class RepositoryListAdapter<T extends UserRepositoryModel> extends Recycl
         mOnHolderItemActionListener = listener;
     }
 
-    static class ItemViewHolder<ItemModel extends UserRepositoryModel> extends BaseViewHolder<ItemModel> {
+    static class ItemViewHolder<ItemModel extends RepositoryModel> extends BaseViewHolder<ItemModel> {
 
         @BindView(R.id.tv_name) TextView mRepoName;
         @BindView(R.id.tv_description) TextView mRepoDescription;

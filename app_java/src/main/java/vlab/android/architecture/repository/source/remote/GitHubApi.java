@@ -3,6 +3,7 @@ package vlab.android.architecture.repository.source.remote;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Query;
@@ -14,7 +15,7 @@ public interface GitHubApi {
     Observable<UserResponse> login(@Header("Authorization") String authorization);
 
     @GET("user/repos")
-    Observable<List<RepositoryResponse>> getRepositories(
+    Observable<Response<List<RepositoryResponse>>> getRepositories(
             @Header("Authorization") String authorization,
             @Query("sort") String sort,
             @Query("page") String pageIndex,

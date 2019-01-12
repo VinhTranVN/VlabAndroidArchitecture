@@ -1,8 +1,7 @@
 package vlab.android.architecture.repository;
 
-import java.util.List;
-
 import io.reactivex.Observable;
+import vlab.android.architecture.repository.source.remote.response.PagingDataResponse;
 import vlab.android.architecture.repository.source.remote.response.RepositoryResponse;
 
 /**
@@ -10,7 +9,7 @@ import vlab.android.architecture.repository.source.remote.response.RepositoryRes
 */
 
 public interface GithubRepository {
-    Observable<List<RepositoryResponse>> getUserRepositories(
+    Observable<PagingDataResponse<RepositoryResponse>> getUserRepositories(
             String authorization,
             String sort,
             String pageIndex,

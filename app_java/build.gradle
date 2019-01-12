@@ -57,8 +57,9 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$ROOT_DAGGER_VERSION"
     annotationProcessor "com.google.dagger:dagger-android-processor:$ROOT_DAGGER_VERSION"
     // ViewModel and LiveData
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation "android.arch.lifecycle:extensions:1.1.1"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+    implementation "android.arch.lifecycle:reactivestreams:1.1.1"
     // Test helpers for LiveData
     testImplementation "android.arch.core:core-testing:1.1.1"
     // Java8 support for Lifecycles

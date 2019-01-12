@@ -5,12 +5,11 @@ import vlab.android.architecture.repository.source.remote.response.RepositoryRes
 /**
  * Created by Vinh.Tran on 11/30/18.
  **/
-public class UserRepositoryModel {
-
+public class RepositoryModel {
     private String repoName;
     private String repoDescription;
 
-    public UserRepositoryModel(RepositoryResponse response) {
+    public RepositoryModel(RepositoryResponse response) {
         repoName = response.getName();
         repoDescription = response.getDescription();
     }

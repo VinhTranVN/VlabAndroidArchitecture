@@ -22,7 +22,7 @@ import dagger.android.ContributesAndroidInjector;
 import vlab.android.architecture.feature.home.HomeFragment;
 import vlab.android.architecture.feature.login.LoginFragment;
 import vlab.android.architecture.feature.main.MainActivity;
-import vlab.android.architecture.feature.user_repository.UserRepositoryFragment;
+import vlab.android.architecture.feature.user_repository.RepositoryFragment;
 
 @Module
 public abstract class UiModule {
@@ -36,5 +36,5 @@ public abstract class UiModule {
     abstract HomeFragment homeFragment();
 
     @ContributesAndroidInjector
-    abstract UserRepositoryFragment userRepositoryFragment();
+    abstract RepositoryFragment userRepositoryFragment();
 }
