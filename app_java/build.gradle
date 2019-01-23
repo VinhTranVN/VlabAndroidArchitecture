@@ -48,7 +48,7 @@ dependencies {
     implementation project(':libs:common')
 
     // Navigation Dependencies
-    implementation 'android.arch.navigation:navigation-fragment:1.0.0-alpha08'
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0-alpha09'
 
     // dagger 2
     implementation "com.google.dagger:dagger:$ROOT_DAGGER_VERSION"
