@@ -35,7 +35,7 @@ public class RxTaskTest {
 //                        .subscribeOn(Schedulers.io())
 //                        .observeOn(AndroidSchedulers.mainThread())
         );
-        mRxTask.subscribe();
+        //mRxTask.subscribe();
     }
 
     @Test

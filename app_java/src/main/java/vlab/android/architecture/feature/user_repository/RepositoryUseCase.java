@@ -20,7 +20,7 @@ import vlab.android.common.util.RxTask;
  **/
 public class RepositoryUseCase extends BaseUseCase {
 
-    private static final int ITEM_PER_PAGE = 5;
+    private static final int ITEM_PER_PAGE = 10;
     private static final String ITEM_SORT_FILTER = "updated";
 
     private RxTask<RepositoryRequest, List<RepositoryResponse>> mLoadReposTask;

@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/space_medium"
-        android:text="Repositories"/>
+        android:text="Repositories"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_to_refresh"
@@ -32,9 +33,9 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/swipe_to_refresh"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView"/>
