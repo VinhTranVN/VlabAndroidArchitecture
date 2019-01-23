@@ -5,8 +5,6 @@ import android.support.constraint.motion.MotionLayout;
 import android.support.design.widget.AppBarLayout;
 import android.util.AttributeSet;
 
-import vlab.android.common.util.LogUtils;
-
 /**
  * Created by Vinh.Tran on 1/23/19.
  **/
@@ -22,9 +20,10 @@ public class CollapsingToolbarMotion extends MotionLayout implements AppBarLayou
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        int progress = -verticalOffset / appBarLayout.getTotalScrollRange();
-        setProgress(progress);
-        LogUtils.d("TEST", ">>> onOffsetChanged verticalOffset " + verticalOffset + " ; progress " + progress);
+        if (appBarLayout.getTotalScrollRange() > 0) {
+            int progress = -verticalOffset / appBarLayout.getTotalScrollRange();
+            setProgress(progress);
+        }
     }
 
     @Override
