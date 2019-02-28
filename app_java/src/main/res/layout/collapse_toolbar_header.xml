@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vlab.android.architecture.ui.CollapsingToolbarMotion
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="60dp"
+    android:background="#2C8D2C"
+    app:layoutDescription="@xml/motion_scene"
+    app:layout_scrollFlags="scroll|enterAlways|snap|exitUntilCollapsed"
+    tools:showIn="@layout/fragment_home">
+
+    <ImageView
+        android:id="@+id/img_avatar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars"/>
+
+    <TextView
+        android:id="@+id/tv_welcome_msg"
+        style="@style/TextDefault"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/img_avatar"
+        tools:text="Welcome"/>
+
+</vlab.android.architecture.ui.CollapsingToolbarMotion>
