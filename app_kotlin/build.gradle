@@ -41,7 +41,7 @@ dependencies {
     //------------------ others libs -----------------------//
     implementation project(':libs:common')
     // Navigation Dependencies
-    implementation 'android.arch.navigation:navigation-fragment:' + ROOT_NAVIGATION_FRAGMENT
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0-rc02'
 
     // dagger 2
     kapt "com.google.dagger:dagger-compiler:$ROOT_DAGGER_VERSION"
