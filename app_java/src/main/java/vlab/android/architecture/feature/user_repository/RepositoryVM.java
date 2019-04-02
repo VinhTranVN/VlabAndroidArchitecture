@@ -55,4 +55,10 @@ public class RepositoryVM extends BaseViewModel {
     public LiveData<Throwable> onLoadRepoListFailedObs() {
         return mUserRepositoryUC.onLoadRepoListFailedObs();
     }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        mUserRepositoryUC.onCleared();
+    }
 }

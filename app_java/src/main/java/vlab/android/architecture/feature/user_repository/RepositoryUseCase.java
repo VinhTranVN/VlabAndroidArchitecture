@@ -103,6 +103,11 @@ public class RepositoryUseCase extends BaseUseCase {
         return mLoadReposTask.onError();
     }
 
+    @Override
+    public void onCleared() {
+        mLoadReposTask.destroy();
+    }
+
     public static class RepositoryRequest {
         String sort = ITEM_SORT_FILTER;
         int mPageSize = ITEM_PER_PAGE;

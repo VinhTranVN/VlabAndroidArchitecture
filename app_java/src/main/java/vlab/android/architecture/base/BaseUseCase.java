@@ -9,7 +9,7 @@ public class BaseUseCase {
     /**
      * clear resource hear
      */
-    protected void onCleared(){
+    public void onCleared(){
         LogUtils.d(getClass().getSimpleName(), ">>> onCleared ");
     }
 }
