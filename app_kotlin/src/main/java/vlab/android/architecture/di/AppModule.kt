@@ -5,7 +5,11 @@ import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import vlab.android.architecture.di.module.*
+import vlab.android.architecture.di.module.ApiModule
+import vlab.android.architecture.di.module.NetworkModule
+import vlab.android.architecture.di.module.RepositoryModule
+import vlab.android.architecture.di.module.UiModule
+import vlab.android.architecture.di.module.ViewModelModule
 import javax.inject.Singleton
 
 /**
@@ -17,8 +21,7 @@ import javax.inject.Singleton
         UiModule::class,
         NetworkModule::class,
         ApiModule::class,
-        RepositoryModule::class,
-        UseCaseModule::class)
+        RepositoryModule::class)
 )
 class AppModule {
 

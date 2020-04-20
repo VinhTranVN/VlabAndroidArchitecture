@@ -71,4 +71,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
+
+    // Koin for Android
+    // implementation 'org.koin:koin-android:2.1.1'
 }
