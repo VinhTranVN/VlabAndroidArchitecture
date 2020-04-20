@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/VlabAndroidArchitecture.iml" filepath="$PROJECT_DIR$/VlabAndroidArchitecture.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VlabAndroidArchitecture.iml" filepath="$PROJECT_DIR$/VlabAndroidArchitecture.iml" group="VlabAndroidArchitecture" />
       <module fileurl="file://$PROJECT_DIR$/app_java/app_java.iml" filepath="$PROJECT_DIR$/app_java/app_java.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app_kotlin/app_kotlin.iml" filepath="$PROJECT_DIR$/app_kotlin/app_kotlin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libs/common/common.iml" filepath="$PROJECT_DIR$/libs/common/common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libs/libs.iml" filepath="$PROJECT_DIR$/libs/libs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app_kotlin/app_kotlin.iml" filepath="$PROJECT_DIR$/app_kotlin/app_kotlin.iml" group="VlabAndroidArchitecture/app_kotlin" />
+      <module fileurl="file://$PROJECT_DIR$/libs/common/common.iml" filepath="$PROJECT_DIR$/libs/common/common.iml" group="VlabAndroidArchitecture/libs/common" />
+      <module fileurl="file://$PROJECT_DIR$/libs/libs.iml" filepath="$PROJECT_DIR$/libs/libs.iml" group="VlabAndroidArchitecture/libs" />
     </modules>
   </component>
 </project>

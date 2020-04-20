@@ -10,3 +10,5 @@
 .idea
 .idea/*
 */google-services.json
+/app_kotlin/release/
+/keystore/

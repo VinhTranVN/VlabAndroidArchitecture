@@ -4,6 +4,14 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Users/vinhtran/AndroidStudioProjects/VlabAndroidArchitecture/keystore/keystore-for-test.jks')
+            storePassword '123456'
+            keyAlias = 'TestRelease'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion ROOT_COMPILE_SDK_VERSION
     defaultConfig {
         applicationId "vlab.android.architecture"
