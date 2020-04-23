@@ -1,16 +1,19 @@
 package vlab.android.architecture
 
-import vlab.android.architecture.di.AppModule
-import vlab.android.architecture.di.DaggerAppComponent
-import vlab.android.architecture.di.module.NetworkModule
-
-import vlab.android.common.DaggerCommonApplication
+import android.app.Application
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import vlab.android.architecture.di.koin.apiModule
+import vlab.android.architecture.di.koin.networkModule
+import vlab.android.architecture.di.koin.repositoryModule
+import vlab.android.architecture.di.koin.viewModelModule
 import vlab.android.common.util.LogUtils
 
 /**
  * Created by Vinh Tran on 2/11/18.
  */
-class MyApplication : DaggerCommonApplication() {
+class MyApplication : Application() {
 
     companion object {
         private lateinit var sInstance: MyApplication
@@ -26,13 +29,18 @@ class MyApplication : DaggerCommonApplication() {
         LogUtils.d(javaClass.simpleName, ">>> MyApplication onCreate")
         // init log
         LogUtils.init(BuildConfig.DEBUG)
+
+        // start Koin context
+        startKoin {
+            androidContext(this@MyApplication)
+            androidLogger()
+            modules(
+                networkModule,
+                apiModule,
+                repositoryModule,
+                viewModelModule
+            )
+        }
     }
 
-    override fun buildDaggerAppComponent() {
-        DaggerAppComponent.builder()
-                .appModule(AppModule(this))
-                .networkModule(NetworkModule("https://api.github.com/")) // github
-                .build()
-                .inject(this)
-    }
 }

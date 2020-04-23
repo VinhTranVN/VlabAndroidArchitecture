@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.TextView
+import org.koin.android.viewmodel.ext.android.viewModel
 import vlab.android.architecture.R
 import vlab.android.architecture.base.BaseErrorHandler
 import vlab.android.architecture.base.BaseFragment
@@ -19,7 +20,7 @@ class LoginFragment : BaseFragment() {
 
     private var mTvResult: TextView? = null
     // view model for login
-    private lateinit var mViewModel: LoginViewModel
+    private val mViewModel by viewModel<LoginViewModel>()
     private var mProgressView: View? = null
 
     private var mListener: OnLoginFragmentListener? = null
@@ -62,7 +63,7 @@ class LoginFragment : BaseFragment() {
     }
 
     override fun initViewModel() {
-        mViewModel = provideViewModel(LoginViewModel::class.java)
+        // TODO
     }
 
     override fun bindViewModel() {

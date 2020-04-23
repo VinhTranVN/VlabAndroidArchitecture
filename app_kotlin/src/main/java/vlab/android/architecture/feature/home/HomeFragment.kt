@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import org.koin.android.viewmodel.ext.android.viewModel
 
 import vlab.android.architecture.R
 import vlab.android.architecture.base.BaseFragment
@@ -12,7 +13,7 @@ import vlab.android.architecture.feature.home.viewmodel.HomeViewModel
 class HomeFragment : BaseFragment() {
     private var mListener: OnHomeFragmentListener? = null
 
-    private var mViewModel: HomeViewModel? = null
+    val mViewModel: HomeViewModel by viewModel()
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -31,8 +32,6 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun initViewModel() {
-        mViewModel = provideViewModel(HomeViewModel::class.java)
-
         if (arguments != null) {
             // TODO map argument to ViewModel
             val userName = arguments!!.getString(ARG_USER_NAME)

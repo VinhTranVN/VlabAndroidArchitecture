@@ -5,7 +5,6 @@ import io.reactivex.Observable
 import vlab.android.architecture.model.UserInfo
 import vlab.android.architecture.repository.LoginRepository
 import vlab.android.architecture.repository.source.remote.GitHubApi
-import javax.inject.Inject
 
 /**
  * Created by Vinh Tran on 2/14/18.
@@ -15,7 +14,7 @@ class LoginRepositoryImpl : LoginRepository {
 
     private val mApi: GitHubApi
 
-    @Inject constructor(mApi: GitHubApi) {
+    constructor(mApi: GitHubApi) {
         this.mApi = mApi
     }
 

@@ -43,10 +43,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     // dagger 2
-    implementation "com.google.dagger:dagger:$ROOT_DAGGER_VERSION"
+    /*implementation "com.google.dagger:dagger:$ROOT_DAGGER_VERSION"
     annotationProcessor "com.google.dagger:dagger-compiler:$ROOT_DAGGER_VERSION"
     implementation "com.google.dagger:dagger-android-support:$ROOT_DAGGER_VERSION"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$ROOT_DAGGER_VERSION"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$ROOT_DAGGER_VERSION"*/
 
     // ViewModel and LiveData
     implementation 'android.arch.lifecycle:extensions:1.1.1'

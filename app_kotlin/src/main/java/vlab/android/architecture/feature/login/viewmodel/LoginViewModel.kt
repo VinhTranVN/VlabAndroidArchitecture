@@ -4,14 +4,14 @@ import android.arch.lifecycle.LiveData
 import vlab.android.architecture.base.BaseViewModel
 import vlab.android.architecture.feature.login.use_case.LoginUseCase
 import vlab.android.architecture.model.UserInfo
-import javax.inject.Inject
 
 /**
  * Created by Vinh Tran on 2/15/18.
  */
 
-class LoginViewModel @Inject
-constructor(private val mLoginUseCase: LoginUseCase) : BaseViewModel() {
+class LoginViewModel constructor(
+    private val mLoginUseCase: LoginUseCase
+) : BaseViewModel() {
 
     override fun onCleared() {
         mLoginUseCase.onCleared()

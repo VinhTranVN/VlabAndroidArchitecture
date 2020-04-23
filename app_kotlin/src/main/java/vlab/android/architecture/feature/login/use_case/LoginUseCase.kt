@@ -6,13 +6,11 @@ import vlab.android.architecture.model.UserInfo
 import vlab.android.architecture.repository.LoginRepository
 import vlab.android.architecture.util.TextValidator
 import vlab.android.common.util.RxTask
-import javax.inject.Inject
 
 /**
  * Created by Vinh.Tran on 10/25/18.
  */
-class LoginUseCase @Inject
-constructor(repository: LoginRepository) : BaseUseCase() {
+class LoginUseCase constructor(repository: LoginRepository) : BaseUseCase() {
 
     private val mLoginTask: RxTask<LoginRequestParam, UserInfo>
 
